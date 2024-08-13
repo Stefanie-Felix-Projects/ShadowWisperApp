@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/HomeFragment"
+        android:icon="@drawable/security"
+        android:title="Chat" />
+    <item
+        android:id="@+id/ChatoverviewFragment"
+        android:icon="@drawable/cyber_crime"
+        android:title="Satus" />
+    <item
+        android:id="@+id/OrderoverviewFragment"
+        android:icon="@drawable/risk_management_2"
+        android:title="Call" />
+
+    <item
+        android:id="@+id/WalletFragment"
+        android:icon="@drawable/money"
+        android:title="Settings" />
+
+    <item
+        android:id="@+id/SettingsFragment"
+        android:icon="@drawable/disaster_recovery"
+        android:title="Settings" />
+</menu>
