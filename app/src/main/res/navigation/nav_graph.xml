@@ -1,6 +1,90 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/nav_graph">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/homeFragment">
 
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.example.shadowwisper.ui.theme.ui.LoginFragment"
+        android:label="LoginFragment" >
+        <action
+            android:id="@+id/action_loginFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/startseiteFragment"
+        android:name="com.example.shadowwisper.ui.theme.ui.StartseiteFragment"
+        android:label="StartseiteFragment" >
+        <action
+            android:id="@+id/action_startseiteFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/characterdetailFragment"
+        android:name="com.example.shadowwisper.ui.theme.ui.CharacterdetailFragment"
+        android:label="fragment_characterdetail"
+        tools:layout="@layout/fragment_characterdetail" />
+    <fragment
+        android:id="@+id/characteroverviewFragment"
+        android:name="com.example.shadowwisper.ui.theme.ui.CharacteroverviewFragment"
+        android:label="fragment_characteroverview"
+        tools:layout="@layout/fragment_characteroverview" >
+        <action
+            android:id="@+id/action_characteroverviewFragment_to_characterdetailFragment"
+            app:destination="@id/characterdetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/chatdetailFragment"
+        android:name="com.example.shadowwisper.ui.theme.ui.ChatdetailFragment"
+        android:label="fragment_chatdetail"
+        tools:layout="@layout/fragment_chatdetail" />
+    <fragment
+        android:id="@+id/chatoverviewFragment"
+        android:name="com.example.shadowwisper.ui.theme.ui.ChatoverviewFragment"
+        android:label="fragment_chatoverview"
+        tools:layout="@layout/fragment_chatoverview" >
+        <action
+            android:id="@+id/action_chatoverviewFragment_to_chatdetailFragment"
+            app:destination="@id/chatdetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.example.shadowwisper.ui.theme.ui.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" />
+    <fragment
+        android:id="@+id/ordercompletionFragment"
+        android:name="com.example.shadowwisper.ui.theme.ui.OrdercompletionFragment"
+        android:label="fragment_ordercompletion"
+        tools:layout="@layout/fragment_ordercompletion" />
+    <fragment
+        android:id="@+id/orderdetailFragment"
+        android:name="com.example.shadowwisper.ui.theme.ui.OrderdetailFragment"
+        android:label="fragment_orderdetail"
+        tools:layout="@layout/fragment_orderdetail" >
+        <action
+            android:id="@+id/action_orderdetailFragment_to_ordercompletionFragment"
+            app:destination="@id/ordercompletionFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/orderoverviewFragment"
+        android:name="com.example.shadowwisper.ui.theme.ui.OrderoverviewFragment"
+        android:label="fragment_orderoverview"
+        tools:layout="@layout/fragment_orderoverview" >
+        <action
+            android:id="@+id/action_orderoverviewFragment_to_orderdetailFragment"
+            app:destination="@id/orderdetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.example.shadowwisper.ui.theme.ui.SettingsFragment"
+        android:label="fragment_settings"
+        tools:layout="@layout/fragment_settings" />
+    <fragment
+        android:id="@+id/walletFragment"
+        android:name="com.example.shadowwisper.ui.theme.ui.WalletFragment"
+        android:label="fragment_wallet"
+        tools:layout="@layout/fragment_wallet" />
 </navigation>
