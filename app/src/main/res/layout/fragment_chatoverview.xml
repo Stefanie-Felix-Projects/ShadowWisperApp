@@ -4,14 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.theme.ui.ChatFragment">
+    tools:context="com.example.shadowwisper.ui.theme.ui.ChatoverviewFragment">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_chat"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="@color/md_theme_primary"
         tools:listitem="@layout/list_item_chatoverview"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
