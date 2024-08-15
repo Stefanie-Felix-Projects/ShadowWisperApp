@@ -10,9 +10,8 @@
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragmentContainerView"
         android:name="androidx.navigation.fragment.NavHostFragment"
-        android:layout_width="411dp"
-        android:layout_height="703dp"
-        android:background="#7EB8EAFF"
+        android:layout_width="410dp"
+        android:layout_height="702dp"
         app:defaultNavHost="true"
         app:layout_constraintBottom_toTopOf="@id/nav_bottom_bar"
         app:layout_constraintEnd_toEndOf="parent"
@@ -27,7 +26,7 @@
         android:id="@+id/nav_bottom_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/md_theme_primaryContainer"
+        android:background="@color/md_theme_primary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -38,7 +37,7 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/md_theme_primaryContainer"
+        android:background="@color/md_theme_primary"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
         app:layout_constraintStart_toStartOf="parent"
@@ -56,7 +55,7 @@
         app:layout_constraintBottom_toBottomOf="@id/toolbar"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:tint="@color/md_theme_primary"
+        app:tint="@color/md_theme_primaryContainer"
         tools:ignore="TouchTargetSizeCheck" />
 
     <!-- Title as Button -->
@@ -67,7 +66,7 @@
         android:background="?attr/selectableItemBackgroundBorderless"
         android:fontFamily="@font/rajdhani_semibold"
         android:text="Back"
-        android:textColor="@color/md_theme_primary"
+        android:textColor="@color/md_theme_primaryContainer"
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="@id/toolbar"
         app:layout_constraintStart_toEndOf="@id/back_arrow_button"
