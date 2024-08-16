@@ -40,7 +40,7 @@
         android:layout_width="200dp"
         android:layout_height="200dp"
         android:alpha="0.5"
-        android:src="@drawable/cyber_crime"
+        android:src="@drawable/cyber_criminal"
         app:layout_constraintBottom_toBottomOf="@+id/LogoRahmen"
         app:layout_constraintEnd_toEndOf="@+id/LogoRahmen"
         app:layout_constraintHorizontal_bias="0.497"

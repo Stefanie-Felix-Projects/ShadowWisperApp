@@ -4,23 +4,23 @@
     <item
         android:id="@+id/HomeFragment"
         android:icon="@drawable/security"
-        android:title="Chat" />
+        android:title="Home" />
     <item
         android:id="@+id/ChatoverviewFragment"
-        android:icon="@drawable/cyber_crime"
-        android:title="Satus" />
+        android:icon="@drawable/cyber_criminal"
+        android:title="Chat" />
     <item
         android:id="@+id/OrderoverviewFragment"
-        android:icon="@drawable/risk_management_2"
-        android:title="Call" />
+        android:icon="@drawable/risk_management"
+        android:title="Aufträge" />
 
     <item
         android:id="@+id/WalletFragment"
         android:icon="@drawable/money"
-        android:title="Settings" />
+        android:title="Wallet" />
 
     <item
-        android:id="@+id/SettingsFragment"
-        android:icon="@drawable/disaster_recovery"
-        android:title="Settings" />
+        android:id="@+id/characteroverviewFragment"
+        android:icon="@drawable/malicious"
+        android:title="Character" />
 </menu>
