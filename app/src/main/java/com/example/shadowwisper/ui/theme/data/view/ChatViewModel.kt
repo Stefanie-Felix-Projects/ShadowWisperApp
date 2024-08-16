@@ -1,4 +1,6 @@
 package com.example.shadowwisper.ui.theme.data.view
 
-class ChatViewModel {
+import androidx.lifecycle.ViewModel
+
+class ChatViewModel: ViewModel() {
 }

@@ -1,4 +1,6 @@
 package com.example.shadowwisper.ui.theme.data.view
 
-class CharacterViewModel {
+import androidx.lifecycle.ViewModel
+
+class CharacterViewModel : ViewModel() {
 }
