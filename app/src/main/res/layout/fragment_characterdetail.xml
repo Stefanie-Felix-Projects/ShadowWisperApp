@@ -1,14 +1,120 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.example.shadowwisper.ui.theme.ui.CharacterdetailFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="match_parent">
 
-</FrameLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="8dp">
+
+                <ImageView
+                    android:id="@+id/icon"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_alignParentStart="true"
+                    android:src="@drawable/hex17jpg" />
+
+                <TextView
+                    android:id="@+id/iconLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toEndOf="@id/icon"
+                    android:layout_marginStart="16dp"
+                    android:text="1st"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:gravity="center_vertical" />
+
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Name" />
+
+            <EditText
+                android:id="@+id/inputName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Input" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Story"
+                android:layout_marginTop="8dp" />
+
+            <EditText
+                android:id="@+id/inputStory"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Input" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Rasse"
+                android:layout_marginTop="8dp" />
+
+            <EditText
+                android:id="@+id/inputRasse"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Input" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Skills"
+                android:layout_marginTop="8dp" />
+
+            <EditText
+                android:id="@+id/inputSkills"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Input" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Ausrüstung"
+                android:layout_marginTop="8dp" />
+
+            <EditText
+                android:id="@+id/inputAusrustung"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Input" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Equipment"
+                android:layout_marginTop="8dp" />
+
+            <EditText
+                android:id="@+id/inputEquipment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Input" />
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>
+
+
