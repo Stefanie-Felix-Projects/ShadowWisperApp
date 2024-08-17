@@ -33,85 +33,125 @@
                     android:id="@+id/iconLabel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_toEndOf="@id/icon"
                     android:layout_marginStart="16dp"
-                    android:text="1st"
+                    android:layout_toEndOf="@id/icon"
+                    android:fontFamily="@font/rajdhani_semibold"
+                    android:gravity="center_vertical"
+                    android:text="Character Name"
                     android:textSize="16sp"
-                    android:textStyle="bold"
-                    android:gravity="center_vertical" />
+                    android:textStyle="bold" />
 
             </RelativeLayout>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/rajdhani_semibold"
                 android:text="Name" />
 
             <EditText
                 android:id="@+id/inputName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/rajdhani"
                 android:hint="Input" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Story"
-                android:layout_marginTop="8dp" />
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/rajdhani_semibold"
+                android:text="Story" />
 
             <EditText
                 android:id="@+id/inputStory"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/rajdhani"
                 android:hint="Input" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Rasse"
-                android:layout_marginTop="8dp" />
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/rajdhani_semibold"
+                android:text="Rasse" />
 
             <EditText
                 android:id="@+id/inputRasse"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/rajdhani"
                 android:hint="Input" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Skills"
-                android:layout_marginTop="8dp" />
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/rajdhani_semibold"
+                android:text="Skills" />
 
             <EditText
                 android:id="@+id/inputSkills"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/rajdhani"
                 android:hint="Input" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Ausrüstung"
-                android:layout_marginTop="8dp" />
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/rajdhani_semibold"
+                android:text="Ausrüstung" />
 
             <EditText
                 android:id="@+id/inputAusrustung"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/rajdhani"
                 android:hint="Input" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Equipment"
-                android:layout_marginTop="8dp" />
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/rajdhani_semibold"
+                android:text="Equipment" />
 
             <EditText
                 android:id="@+id/inputEquipment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/rajdhani"
                 android:hint="Input" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="16dp">
+
+                <!-- Bearbeiten-Button -->
+                <Button
+                    android:id="@+id/buttonEdit"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/rajdhani_semibold"
+                    android:text="Bearbeiten" />
+
+                <Button
+                    android:id="@+id/buttonSave"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/rajdhani_semibold"
+                    android:text="Speichern"
+                    android:layout_marginStart="8dp" />
+
+            </LinearLayout>
+
 
         </LinearLayout>
     </ScrollView>
