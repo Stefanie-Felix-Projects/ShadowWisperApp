@@ -7,21 +7,46 @@
     android:background="@color/md_theme_primary"
     tools:context="com.example.shadowwisper.ui.theme.MainActivity">
 
+    <!-- Toolbar 1 -->
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Überschrift TextView -->
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Überschrift"
+        android:textSize="24dp"
+        android:fontFamily="@font/rajdhani_semibold"
+        android:textColor="@color/colorOnCustomColor1"
+        app:layout_constraintBottom_toTopOf="@+id/toolbar"
+        app:layout_constraintEnd_toEndOf="@+id/toolbar2"
+        app:layout_constraintStart_toStartOf="@+id/toolbar2"
+        app:layout_constraintTop_toTopOf="@+id/toolbar2" />
+
+    <!-- NavHostFragment -->
     <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/fragmentContainerView"
+        android:id="@+id/nav_host_fragment"
         android:name="androidx.navigation.fragment.NavHostFragment"
-        android:layout_width="410dp"
-        android:layout_height="702dp"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
         app:defaultNavHost="true"
         app:layout_constraintBottom_toTopOf="@id/nav_bottom_bar"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar"
-        app:layout_constraintVertical_bias="1.0"
         app:navGraph="@navigation/nav_graph" />
 
-
+    <!-- BottomNavigationView -->
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/nav_bottom_bar"
         android:layout_width="match_parent"
@@ -36,10 +61,10 @@
         app:itemTextAppearanceActive="@font/rajdhani"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:menu="@menu/bottom_nav_menu" />
 
+    <!-- Toolbar 2 -->
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
@@ -50,7 +75,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar2" />
 
-    <!-- Back Arrow as Button -->
+    <!-- Back Arrow Button -->
     <ImageButton
         android:id="@+id/back_arrow_button"
         android:layout_width="wrap_content"
@@ -65,7 +90,7 @@
         app:tint="@color/colorOnCustomColor1"
         tools:ignore="TouchTargetSizeCheck" />
 
-    <!-- Title as Button -->
+    <!-- Title Button -->
     <Button
         android:id="@+id/title_button"
         android:layout_width="wrap_content"
@@ -79,7 +104,7 @@
         app:layout_constraintStart_toEndOf="@id/back_arrow_button"
         app:layout_constraintTop_toTopOf="@+id/toolbar" />
 
-    <!-- Profile Image as Rounded Image -->
+    <!-- Profile Image -->
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/profile_image"
         android:layout_width="40dp"
@@ -92,29 +117,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/toolbar"
         app:shapeAppearanceOverlay="@style/RoundImage" />
-
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar2"
-        android:layout_width="409dp"
-        android:layout_height="wrap_content"
-        android:background="?attr/colorPrimary"
-        android:minHeight="?attr/actionBarSize"
-        android:theme="?attr/actionBarTheme"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Überschrift"
-        android:textSize="24dp"
-        android:fontFamily="@font/rajdhani_semibold"
-        android:textColor="@color/colorOnCustomColor1"
-        app:layout_constraintBottom_toTopOf="@+id/toolbar"
-        app:layout_constraintEnd_toEndOf="@+id/toolbar2"
-        app:layout_constraintStart_toStartOf="@+id/toolbar2"
-        app:layout_constraintTop_toTopOf="@+id/toolbar2" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
