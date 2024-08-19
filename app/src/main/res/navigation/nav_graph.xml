@@ -20,6 +20,9 @@
         <action
             android:id="@+id/action_startseiteFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
+        <action
+            android:id="@+id/action_startseiteFragment_to_loginFragment2"
+            app:destination="@id/loginFragment" />
     </fragment>
     <fragment
         android:id="@+id/characterdetailFragment"
@@ -28,6 +31,9 @@
         tools:layout="@layout/fragment_characterdetail" >
         <action
             android:id="@+id/action_characterdetailFragment_to_walletFragment"
+            app:destination="@id/walletFragment" />
+        <action
+            android:id="@+id/action_characterdetailFragment_to_walletFragment2"
             app:destination="@id/walletFragment" />
     </fragment>
     <fragment
@@ -38,6 +44,9 @@
         <action
             android:id="@+id/action_characteroverviewFragment_to_characterdetailFragment"
             app:destination="@id/characterdetailFragment" />
+        <action
+            android:id="@+id/action_characteroverviewFragment_to_characterdetailFragment2"
+            app:destination="@id/characterdetailFragment" />
     </fragment>
     <fragment
         android:id="@+id/chatdetailFragment"
@@ -46,6 +55,9 @@
         tools:layout="@layout/fragment_chatdetail" >
         <action
             android:id="@+id/action_chatdetailFragment_to_orderoverviewFragment"
+            app:destination="@id/orderoverviewFragment" />
+        <action
+            android:id="@+id/action_chatdetailFragment_to_orderoverviewFragment2"
             app:destination="@id/orderoverviewFragment" />
     </fragment>
     <fragment
@@ -56,6 +68,9 @@
         <action
             android:id="@+id/action_chatoverviewFragment_to_chatdetailFragment"
             app:destination="@id/chatdetailFragment" />
+        <action
+            android:id="@+id/action_chatoverviewFragment_to_chatdetailFragment2"
+            app:destination="@id/chatdetailFragment" />
     </fragment>
     <fragment
         android:id="@+id/homeFragment"
@@ -65,6 +80,9 @@
         <action
             android:id="@+id/action_homeFragment_to_chatoverviewFragment"
             app:destination="@id/chatoverviewFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_chatoverviewFragment2"
+            app:destination="@id/chatoverviewFragment" />
     </fragment>
     <fragment
         android:id="@+id/ordercompletionFragment"
@@ -73,6 +91,9 @@
         tools:layout="@layout/fragment_ordercompletion" >
         <action
             android:id="@+id/action_ordercompletionFragment_to_characteroverviewFragment"
+            app:destination="@id/characteroverviewFragment" />
+        <action
+            android:id="@+id/action_ordercompletionFragment_to_characteroverviewFragment2"
             app:destination="@id/characteroverviewFragment" />
     </fragment>
     <fragment
@@ -91,6 +112,9 @@
         tools:layout="@layout/fragment_orderoverview" >
         <action
             android:id="@+id/action_orderoverviewFragment_to_orderdetailFragment"
+            app:destination="@id/orderdetailFragment" />
+        <action
+            android:id="@+id/action_orderoverviewFragment_to_orderdetailFragment2"
             app:destination="@id/orderdetailFragment" />
     </fragment>
     <fragment

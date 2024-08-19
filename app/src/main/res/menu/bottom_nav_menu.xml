@@ -2,20 +2,20 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/HomeFragment"
+        android:id="@+id/homeFragment"
         android:icon="@drawable/security"
         android:title="Home" />
     <item
-        android:id="@+id/ChatoverviewFragment"
+        android:id="@+id/chatoverviewFragment"
         android:icon="@drawable/cyber_criminal"
         android:title="Chat" />
     <item
-        android:id="@+id/OrderoverviewFragment"
+        android:id="@+id/orderoverviewFragment"
         android:icon="@drawable/risk_management"
         android:title="Aufträge" />
 
     <item
-        android:id="@+id/WalletFragment"
+        android:id="@+id/walletFragment"
         android:icon="@drawable/money"
         android:title="Wallet" />
 
