@@ -6,9 +6,6 @@
     android:layout_height="wrap_content"
     android:padding="8dp">
 
-    <!-- Profilbild -->
-
-    <!-- Nachrichtentext -->
 
     <ImageView
         android:id="@+id/imageViewProfile"

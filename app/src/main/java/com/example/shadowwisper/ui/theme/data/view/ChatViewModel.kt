@@ -1,15 +1,15 @@
 package com.example.shadowwisper.ui.theme.data.view
 
 import androidx.lifecycle.ViewModel
-import com.example.shadowwisper.ui.theme.data.adapter.ChatItem
+import com.example.shadowwisper.ui.theme.data.model.ChatOverview
 
 class ChatViewModel : ViewModel() {
 
-    fun getChatList(): List<ChatItem> {
+    fun getChatList(): List<ChatOverview> {
         return listOf(
-            ChatItem("Character 1", "Character 1 Information"),
-            ChatItem("Character 2", "Character 2 Information"),
-            ChatItem("Character 3", "Character 3 Information")
+            ChatOverview("Character 1"),
+            ChatOverview("Character 2"),
+            ChatOverview("Character 3")
         )
     }
 

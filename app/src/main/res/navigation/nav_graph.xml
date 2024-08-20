@@ -13,6 +13,7 @@
             android:id="@+id/action_loginFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
     </fragment>
+
     <fragment
         android:id="@+id/startseiteFragment"
         android:name="com.example.shadowwisper.ui.theme.ui.StartseiteFragment"
@@ -24,6 +25,7 @@
             android:id="@+id/action_startseiteFragment_to_loginFragment2"
             app:destination="@id/loginFragment" />
     </fragment>
+
     <fragment
         android:id="@+id/characterdetailFragment"
         android:name="com.example.shadowwisper.ui.theme.ui.CharacterdetailFragment"
@@ -36,6 +38,7 @@
             android:id="@+id/action_characterdetailFragment_to_walletFragment2"
             app:destination="@id/walletFragment" />
     </fragment>
+
     <fragment
         android:id="@+id/characteroverviewFragment"
         android:name="com.example.shadowwisper.ui.theme.ui.CharacteroverviewFragment"
@@ -48,18 +51,17 @@
             android:id="@+id/action_characteroverviewFragment_to_characterdetailFragment2"
             app:destination="@id/characterdetailFragment" />
     </fragment>
+
     <fragment
         android:id="@+id/chatdetailFragment"
         android:name="com.example.shadowwisper.ui.theme.ui.ChatdetailFragment"
-        android:label="fragment_chatdetail"
-        tools:layout="@layout/fragment_chatdetail" >
-        <action
-            android:id="@+id/action_chatdetailFragment_to_orderoverviewFragment"
-            app:destination="@id/orderoverviewFragment" />
-        <action
-            android:id="@+id/action_chatdetailFragment_to_orderoverviewFragment2"
-            app:destination="@id/orderoverviewFragment" />
+        android:label="Chat Detail"
+        tools:layout="@layout/fragment_chatdetail">
+        <argument
+            android:name="characterName"
+            app:argType="string" />
     </fragment>
+
     <fragment
         android:id="@+id/chatoverviewFragment"
         android:name="com.example.shadowwisper.ui.theme.ui.ChatoverviewFragment"
@@ -72,18 +74,29 @@
             android:id="@+id/action_chatoverviewFragment_to_chatdetailFragment2"
             app:destination="@id/chatdetailFragment" />
     </fragment>
+
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.example.shadowwisper.ui.theme.ui.HomeFragment"
-        android:label="fragment_home"
-        tools:layout="@layout/fragment_home" >
+        android:label="Home"
+        tools:layout="@layout/fragment_home">
         <action
             android:id="@+id/action_homeFragment_to_chatoverviewFragment"
             app:destination="@id/chatoverviewFragment" />
         <action
-            android:id="@+id/action_homeFragment_to_chatoverviewFragment2"
-            app:destination="@id/chatoverviewFragment" />
+            android:id="@+id/action_homeFragment_to_orderoverviewFragment"
+            app:destination="@id/orderoverviewFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_walletFragment"
+            app:destination="@id/walletFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_characteroverviewFragment"
+            app:destination="@id/characteroverviewFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment" />
     </fragment>
+
     <fragment
         android:id="@+id/ordercompletionFragment"
         android:name="com.example.shadowwisper.ui.theme.ui.OrdercompletionFragment"
@@ -96,15 +109,32 @@
             android:id="@+id/action_ordercompletionFragment_to_characteroverviewFragment2"
             app:destination="@id/characteroverviewFragment" />
     </fragment>
+
     <fragment
         android:id="@+id/orderdetailFragment"
         android:name="com.example.shadowwisper.ui.theme.ui.OrderdetailFragment"
-        android:label="fragment_orderdetail"
-        tools:layout="@layout/fragment_orderdetail" >
-        <action
-            android:id="@+id/action_orderdetailFragment_to_ordercompletionFragment"
-            app:destination="@id/ordercompletionFragment" />
+        android:label="Order Detail"
+        tools:layout="@layout/fragment_orderdetail">
+        <argument
+            android:name="orderName"
+            app:argType="string" />
+        <argument
+            android:name="subText"
+            app:argType="string" />
+        <argument
+            android:name="image"
+            app:argType="integer" />
+        <argument
+            android:name="mapImage"
+            app:argType="integer" />
+        <argument
+            android:name="storyTitle"
+            app:argType="string" />
+        <argument
+            android:name="storyText"
+            app:argType="string" />
     </fragment>
+
     <fragment
         android:id="@+id/orderoverviewFragment"
         android:name="com.example.shadowwisper.ui.theme.ui.OrderoverviewFragment"
@@ -117,6 +147,7 @@
             android:id="@+id/action_orderoverviewFragment_to_orderdetailFragment2"
             app:destination="@id/orderdetailFragment" />
     </fragment>
+
     <fragment
         android:id="@+id/settingsFragment"
         android:name="com.example.shadowwisper.ui.theme.ui.SettingsFragment"
@@ -129,6 +160,9 @@
         tools:layout="@layout/fragment_wallet" >
         <action
             android:id="@+id/action_walletFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment" />
+        <action
+            android:id="@+id/action_walletFragment_to_settingsFragment2"
             app:destination="@id/settingsFragment" />
     </fragment>
 </navigation>

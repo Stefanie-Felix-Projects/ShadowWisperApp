@@ -6,10 +6,14 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.shadowwisper.ui.theme.data.model.OrderOverview
 import com.syntax_institut.whatssyntax.R
 
 
-class OrderOverviewAdapter(private val orderList: List<OrderItem>) : RecyclerView.Adapter<OrderOverviewAdapter.OrderViewHolder>() {
+class OrderOverviewAdapter(
+    private val orderList: List<OrderOverview>,
+    private val onItemClicked: (OrderOverview) -> Unit
+) : RecyclerView.Adapter<OrderOverviewAdapter.OrderViewHolder>() {
 
     class OrderViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val imageView: ImageView = view.findViewById(R.id.imageView)
@@ -24,8 +28,12 @@ class OrderOverviewAdapter(private val orderList: List<OrderItem>) : RecyclerVie
 
     override fun onBindViewHolder(holder: OrderViewHolder, position: Int) {
         val orderItem = orderList[position]
-        holder.nameTextView.text = orderItem.orderName
-        holder.imageView.setImageResource(orderItem.imageResId)
+        holder.nameTextView.text = orderItem.orderTitle
+        holder.imageView.setImageResource(orderItem.profileImage)
+
+        holder.itemView.setOnClickListener {
+            onItemClicked(orderItem)
+        }
     }
 
     override fun getItemCount(): Int {

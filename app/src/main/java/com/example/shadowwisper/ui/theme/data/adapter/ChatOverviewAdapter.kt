@@ -6,10 +6,14 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.shadowwisper.ui.theme.data.model.ChatDetail
 import com.syntax_institut.whatssyntax.R
 
 
-class ChatOverviewAdapter(private val chatList: List<ChatItem>) : RecyclerView.Adapter<ChatOverviewAdapter.ChatViewHolder>() {
+class ChatOverviewAdapter(
+    private val chatList: List<ChatDetail>,
+    private val onItemClicked: (ChatDetail) -> Unit
+) : RecyclerView.Adapter<ChatOverviewAdapter.ChatViewHolder>() {
 
     class ChatViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val profileImageView: ImageView = view.findViewById(R.id.profile_image)
@@ -25,16 +29,16 @@ class ChatOverviewAdapter(private val chatList: List<ChatItem>) : RecyclerView.A
 
     override fun onBindViewHolder(holder: ChatViewHolder, position: Int) {
         val chatItem = chatList[position]
-        holder.nameTextView.text = chatItem.characterName
-        holder.messageTextView.text = chatItem.characterInfo
+        holder.nameTextView.text = chatItem.name
+        holder.messageTextView.text = chatItem.message
+        holder.profileImageView.setImageResource(chatItem.profileImage)
 
-        holder.profileImageView.setImageResource(R.drawable.hex17jpg)
-        //ToDo Bilder aus Datenbank
+        holder.itemView.setOnClickListener {
+            onItemClicked(chatItem)
+        }
     }
 
     override fun getItemCount(): Int {
         return chatList.size
     }
 }
-
-data class ChatItem(val characterName: String, val characterInfo: String)

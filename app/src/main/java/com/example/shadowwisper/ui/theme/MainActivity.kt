@@ -1,10 +1,9 @@
 package com.example.shadowwisper.ui.theme
 
-import android.graphics.Rect
+
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.view.ViewTreeObserver
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI.setupWithNavController
@@ -26,24 +25,52 @@ class MainActivity : AppCompatActivity() {
         val navController = navHostFragment.navController
         setupWithNavController(binding.navBottomBar, navController)
 
-        // Listener, für die Sichtbarkeit der BottomNavigationView zu steuern
-        binding.root.viewTreeObserver.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
-            override fun onGlobalLayout() {
-                val r = Rect()
-                binding.root.getWindowVisibleDisplayFrame(r)
-                val screenHeight = binding.root.rootView.height
-                val keypadHeight = screenHeight - r.bottom
 
-                if (keypadHeight > screenHeight * 0.15) {
-                    //Tastatur sichtbar
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            when (destination.id) {
+                R.id.homeFragment -> {
+                    // BottomNavigationView auf der Home-Seite ausblenden
                     binding.navBottomBar.visibility = View.GONE
-                } else {
-                    // Tastatur unsichtbar
+                }
+                else -> {
+                    // BottomNavigationView auf allen anderen Seiten anzeigen
                     binding.navBottomBar.visibility = View.VISIBLE
                 }
             }
+        }
 
-        })
+// Home Button in der Bottom Navigation manuell behandeln
+        binding.navBottomBar.setOnNavigationItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.homeFragment -> {
+                    navController.navigate(R.id.homeFragment)
+                    true
+                }
+
+                R.id.chatoverviewFragment -> {
+                    navController.navigate(R.id.chatoverviewFragment)
+                    true
+                }
+
+                R.id.orderoverviewFragment -> {
+                    navController.navigate(R.id.orderoverviewFragment)
+                    true
+                }
+
+                R.id.walletFragment -> {
+                    navController.navigate(R.id.walletFragment)
+                    true
+                }
+
+                R.id.characteroverviewFragment -> {
+                    navController.navigate(R.id.characteroverviewFragment)
+                    true
+                }
+
+                else -> false
+            }
+        }
+
     }
     override fun onSupportNavigateUp(): Boolean {
         val navController = findNavController(R.id.nav_host_fragment)
