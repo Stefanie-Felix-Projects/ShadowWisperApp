@@ -33,7 +33,8 @@
         tools:layout="@layout/fragment_characterdetail" >
         <argument
             android:name="characterId"
-            app:argType="string" />
+            app:argType="string"
+            app:nullable="true"/>
     </fragment>
 
     <fragment

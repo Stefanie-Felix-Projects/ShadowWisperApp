@@ -1,23 +1,38 @@
 package com.example.shadowwisper.ui.theme.data.view
 
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.example.shadowwisper.ui.theme.data.database.CharacterDatabase
+import com.example.shadowwisper.ui.theme.data.model.CharacterDetail
+import com.example.shadowwisper.ui.theme.data.repository.CharacterRepository
+import kotlinx.coroutines.launch
 
-import com.example.shadowwisper.ui.theme.data.adapter.CharacterItem
-import com.syntax_institut.whatssyntax.R
+class CharacterViewModel(application: Application) : AndroidViewModel(application) {
 
-class CharacterViewModel : ViewModel() {
-
-    private val _characterList = MutableLiveData<List<CharacterItem>>()
-    val characterList: LiveData<List<CharacterItem>> = _characterList
+    private val repository: CharacterRepository
+    val allCharacters: LiveData<List<CharacterDetail>>
 
     init {
-        _characterList.value = listOf(
-            CharacterItem("Character 1", R.drawable.rahmen, true),
-            CharacterItem("Character 2", R.drawable.rahmen, false),
-            CharacterItem("Character 3", R.drawable.rahmen, true)
-        )
-        //ToDo Datenbank anbinden
+        val characterDao = CharacterDatabase.getDatabase(application).characterDetailDao()
+        repository = CharacterRepository(characterDao)
+        allCharacters = repository.allCharacters
+    }
+
+    fun insert(characterDetail: CharacterDetail) = viewModelScope.launch {
+        repository.insert(characterDetail)
+    }
+
+    fun update(characterDetail: CharacterDetail) = viewModelScope.launch {
+        repository.update(characterDetail)
+    }
+
+    fun delete(characterDetail: CharacterDetail) = viewModelScope.launch {
+        repository.delete(characterDetail)
+    }
+
+    fun getCharacterById(id: Int): LiveData<CharacterDetail> {
+        return repository.getCharacterById(id)
     }
 }

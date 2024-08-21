@@ -1,5 +1,6 @@
 package com.example.shadowwisper.ui.theme.data.adapter
 
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -7,26 +8,32 @@ import android.widget.ImageView
 import android.widget.Switch
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.shadowwisper.ui.theme.data.model.CharacterDetail
 import com.syntax_institut.whatssyntax.R
 
 
 class CharacterOverviewAdapter(
-    private val characterList: List<CharacterItem>,
-    private val onItemClicked: (CharacterItem) -> Unit
+    private val characterList: List<CharacterDetail>,
+    private val onItemClicked: (CharacterDetail) -> Unit
 ) : RecyclerView.Adapter<CharacterOverviewAdapter.CharacterViewHolder>() {
 
-    class CharacterViewHolder(view: View, private val onItemClicked: (CharacterItem) -> Unit) :
+    class CharacterViewHolder(view: View, private val onItemClicked: (CharacterDetail) -> Unit) :
         RecyclerView.ViewHolder(view) {
         val nameTextView: TextView = view.findViewById(R.id.name_text)
         val imageView: ImageView = view.findViewById(R.id.imageView)
         val switchButton: Switch = view.findViewById(R.id.switchButton)
 
-        fun bind(characterItem: CharacterItem) {
-            nameTextView.text = characterItem.name
-            imageView.setImageResource(characterItem.imageResId)
-            switchButton.isChecked = characterItem.isActive
+        fun bind(characterDetail: CharacterDetail) {
+            nameTextView.text = characterDetail.name
+
+            if (characterDetail.profileImage != null) {
+                imageView.setImageURI(Uri.parse(characterDetail.profileImage))
+            } else {
+                imageView.setImageResource(R.drawable.hex17jpg)
+            }
+
             itemView.setOnClickListener {
-                onItemClicked(characterItem)
+                onItemClicked(characterDetail)
             }
         }
     }
@@ -45,5 +52,3 @@ class CharacterOverviewAdapter(
         return characterList.size
     }
 }
-
-data class CharacterItem(val name: String, val imageResId: Int, val isActive: Boolean)

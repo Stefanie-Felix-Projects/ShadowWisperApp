@@ -29,15 +29,22 @@ class CharacteroverviewFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.characterList.observe(viewLifecycleOwner) { characterList ->
+
+        viewModel.allCharacters.observe(viewLifecycleOwner) { characterList ->
             val adapter = CharacterOverviewAdapter(characterList) { selectedCharacter ->
-                // Navigation zu den Charakterdetails
+
                 val action = CharacteroverviewFragmentDirections
-                    .actionCharacteroverviewFragmentToCharacterdetailFragment(selectedCharacter.name)
+                    .actionCharacteroverviewFragmentToCharacterdetailFragment(selectedCharacter.id.toString())
                 findNavController().navigate(action)
             }
             binding.rvChar.layoutManager = LinearLayoutManager(context)
             binding.rvChar.adapter = adapter
+        }
+
+        binding.btnAddCharacter.setOnClickListener {
+            val action = CharacteroverviewFragmentDirections
+                .actionCharacteroverviewFragmentToCharacterdetailFragment(null)
+            findNavController().navigate(action)
         }
     }
 }
