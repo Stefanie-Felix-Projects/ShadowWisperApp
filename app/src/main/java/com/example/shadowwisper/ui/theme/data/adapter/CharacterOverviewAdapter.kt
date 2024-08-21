@@ -10,26 +10,35 @@ import androidx.recyclerview.widget.RecyclerView
 import com.syntax_institut.whatssyntax.R
 
 
-class CharacterOverviewAdapter(private val characterList: List<CharacterItem>) :
-    RecyclerView.Adapter<CharacterOverviewAdapter.CharacterViewHolder>() {
+class CharacterOverviewAdapter(
+    private val characterList: List<CharacterItem>,
+    private val onItemClicked: (CharacterItem) -> Unit
+) : RecyclerView.Adapter<CharacterOverviewAdapter.CharacterViewHolder>() {
 
-    class CharacterViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    class CharacterViewHolder(view: View, private val onItemClicked: (CharacterItem) -> Unit) :
+        RecyclerView.ViewHolder(view) {
         val nameTextView: TextView = view.findViewById(R.id.name_text)
         val imageView: ImageView = view.findViewById(R.id.imageView)
         val switchButton: Switch = view.findViewById(R.id.switchButton)
+
+        fun bind(characterItem: CharacterItem) {
+            nameTextView.text = characterItem.name
+            imageView.setImageResource(characterItem.imageResId)
+            switchButton.isChecked = characterItem.isActive
+            itemView.setOnClickListener {
+                onItemClicked(characterItem)
+            }
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CharacterViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.list_item_charoverview, parent, false)
-        return CharacterViewHolder(view)
+        return CharacterViewHolder(view, onItemClicked)
     }
 
     override fun onBindViewHolder(holder: CharacterViewHolder, position: Int) {
-        val characterItem = characterList[position]
-        holder.nameTextView.text = characterItem.name
-        holder.imageView.setImageResource(characterItem.imageResId)
-        holder.switchButton.isChecked = characterItem.isActive
+        holder.bind(characterList[position])
     }
 
     override fun getItemCount(): Int {

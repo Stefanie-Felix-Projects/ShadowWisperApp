@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.syntax_institut.whatssyntax.databinding.FragmentOrderdetailBinding
 
@@ -32,5 +33,15 @@ class OrderdetailFragment : Fragment() {
         binding.imageView2.setImageResource(args.mapImage)
         binding.tvStoryTitle.text = args.storyTitle
         binding.tvStoryText.text = args.storyText
+
+        binding.btnComplete.setOnClickListener {
+            val action = OrderdetailFragmentDirections
+                .actionOrderdetailFragmentToOrdercompletionFragment()
+            findNavController().navigate(action)
+        }
+
+        binding.btnCancel.setOnClickListener {
+            findNavController().popBackStack()
+        }
     }
 }

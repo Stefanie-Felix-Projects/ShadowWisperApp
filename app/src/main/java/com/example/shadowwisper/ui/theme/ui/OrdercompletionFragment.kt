@@ -1,15 +1,32 @@
 package com.example.shadowwisper.ui.theme.ui
 
 
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.syntax_institut.whatssyntax.databinding.FragmentOrdercompletionBinding
 
 
-/**
- * A simple [Fragment] subclass.
- * Use the [OrdercompletionFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class OrdercompletionFragment : Fragment() {
-    // TODO: Rename and change types of parameters
 
+    private lateinit var binding: FragmentOrdercompletionBinding
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        binding = FragmentOrdercompletionBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        // Optional: Füge hier Logik hinzu, falls notwendig
+        binding.loginButton.setOnClickListener {
+            // Logik für Auszahlung oder nächste Schritte
+        }
+    }
 }

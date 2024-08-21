@@ -31,12 +31,9 @@
         android:name="com.example.shadowwisper.ui.theme.ui.CharacterdetailFragment"
         android:label="fragment_characterdetail"
         tools:layout="@layout/fragment_characterdetail" >
-        <action
-            android:id="@+id/action_characterdetailFragment_to_walletFragment"
-            app:destination="@id/walletFragment" />
-        <action
-            android:id="@+id/action_characterdetailFragment_to_walletFragment2"
-            app:destination="@id/walletFragment" />
+        <argument
+            android:name="characterId"
+            app:argType="string" />
     </fragment>
 
     <fragment
@@ -46,9 +43,6 @@
         tools:layout="@layout/fragment_characteroverview" >
         <action
             android:id="@+id/action_characteroverviewFragment_to_characterdetailFragment"
-            app:destination="@id/characterdetailFragment" />
-        <action
-            android:id="@+id/action_characteroverviewFragment_to_characterdetailFragment2"
             app:destination="@id/characterdetailFragment" />
     </fragment>
 
@@ -133,6 +127,9 @@
         <argument
             android:name="storyText"
             app:argType="string" />
+        <action
+            android:id="@+id/action_orderdetailFragment_to_ordercompletionFragment"
+            app:destination="@id/ordercompletionFragment" />
     </fragment>
 
     <fragment

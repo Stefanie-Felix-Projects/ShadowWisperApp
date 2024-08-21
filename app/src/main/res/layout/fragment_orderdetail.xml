@@ -47,7 +47,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/rajdhani_semibold"
                     android:text="Auftragstitel"
-                    android:textColor="@android:color/black"
+                    android:textColor="@color/colorOnCustomColor1"
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
@@ -83,6 +83,7 @@
         android:text="Storytitel"
         android:textSize="16sp"
         android:textStyle="bold"
+        android:textColor="@color/colorOnCustomColor1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -98,6 +99,7 @@
         android:fontFamily="@font/rajdhani"
         android:text="Storytext"
         android:textSize="14sp"
+        android:textColor="@color/colorOnCustomColor1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_story_title" />
