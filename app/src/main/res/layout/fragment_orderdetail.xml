@@ -6,185 +6,187 @@
     android:layout_height="match_parent"
     tools:context="com.example.shadowwisper.ui.theme.ui.OrderdetailFragment">
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cardView"
+    <ScrollView
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        app:cardCornerRadius="8dp"
+        android:layout_height="0dp"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/button_layout"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="16dp"
-            android:background="@color/md_theme_onPrimaryFixed">
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                app:cardCornerRadius="8dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="16dp"
+                    android:background="@color/md_theme_onPrimaryFixed">
+
+                    <ImageView
+                        android:id="@+id/imageView"
+                        android:layout_width="44dp"
+                        android:layout_height="48dp"
+                        android:layout_gravity="top|center_vertical"
+                        android:layout_marginEnd="16dp"
+                        android:background="@drawable/hex17jpg"
+                        android:paddingTop="4dp"
+                        android:paddingBottom="4dp" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <EditText
+                            android:id="@+id/et_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/rajdhani_semibold"
+                            android:hint="Auftragstitel"
+                            android:textColor="@color/colorOnCustomColor1"
+                            android:textSize="18sp"
+                            android:textStyle="bold"
+                            android:inputType="text"/>
+
+                        <EditText
+                            android:id="@+id/et_subhead"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/rajdhani"
+                            android:hint="Subhead"
+                            android:textColor="@android:color/darker_gray"
+                            android:textSize="14sp"
+                            android:inputType="text"/>
+                    </LinearLayout>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
 
             <ImageView
-                android:id="@+id/imageView"
-                android:layout_width="44dp"
-                android:layout_height="48dp"
-                android:layout_gravity="top|center_vertical"
-                android:layout_marginEnd="16dp"
-                android:background="@drawable/hex17jpg"
-                android:paddingTop="4dp"
-                android:paddingBottom="4dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:id="@+id/imageView2"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_marginBottom="16dp"
+                android:background="@drawable/placeholdermap" />
+
+            <EditText
+                android:id="@+id/et_story_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                android:fontFamily="@font/rajdhani_semibold"
+                android:hint="Storytitel"
+                android:inputType="text"
+                android:textColor="@color/colorOnCustomColor1"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/et_story_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:fontFamily="@font/rajdhani"
+                android:hint="Storytext"
+                android:textSize="14sp"
+                android:textColor="@color/colorOnCustomColor1"
+                android:inputType="textMultiLine"
+                android:minLines="3" />
 
             <LinearLayout
-                android:layout_width="0dp"
+                android:id="@+id/karma_money_layout"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical">
+                android:orientation="horizontal"
+                android:layout_marginBottom="16dp">
 
                 <EditText
-                    android:id="@+id/et_title"
-                    android:layout_width="wrap_content"
+                    android:id="@+id/input_karma"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/rajdhani_semibold"
-                    android:hint="Auftragstitel"
-                    android:textColor="@color/colorOnCustomColor1"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:inputType="text"/>
-
-                <EditText
-                    android:id="@+id/et_subhead"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:hint="Karma"
+                    android:inputType="number"
                     android:fontFamily="@font/rajdhani"
-                    android:hint="Subhead"
-                    android:textColor="@android:color/darker_gray"
+                    android:textColor="@color/colorOnCustomColor1"
                     android:textSize="14sp"
-                    android:inputType="text"/>
+                    android:layout_marginEnd="8dp" />
+
+                <EditText
+                    android:id="@+id/input_money"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:hint="Geld"
+                    android:inputType="number"
+                    android:fontFamily="@font/rajdhani"
+                    android:textColor="@color/colorOnCustomColor1"
+                    android:textSize="14sp"
+                    android:layout_marginStart="8dp" />
+
             </LinearLayout>
+
         </LinearLayout>
-    </androidx.cardview.widget.CardView>
-
-    <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="0dp"
-        android:layout_height="200dp"
-        android:layout_margin="16dp"
-        android:background="@drawable/placeholdermap"
-        app:layout_constraintTop_toBottomOf="@id/cardView"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <EditText
-        android:id="@+id/et_story_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="12dp"
-        android:layout_marginEnd="16dp"
-        android:fontFamily="@font/rajdhani_semibold"
-        android:hint="Storytitel"
-        android:inputType="text"
-        android:textColor="@color/colorOnCustomColor1"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/imageView2" />
-
-    <EditText
-        android:id="@+id/et_story_text"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="16dp"
-        android:fontFamily="@font/rajdhani"
-        android:hint="Storytext"
-        android:textSize="14sp"
-        android:textColor="@color/colorOnCustomColor1"
-        android:inputType="textMultiLine"
-        android:minLines="3"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/et_story_title" />
+    </ScrollView>
 
     <LinearLayout
-        android:id="@+id/karma_money_layout"
+        android:id="@+id/button_layout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="72dp"
+        android:gravity="center"
         android:orientation="horizontal"
-        android:layout_marginTop="16dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        app:layout_constraintTop_toBottomOf="@id/et_story_text"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        android:padding="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent">
 
-        <EditText
-            android:id="@+id/input_karma"
+        <Button
+            android:id="@+id/btn_cancel"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
             android:layout_weight="1"
-            android:hint="Karma"
-            android:inputType="number"
-            android:fontFamily="@font/rajdhani"
-            android:textColor="@color/colorOnCustomColor1"
-            android:textSize="14sp"
-            android:layout_marginEnd="8dp" />
+            android:background="@color/md_theme_primary"
+            android:fontFamily="@font/rajdhani_semibold"
+            android:text="Abbrechen" />
 
-        <EditText
-            android:id="@+id/input_money"
+        <Button
+            android:id="@+id/btn_complete"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
             android:layout_weight="1"
-            android:hint="Geld"
-            android:inputType="number"
-            android:fontFamily="@font/rajdhani"
-            android:textColor="@color/colorOnCustomColor1"
-            android:textSize="14sp"
-            android:layout_marginStart="8dp" />
+            android:background="@color/md_theme_primary"
+            android:fontFamily="@font/rajdhani_semibold"
+            android:text="Abschließen" />
 
     </LinearLayout>
-
-    <Button
-        android:id="@+id/btn_cancel"
-        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:background="@color/md_theme_primary"
-        android:fontFamily="@font/rajdhani_semibold"
-        android:text="Abbrechen"
-        app:layout_constraintEnd_toStartOf="@+id/btn_complete"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/karma_money_layout" />
-
-    <Button
-        android:id="@+id/btn_complete"
-        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:background="@color/md_theme_primary"
-        android:fontFamily="@font/rajdhani_semibold"
-        android:text="Abschließen"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/btn_cancel"
-        app:layout_constraintTop_toBottomOf="@id/karma_money_layout" />
 
     <Button
         android:id="@+id/btn_save_new"
         style="@style/Widget.MaterialComponents.Button.OutlinedButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
         android:fontFamily="@font/rajdhani_semibold"
         android:text="Speichern"
-        app:layout_constraintTop_toBottomOf="@id/btn_cancel"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/button_layout" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

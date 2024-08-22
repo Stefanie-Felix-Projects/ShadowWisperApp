@@ -50,8 +50,8 @@ class OrderoverviewFragment : Fragment() {
                     subText = orderItem.subTitle,
                     image = orderItem.profileImage,
                     mapImage = orderItem.mapImage,
-                    storyTitle = "Story Title",  // Placeholder
-                    storyText = "Story Text"     // Placeholder
+                    storyTitle = "Story Title",
+                    storyText = "Story Text"
                 )
                 findNavController().navigate(action)
             }
