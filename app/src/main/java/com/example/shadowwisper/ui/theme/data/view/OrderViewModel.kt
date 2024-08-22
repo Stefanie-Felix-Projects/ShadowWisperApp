@@ -1,18 +1,38 @@
 package com.example.shadowwisper.ui.theme.data.view
 
 
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.shadowwisper.ui.theme.data.adapter.OrderItem
+import com.example.shadowwisper.ui.theme.data.database.OrderDatabase
+import com.example.shadowwisper.ui.theme.data.model.OrderDetail
+import com.example.shadowwisper.ui.theme.data.repository.OrderRepository
 import com.syntax_institut.whatssyntax.R
+import kotlinx.coroutines.launch
 
-class OrderViewModel : ViewModel() {
+class OrderViewModel(application: Application) : AndroidViewModel(application) {
 
-    fun getOrderList(): List<OrderItem> {
-        return listOf(
-            OrderItem("Order 1", R.drawable.order),
-            OrderItem("Order 2", R.drawable.order),
-            OrderItem("Order 3", R.drawable.order)
-        )
-        //ToDo an Datenbank anbinden
+    private val repository: OrderRepository
+    val allOrders: LiveData<List<OrderDetail>>
+
+    init {
+        val orderDetailDao = OrderDatabase.getDatabase(application).orderDetailDao()
+        repository = OrderRepository(orderDetailDao)
+        allOrders = repository.allOrders
+    }
+
+    fun insert(orderDetail: OrderDetail) = viewModelScope.launch {
+        repository.insert(orderDetail)
+    }
+
+    fun update(orderDetail: OrderDetail) = viewModelScope.launch {
+        repository.update(orderDetail)
+    }
+
+    fun getOrderById(id: Int): LiveData<OrderDetail> {
+        return repository.getOrderById(id)
     }
 }

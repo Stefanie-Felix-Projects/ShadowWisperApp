@@ -7,17 +7,18 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.shadowwisper.ui.theme.data.adapter.OrderOverviewAdapter
 import com.example.shadowwisper.ui.theme.data.model.OrderOverview
 import com.example.shadowwisper.ui.theme.data.view.OrderViewModel
-import com.syntax_institut.whatssyntax.R
 import com.syntax_institut.whatssyntax.databinding.FragmentOrderoverviewBinding
 
 class OrderoverviewFragment : Fragment() {
 
     private lateinit var binding: FragmentOrderoverviewBinding
+    private val orderViewModel: OrderViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -30,25 +31,46 @@ class OrderoverviewFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val orderList = listOf(
-            OrderOverview(R.drawable.order, "Order 1", "SubText 1", R.drawable.order),
-            OrderOverview(R.drawable.order, "Order 2", "SubText 2", R.drawable.order),
-            OrderOverview(R.drawable.order, "Order 3", "SubText 3", R.drawable.order)
-        )
+        binding.rvOrder.layoutManager = LinearLayoutManager(context)
 
-        val adapter = OrderOverviewAdapter(orderList) { orderItem ->
+        orderViewModel.allOrders.observe(viewLifecycleOwner, Observer { orders ->
+
+            val orderList = orders.map { orderDetail ->
+                OrderOverview(
+                    profileImage = orderDetail.image,
+                    orderTitle = orderDetail.orderName,
+                    subTitle = orderDetail.subText,
+                    mapImage = orderDetail.mapImage
+                )
+            }
+
+            val adapter = OrderOverviewAdapter(orderList) { orderItem ->
+                val action = OrderoverviewFragmentDirections.actionOrderoverviewFragmentToOrderdetailFragment(
+                    orderName = orderItem.orderTitle,
+                    subText = orderItem.subTitle,
+                    image = orderItem.profileImage,
+                    mapImage = orderItem.mapImage,
+                    storyTitle = "Story Title",  // Placeholder
+                    storyText = "Story Text"     // Placeholder
+                )
+                findNavController().navigate(action)
+            }
+
+            binding.rvOrder.adapter = adapter
+        })
+
+        binding.btnAddOrder.setOnClickListener {
             val action = OrderoverviewFragmentDirections.actionOrderoverviewFragmentToOrderdetailFragment(
-                orderName = orderItem.orderTitle,
-                subText = orderItem.subTitle,
-                image = orderItem.profileImage,
-                mapImage = orderItem.mapImage,
-                storyTitle = "Story Title",  // Placeholder
-                storyText = "Story Text"     // Placeholder
+                orderName = "",
+                subText = "",
+                image = 0,
+                mapImage = 0,
+                storyTitle = "",
+                storyText = "",
+                karma = 0,
+                money = 0
             )
             findNavController().navigate(action)
         }
-
-        binding.rvOrder.layoutManager = LinearLayoutManager(context)
-        binding.rvOrder.adapter = adapter
     }
 }

@@ -55,6 +55,20 @@ class CharacterdetailFragment : Fragment() {
                     binding.inputRasse.setText(character.race)
                     binding.inputSkills.setText(character.skills)
                     binding.inputEquipment.setText(character.equipment)
+
+                    binding.buttonSave.setOnClickListener {
+                        val updatedCharacter = CharacterDetail(
+                            id = character.id,
+                            profileImage = imageUri?.toString() ?: character.profileImage,
+                            name = binding.inputName.text.toString(),
+                            backgroundStory = binding.inputStory.text.toString(),
+                            race = binding.inputRasse.text.toString(),
+                            skills = binding.inputSkills.text.toString(),
+                            equipment = binding.inputEquipment.text.toString()
+                        )
+                        viewModel.update(updatedCharacter)
+                        findNavController().navigateUp()
+                    }
                 }
             }
         } else {
@@ -64,23 +78,27 @@ class CharacterdetailFragment : Fragment() {
             binding.inputSkills.text.clear()
             binding.inputEquipment.text.clear()
             binding.icon.setImageResource(R.drawable.hex17jpg)
+
+            binding.buttonSave.setOnClickListener {
+                val newCharacter = CharacterDetail(
+                    profileImage = imageUri?.toString(),
+                    name = binding.inputName.text.toString(),
+                    backgroundStory = binding.inputStory.text.toString(),
+                    race = binding.inputRasse.text.toString(),
+                    skills = binding.inputSkills.text.toString(),
+                    equipment = binding.inputEquipment.text.toString()
+                )
+                viewModel.insert(newCharacter)
+                findNavController().navigateUp()
+            }
         }
 
         binding.icon.setOnClickListener {
             openGallery()
         }
 
-        binding.buttonSave.setOnClickListener {
-            val newCharacter = CharacterDetail(
-                profileImage = imageUri?.toString(),
-                name = binding.inputName.text.toString(),
-                backgroundStory = binding.inputStory.text.toString(),
-                race = binding.inputRasse.text.toString(),
-                skills = binding.inputSkills.text.toString(),
-                equipment = binding.inputEquipment.text.toString()
-            )
-            viewModel.insert(newCharacter)
-            findNavController().navigateUp()
+        binding.buttonBack.setOnClickListener {
+            findNavController().navigate(R.id.action_characterdetailFragment_to_characteroverviewFragment)
         }
     }
 

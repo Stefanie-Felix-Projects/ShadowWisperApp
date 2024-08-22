@@ -35,6 +35,9 @@
             android:name="characterId"
             app:argType="string"
             app:nullable="true"/>
+        <action
+            android:id="@+id/action_characterdetailFragment_to_characteroverviewFragment"
+            app:destination="@id/characteroverviewFragment" />
     </fragment>
 
     <fragment
@@ -110,24 +113,40 @@
         android:name="com.example.shadowwisper.ui.theme.ui.OrderdetailFragment"
         android:label="Order Detail"
         tools:layout="@layout/fragment_orderdetail">
+
         <argument
             android:name="orderName"
-            app:argType="string" />
+            app:argType="string"
+            app:nullable="false"/>
         <argument
             android:name="subText"
-            app:argType="string" />
+            app:argType="string"
+            app:nullable="false"/>
         <argument
             android:name="image"
-            app:argType="integer" />
+            app:argType="integer"
+            android:defaultValue="0"/>
         <argument
             android:name="mapImage"
-            app:argType="integer" />
+            app:argType="integer"
+            android:defaultValue="0"/>
         <argument
             android:name="storyTitle"
-            app:argType="string" />
+            app:argType="string"
+            app:nullable="false"/>
         <argument
             android:name="storyText"
-            app:argType="string" />
+            app:argType="string"
+            app:nullable="false"/>
+        <argument
+            android:name="karma"
+            app:argType="integer"
+            android:defaultValue="0"/>
+        <argument
+            android:name="money"
+            app:argType="integer"
+            android:defaultValue="0"/>
+
         <action
             android:id="@+id/action_orderdetailFragment_to_ordercompletionFragment"
             app:destination="@id/ordercompletionFragment" />
@@ -140,9 +159,6 @@
         tools:layout="@layout/fragment_orderoverview" >
         <action
             android:id="@+id/action_orderoverviewFragment_to_orderdetailFragment"
-            app:destination="@id/orderdetailFragment" />
-        <action
-            android:id="@+id/action_orderoverviewFragment_to_orderdetailFragment2"
             app:destination="@id/orderdetailFragment" />
     </fragment>
 
