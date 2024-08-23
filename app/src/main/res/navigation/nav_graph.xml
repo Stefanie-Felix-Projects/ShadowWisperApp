@@ -115,6 +115,11 @@
         tools:layout="@layout/fragment_orderdetail">
 
         <argument
+            android:name="orderId"
+            app:argType="string"
+            app:nullable="true"/>
+
+        <argument
             android:name="orderName"
             app:argType="string"
             app:nullable="false"/>
@@ -146,7 +151,6 @@
             android:name="money"
             app:argType="integer"
             android:defaultValue="0"/>
-
         <action
             android:id="@+id/action_orderdetailFragment_to_ordercompletionFragment"
             app:destination="@id/ordercompletionFragment" />

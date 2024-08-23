@@ -23,7 +23,7 @@ class OrderoverviewFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentOrderoverviewBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -37,6 +37,7 @@ class OrderoverviewFragment : Fragment() {
 
             val orderList = orders.map { orderDetail ->
                 OrderOverview(
+                    id = orderDetail.id,  // Die ID wird hier hinzugefügt
                     profileImage = orderDetail.image,
                     orderTitle = orderDetail.orderName,
                     subTitle = orderDetail.subText,
@@ -46,6 +47,7 @@ class OrderoverviewFragment : Fragment() {
 
             val adapter = OrderOverviewAdapter(orderList) { orderItem ->
                 val action = OrderoverviewFragmentDirections.actionOrderoverviewFragmentToOrderdetailFragment(
+                    orderId = orderItem.id.toString(),
                     orderName = orderItem.orderTitle,
                     subText = orderItem.subTitle,
                     image = orderItem.profileImage,
@@ -61,6 +63,7 @@ class OrderoverviewFragment : Fragment() {
 
         binding.btnAddOrder.setOnClickListener {
             val action = OrderoverviewFragmentDirections.actionOrderoverviewFragmentToOrderdetailFragment(
+                orderId = null,
                 orderName = "",
                 subText = "",
                 image = 0,
