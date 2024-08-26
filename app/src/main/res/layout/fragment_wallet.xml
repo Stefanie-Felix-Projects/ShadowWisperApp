@@ -21,6 +21,7 @@
             android:fontFamily="@font/rajdhani_semibold"
             android:text="Übersicht\nEinnahmen und Ausgaben"
             android:textAlignment="center"
+            android:textColor="@color/colorOnCustomColor1"
             android:textSize="18sp" />
 
         <LinearLayout
@@ -30,14 +31,18 @@
             android:gravity="center"
             android:orientation="horizontal"
             android:paddingTop="16dp">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/chatpicture" />
-
         </LinearLayout>
     </LinearLayout>
+
+    <com.github.mikephil.charting.charts.BarChart
+        android:id="@+id/chart_einnahmen_ausgaben"
+        android:layout_width="0dp"
+        android:layout_height="200dp"
+        android:outlineAmbientShadowColor="@color/colorOnCustomColor1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/overview_card"
+        android:layout_marginTop="16dp"/>
 
     <LinearLayout
         android:id="@+id/statistics_layout"
@@ -47,7 +52,7 @@
         android:padding="16dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/overview_card">
+        app:layout_constraintTop_toBottomOf="@id/chart_einnahmen_ausgaben">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -55,22 +60,25 @@
             android:orientation="horizontal"
             android:gravity="center_vertical">
 
-            <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@drawable/icon_status" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Einnahmen:"
+                android:textColor="@color/colorOnCustomColor1"
+                android:textSize="16sp"
+                android:layout_marginEnd="8dp" />
 
             <EditText
-                android:id="@+id/kontostand_text"
+                android:id="@+id/einnahmen_text"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="@android:color/transparent"
-                android:enabled="false"
                 android:fontFamily="@font/rajdhani"
                 android:inputType="numberDecimal"
                 android:padding="8dp"
                 android:text="1000"
+                android:textColor="@color/colorOnCustomColor1"
                 android:textSize="16sp" />
         </LinearLayout>
 
@@ -81,22 +89,25 @@
             android:gravity="center_vertical"
             android:layout_marginTop="16dp">
 
-            <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@drawable/icon_status" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Ausgaben:"
+                android:textColor="@color/colorOnCustomColor1"
+                android:textSize="16sp"
+                android:layout_marginEnd="8dp" />
 
             <EditText
-                android:id="@+id/karmapunkte_text"
+                android:id="@+id/ausgaben_text"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="@android:color/transparent"
-                android:enabled="false"
                 android:fontFamily="@font/rajdhani"
                 android:inputType="numberDecimal"
                 android:padding="8dp"
                 android:text="500"
+                android:textColor="@color/colorOnCustomColor1"
                 android:textSize="16sp" />
         </LinearLayout>
 
@@ -107,22 +118,50 @@
             android:gravity="center_vertical"
             android:layout_marginTop="16dp">
 
-            <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@drawable/icon_status" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Karma:"
+                android:textColor="@color/colorOnCustomColor1"
+                android:textSize="16sp"
+                android:layout_marginEnd="8dp" />
 
             <EditText
-                android:id="@+id/edgepunkte_text"
+                android:id="@+id/karma_text"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="@android:color/transparent"
-                android:enabled="false"
                 android:fontFamily="@font/rajdhani"
                 android:inputType="numberDecimal"
                 android:padding="8dp"
                 android:text="200"
+                android:textColor="@color/colorOnCustomColor1"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginTop="16dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Gesamtsumme:"
+                android:textColor="@color/colorOnCustomColor1"
+                android:textSize="16sp"
+                android:layout_marginEnd="8dp" />
+
+            <TextView
+                android:id="@+id/gesamtsumme_text"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="800"
+                android:textColor="@color/colorOnCustomColor1"
                 android:textSize="16sp" />
         </LinearLayout>
     </LinearLayout>
@@ -131,11 +170,10 @@
         android:id="@+id/edit_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Bearbeiten"
+        android:text="Speichern"
         android:fontFamily="@font/rajdhani_semibold"
         app:layout_constraintTop_toBottomOf="@id/statistics_layout"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="16dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>
-

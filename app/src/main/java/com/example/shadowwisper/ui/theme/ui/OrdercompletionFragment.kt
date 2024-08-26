@@ -24,9 +24,7 @@ class OrdercompletionFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Optional: Füge hier Logik hinzu, falls notwendig
         binding.loginButton.setOnClickListener {
-            // Logik für Auszahlung oder nächste Schritte
         }
     }
 }

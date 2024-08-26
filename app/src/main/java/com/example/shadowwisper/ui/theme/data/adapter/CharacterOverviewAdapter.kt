@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.shadowwisper.ui.theme.data.model.CharacterDetail
 import com.syntax_institut.whatssyntax.R
 
-
 class CharacterOverviewAdapter(
     private val characterList: List<CharacterDetail>,
     private val onItemClicked: (CharacterDetail) -> Unit

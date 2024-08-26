@@ -1,30 +1,42 @@
 package com.example.shadowwisper.ui.theme.data.view
 
 import androidx.lifecycle.LiveData
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.viewModelScope
+import com.example.shadowwisper.ui.theme.data.database.WalletDatabase
+import com.example.shadowwisper.ui.theme.data.model.Wallet
+import com.example.shadowwisper.ui.theme.data.repository.WalletRepository
+import kotlinx.coroutines.launch
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 
-class WalletViewModel : ViewModel() {
+class WalletViewModel(application: Application) : AndroidViewModel(application) {
 
-    private val _kontostand = MutableLiveData<Double>()
-    val kontostand: LiveData<Double> = _kontostand
-
-    private val _karmapunkte = MutableLiveData<Double>()
-    val karmapunkte: LiveData<Double> = _karmapunkte
-
-    private val _edgepunkte = MutableLiveData<Double>()
-    val edgepunkte: LiveData<Double> = _edgepunkte
+    private val repository: WalletRepository
+    private val _latestWallet = MutableLiveData<Wallet?>()
+    val latestWallet: LiveData<Wallet?> get() = _latestWallet
 
     init {
-        // Initiale Daten festlegen
-        _kontostand.value = 1000.0
-        _karmapunkte.value = 500.0
-        _edgepunkte.value = 200.0
+        val walletDao = WalletDatabase.getDatabase(application).walletDao()
+        repository = WalletRepository(walletDao)
+
+        viewModelScope.launch {
+            val wallet = repository.latestWallet.value
+            if (wallet != null) {
+                _latestWallet.postValue(wallet)
+            } else {
+                val initialWallet = Wallet(einnahmen = 0.0, ausgaben = 0.0, karma = 0.0, gesamtsumme = 0.0)
+                _latestWallet.postValue(initialWallet)
+            }
+        }
     }
 
-    fun updateWallet(kontostand: Double, karmapunkte: Double, edgepunkte: Double) {
-        _kontostand.value = kontostand
-        _karmapunkte.value = karmapunkte
-        _edgepunkte.value = edgepunkte
+    fun updateWallet(einnahmen: Double, ausgaben: Double, karma: Double) {
+        val gesamtsumme = einnahmen - ausgaben
+        val wallet = Wallet(einnahmen = einnahmen, ausgaben = ausgaben, karma = karma, gesamtsumme = gesamtsumme)
+        viewModelScope.launch {
+            repository.insert(wallet)
+            _latestWallet.postValue(wallet)
+        }
     }
 }

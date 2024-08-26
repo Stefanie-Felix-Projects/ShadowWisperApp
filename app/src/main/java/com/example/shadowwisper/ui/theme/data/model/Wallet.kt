@@ -1,10 +1,14 @@
 package com.example.shadowwisper.ui.theme.data.model
 
-data class Wallet(
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 
-    val title: String,
-    val overviewImage: Int,
-    val accountBalance: Int,
-    val karmaPoints: Int,
-    val edgePoints: Int
+@Entity(tableName = "wallet_table")
+data class Wallet(
+    @PrimaryKey(autoGenerate = true)
+    val id: Int = 0,
+    val einnahmen: Double,
+    val ausgaben: Double,
+    val karma: Double,
+    val gesamtsumme: Double,
 )

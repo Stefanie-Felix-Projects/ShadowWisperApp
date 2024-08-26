@@ -7,7 +7,6 @@
     android:layout_height="wrap_content"
     android:padding="8dp">
 
-    <!-- Nachrichtentext -->
     <TextView
         android:id="@+id/textViewMessageOutgoing"
         android:layout_width="0dp"
@@ -27,10 +26,6 @@
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <!-- Zeitstempel -->
-
-    <!-- Profilbild -->
 
     <TextView
         android:id="@+id/textViewTimestampOutgoing"

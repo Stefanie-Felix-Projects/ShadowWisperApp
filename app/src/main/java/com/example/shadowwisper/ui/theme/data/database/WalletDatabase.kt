@@ -4,24 +4,24 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.example.shadowwisper.ui.theme.data.dao.CharacterDetailDao
-import com.example.shadowwisper.ui.theme.data.model.CharacterDetail
+import com.example.shadowwisper.ui.theme.data.dao.WalletDao
+import com.example.shadowwisper.ui.theme.data.model.Wallet
 
-@Database(entities = [CharacterDetail::class], version = 2, exportSchema = false)
-abstract class CharacterDatabase : RoomDatabase() {
+@Database(entities = [Wallet::class], version = 2, exportSchema = false)
+abstract class WalletDatabase : RoomDatabase() {
 
-    abstract fun characterDetailDao(): CharacterDetailDao
+    abstract fun walletDao(): WalletDao
 
     companion object {
         @Volatile
-        private var INSTANCE: CharacterDatabase? = null
+        private var INSTANCE: WalletDatabase? = null
 
-        fun getDatabase(context: Context): CharacterDatabase {
+        fun getDatabase(context: Context): WalletDatabase {
             return INSTANCE ?: synchronized(this) {
                 val instance = Room.databaseBuilder(
                     context.applicationContext,
-                    CharacterDatabase::class.java,
-                    "character_database"
+                    WalletDatabase::class.java,
+                    "wallet_database"
                 )
                     .fallbackToDestructiveMigration()
                     .build()

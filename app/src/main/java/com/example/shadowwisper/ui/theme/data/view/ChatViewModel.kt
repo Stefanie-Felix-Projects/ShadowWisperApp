@@ -13,5 +13,4 @@ class ChatViewModel : ViewModel() {
         )
     }
 
-    //ToDo Datenbank anbinden
 }
