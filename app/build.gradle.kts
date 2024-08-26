@@ -7,11 +7,11 @@ plugins {
 }
 
 android {
-    namespace = "com.syntax_institut.whatssyntax"
+    namespace = "com.example.shadowwisper"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.syntax_institut.whatssyntax"
+        applicationId = "com.example.shadowwisper"
         minSdk = 24
         targetSdk = 33
         versionCode = 1
@@ -48,6 +48,7 @@ dependencies {
     implementation(libs.androidx.foundation.android)
     implementation(libs.androidx.material3.android)
     implementation(libs.androidx.ui.text.google.fonts)
+    implementation(libs.firebase.firestore.ktx)
     val retrofitVersion = "2.9.0"
     val roomVersion = "2.6.0"
 
@@ -82,6 +83,6 @@ dependencies {
     implementation ("com.github.PhilJay:MPAndroidChart:v3.1.0")
 
     //Firebase
-    implementation("com.google.firebase:firebase-firestore:24.2.0")
+    implementation(platform("com.google.firebase:firebase-bom:33.1.2"))
     implementation("com.google.firebase:firebase-auth:21.1.0") // Optional für Firebase Auth
 }

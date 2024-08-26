@@ -7,8 +7,8 @@ import android.view.View
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI.setupWithNavController
-import com.syntax_institut.whatssyntax.R
-import com.syntax_institut.whatssyntax.databinding.ActivityMainBinding
+import com.example.shadowwisper.R
+import com.example.shadowwisper.databinding.ActivityMainBinding
 
 
 class MainActivity : AppCompatActivity() {

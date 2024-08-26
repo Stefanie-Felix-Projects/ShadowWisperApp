@@ -8,6 +8,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.example.shadowwisper.R
+import com.example.shadowwisper.databinding.FragmentOrderdetailBinding
 import com.example.shadowwisper.ui.theme.data.model.OrderDetail
 import com.example.shadowwisper.ui.theme.data.view.OrderViewModel
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -16,8 +18,7 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
-import com.syntax_institut.whatssyntax.R
-import com.syntax_institut.whatssyntax.databinding.FragmentOrderdetailBinding
+
 
 class OrderdetailFragment : Fragment(), OnMapReadyCallback {
 

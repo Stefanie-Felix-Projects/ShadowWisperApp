@@ -10,10 +10,11 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.shadowwisper.databinding.FragmentOrderoverviewBinding
 import com.example.shadowwisper.ui.theme.data.adapter.OrderOverviewAdapter
 import com.example.shadowwisper.ui.theme.data.model.OrderOverview
 import com.example.shadowwisper.ui.theme.data.view.OrderViewModel
-import com.syntax_institut.whatssyntax.databinding.FragmentOrderoverviewBinding
+
 
 class OrderoverviewFragment : Fragment() {
 

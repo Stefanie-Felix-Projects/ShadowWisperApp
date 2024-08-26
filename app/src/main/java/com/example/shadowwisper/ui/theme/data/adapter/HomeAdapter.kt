@@ -6,8 +6,9 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import com.example.shadowwisper.R
 import com.example.shadowwisper.ui.theme.ui.HomeFragmentDirections
-import com.syntax_institut.whatssyntax.R
+
 
 class HomeAdapter(private val itemList: List<String>) : RecyclerView.Adapter<HomeAdapter.HomeViewHolder>() {
 

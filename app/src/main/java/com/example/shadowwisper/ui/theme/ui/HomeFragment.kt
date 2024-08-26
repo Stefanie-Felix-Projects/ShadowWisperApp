@@ -8,8 +8,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.shadowwisper.R
 import com.example.shadowwisper.ui.theme.data.adapter.HomeAdapter
-import com.syntax_institut.whatssyntax.R
+
 
 class HomeFragment : Fragment() {
 

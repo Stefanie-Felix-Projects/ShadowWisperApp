@@ -1,16 +1,13 @@
 package com.example.shadowwisper.ui.theme.data.view
 
-
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.shadowwisper.ui.theme.data.adapter.OrderItem
 import com.example.shadowwisper.ui.theme.data.database.OrderDatabase
 import com.example.shadowwisper.ui.theme.data.model.OrderDetail
 import com.example.shadowwisper.ui.theme.data.repository.OrderRepository
-import com.syntax_institut.whatssyntax.R
+
 import kotlinx.coroutines.launch
 
 class OrderViewModel(application: Application) : AndroidViewModel(application) {

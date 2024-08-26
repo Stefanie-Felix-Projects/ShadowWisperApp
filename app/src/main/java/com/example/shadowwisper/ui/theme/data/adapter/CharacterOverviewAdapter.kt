@@ -8,8 +8,9 @@ import android.widget.ImageView
 import android.widget.Switch
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.shadowwisper.R
 import com.example.shadowwisper.ui.theme.data.model.CharacterDetail
-import com.syntax_institut.whatssyntax.R
+
 
 class CharacterOverviewAdapter(
     private val characterList: List<CharacterDetail>,

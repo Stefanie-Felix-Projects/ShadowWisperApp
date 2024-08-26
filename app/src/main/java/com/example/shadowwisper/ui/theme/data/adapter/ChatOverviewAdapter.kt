@@ -6,8 +6,9 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.shadowwisper.R
 import com.example.shadowwisper.ui.theme.data.model.ChatDetail
-import com.syntax_institut.whatssyntax.R
+
 
 class ChatOverviewAdapter(
     private val chatList: List<ChatDetail>,

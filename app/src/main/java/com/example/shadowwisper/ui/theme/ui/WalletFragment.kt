@@ -6,13 +6,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import com.example.shadowwisper.databinding.FragmentWalletBinding
 import com.example.shadowwisper.ui.theme.data.model.Wallet
 import com.example.shadowwisper.ui.theme.data.view.WalletViewModel
 import com.github.mikephil.charting.data.BarData
 import com.github.mikephil.charting.data.BarDataSet
 import com.github.mikephil.charting.data.BarEntry
 import com.github.mikephil.charting.utils.ColorTemplate
-import com.syntax_institut.whatssyntax.databinding.FragmentWalletBinding
+
 
 class WalletFragment : Fragment() {
 

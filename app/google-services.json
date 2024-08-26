@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "840009341650",
+    "project_id": "shadowwisper-44b8c",
+    "storage_bucket": "shadowwisper-44b8c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:840009341650:android:6986134c990ae030baeb0b",
+        "android_client_info": {
+          "package_name": "com.example.shadowwisper"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCbnboFdRYxvSWetceh0VETbnQw-1gmJ2g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

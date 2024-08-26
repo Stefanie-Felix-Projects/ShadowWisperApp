@@ -9,9 +9,10 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.shadowwisper.databinding.FragmentCharacteroverviewBinding
 import com.example.shadowwisper.ui.theme.data.adapter.CharacterOverviewAdapter
 import com.example.shadowwisper.ui.theme.data.view.CharacterViewModel
-import com.syntax_institut.whatssyntax.databinding.FragmentCharacteroverviewBinding
+
 
 class CharacteroverviewFragment : Fragment() {
 

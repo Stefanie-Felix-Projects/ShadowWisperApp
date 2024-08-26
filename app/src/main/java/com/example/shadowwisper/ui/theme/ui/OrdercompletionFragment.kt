@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.syntax_institut.whatssyntax.databinding.FragmentOrdercompletionBinding
+import com.example.shadowwisper.databinding.FragmentOrdercompletionBinding
 
 
 class OrdercompletionFragment : Fragment() {
