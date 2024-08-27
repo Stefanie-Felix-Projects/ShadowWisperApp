@@ -38,7 +38,7 @@ class OrderoverviewFragment : Fragment() {
 
             val orderList = orders.map { orderDetail ->
                 OrderOverview(
-                    id = orderDetail.id,  // Die ID wird hier hinzugefügt
+                    id = orderDetail.id,
                     profileImage = orderDetail.image,
                     orderTitle = orderDetail.orderName,
                     subTitle = orderDetail.subText,

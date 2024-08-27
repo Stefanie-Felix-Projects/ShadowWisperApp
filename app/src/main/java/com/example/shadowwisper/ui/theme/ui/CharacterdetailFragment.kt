@@ -6,6 +6,7 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,7 +18,7 @@ import com.example.shadowwisper.R
 import com.example.shadowwisper.databinding.FragmentCharacterdetailBinding
 import com.example.shadowwisper.ui.theme.data.model.CharacterDetail
 import com.example.shadowwisper.ui.theme.data.view.CharacterViewModel
-
+import java.util.UUID
 
 class CharacterdetailFragment : Fragment() {
 
@@ -31,7 +32,7 @@ class CharacterdetailFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentCharacterdetailBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -40,9 +41,14 @@ class CharacterdetailFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val characterId = args.characterId
+        Log.d("CharacterdetailFragment", "Received characterId: $characterId")
 
         if (characterId != null) {
-            viewModel.getCharacterById(characterId.toInt()).observe(viewLifecycleOwner) { character ->
+            Log.d("CharacterdetailFragment", "Calling getCharacterById with id: $characterId")
+
+            viewModel.getCharacterById(characterId).observe(viewLifecycleOwner) { character ->
+                Log.d("CharacterdetailFragment", "Character loaded: $character")
+
                 if (character != null) {
                     binding.inputName.setText(character.name)
                     character.profileImage?.let { uri ->
@@ -54,18 +60,13 @@ class CharacterdetailFragment : Fragment() {
                     binding.inputEquipment.setText(character.equipment)
 
                     binding.buttonSave.setOnClickListener {
-                        val updatedCharacter = CharacterDetail(
+                        saveCharacter(
                             id = character.id,
-                            profileImage = imageUri?.toString() ?: character.profileImage,
-                            name = binding.inputName.text.toString(),
-                            backgroundStory = binding.inputStory.text.toString(),
-                            race = binding.inputRasse.text.toString(),
-                            skills = binding.inputSkills.text.toString(),
-                            equipment = binding.inputEquipment.text.toString()
+                            isNewCharacter = false
                         )
-                        viewModel.update(updatedCharacter)
-                        findNavController().navigateUp()
                     }
+                } else {
+                    Log.d("CharacterdetailFragment", "Character is null")
                 }
             }
         } else {
@@ -77,16 +78,10 @@ class CharacterdetailFragment : Fragment() {
             binding.icon.setImageResource(R.drawable.hex17jpg)
 
             binding.buttonSave.setOnClickListener {
-                val newCharacter = CharacterDetail(
-                    profileImage = imageUri?.toString(),
-                    name = binding.inputName.text.toString(),
-                    backgroundStory = binding.inputStory.text.toString(),
-                    race = binding.inputRasse.text.toString(),
-                    skills = binding.inputSkills.text.toString(),
-                    equipment = binding.inputEquipment.text.toString()
+                saveCharacter(
+                    id = null,
+                    isNewCharacter = true
                 )
-                viewModel.insert(newCharacter)
-                findNavController().navigateUp()
             }
         }
 
@@ -97,6 +92,26 @@ class CharacterdetailFragment : Fragment() {
         binding.buttonBack.setOnClickListener {
             findNavController().navigate(R.id.action_characterdetailFragment_to_characteroverviewFragment)
         }
+    }
+
+    private fun saveCharacter(id: String?, isNewCharacter: Boolean) {
+        val character = CharacterDetail(
+            id = id ?: UUID.randomUUID().toString(),
+            profileImage = imageUri?.toString(),
+            name = binding.inputName.text.toString(),
+            backgroundStory = binding.inputStory.text.toString(),
+            race = binding.inputRasse.text.toString(),
+            skills = binding.inputSkills.text.toString(),
+            equipment = binding.inputEquipment.text.toString()
+        )
+
+        if (isNewCharacter) {
+            viewModel.insert(character)
+        } else {
+            viewModel.update(character)
+        }
+
+        findNavController().navigateUp()
     }
 
     private fun openGallery() {

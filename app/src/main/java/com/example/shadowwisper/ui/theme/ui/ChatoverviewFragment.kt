@@ -31,10 +31,8 @@ class ChatoverviewFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Firestore-Instanz initialisieren
         firestore = FirebaseFirestore.getInstance()
 
-        // Chat-Übersicht laden
         loadChatOverview()
     }
 
@@ -44,35 +42,27 @@ class ChatoverviewFragment : Fragment() {
             .addOnSuccessListener { result ->
                 val chatList = mutableListOf<ChatDetail>()
                 for (document in result) {
-                    val lastMessageDoc = document.reference.collection("messages")
-                        .orderBy("timeStamp", com.google.firebase.firestore.Query.Direction.DESCENDING)
-                        .limit(1)
-                        .get()
-
-                    lastMessageDoc.addOnSuccessListener { messages ->
-                        for (msg in messages) {
-                            val chatDetail = ChatDetail(
-                                id = document.id,
-                                name = document.id, // Der Name des Charakters als Dokument-ID
-                                message = msg.getString("message") ?: "",
-                                profileImage = R.drawable.hex17jpg, // Dein Profilbild hier
-                                timeStamp = msg.getLong("timeStamp") ?: 0L
-                            )
-                            chatList.add(chatDetail)
-                        }
-
-                        // RecyclerView aktualisieren
-                        val adapter = ChatOverviewAdapter(chatList) { chatDetail ->
-                            val action = ChatoverviewFragmentDirections.actionChatoverviewFragmentToChatdetailFragment(chatDetail.name)
-                            findNavController().navigate(action)
-                        }
-                        binding.rvChatoverview.layoutManager = LinearLayoutManager(context)
-                        binding.rvChatoverview.adapter = adapter
-                    }
+                    val chatDetail = ChatDetail(
+                        id = document.id,
+                        name = document.getString("name") ?: "",
+                        message = "",
+                        profileImage = R.drawable.hex17jpg,
+                        timeStamp = 0L
+                    )
+                    chatList.add(chatDetail)
                 }
+
+                val adapter = ChatOverviewAdapter(chatList) { chatDetail ->
+                    val action = ChatoverviewFragmentDirections.actionChatoverviewFragmentToChatdetailFragment(chatDetail.name)
+                    findNavController().navigate(action)
+                }
+                binding.rvChatoverview.layoutManager = LinearLayoutManager(context)
+                binding.rvChatoverview.adapter = adapter
             }
             .addOnFailureListener { exception ->
-                // Fehlerbehandlung
+            }
+
+            .addOnFailureListener { exception ->
             }
     }
 }

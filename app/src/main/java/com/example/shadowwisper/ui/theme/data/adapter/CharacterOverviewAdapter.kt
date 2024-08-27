@@ -10,11 +10,13 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.shadowwisper.R
 import com.example.shadowwisper.ui.theme.data.model.CharacterDetail
+import com.google.firebase.firestore.FirebaseFirestore
 
 
 class CharacterOverviewAdapter(
     private val characterList: List<CharacterDetail>,
-    private val onItemClicked: (CharacterDetail) -> Unit
+    private val onItemClicked: (CharacterDetail) -> Unit,
+    private val onSwitchToggled: (CharacterDetail, Boolean) -> Unit
 ) : RecyclerView.Adapter<CharacterOverviewAdapter.CharacterViewHolder>() {
 
     class CharacterViewHolder(view: View, private val onItemClicked: (CharacterDetail) -> Unit) :
@@ -23,13 +25,23 @@ class CharacterOverviewAdapter(
         val imageView: ImageView = view.findViewById(R.id.imageView)
         val switchButton: Switch = view.findViewById(R.id.switchButton)
 
-        fun bind(characterDetail: CharacterDetail) {
+        fun bind(characterDetail: CharacterDetail, onSwitchToggled: (CharacterDetail, Boolean) -> Unit) {
             nameTextView.text = characterDetail.name
 
             if (characterDetail.profileImage != null) {
                 imageView.setImageURI(Uri.parse(characterDetail.profileImage))
             } else {
                 imageView.setImageResource(R.drawable.hex17jpg)
+            }
+
+            FirebaseFirestore.getInstance().collection("chats").document(characterDetail.id)
+                .get()
+                .addOnSuccessListener { document ->
+                    switchButton.isChecked = document.exists()
+                }
+
+            switchButton.setOnCheckedChangeListener { _, isChecked ->
+                onSwitchToggled(characterDetail, isChecked)
             }
 
             itemView.setOnClickListener {
@@ -45,7 +57,7 @@ class CharacterOverviewAdapter(
     }
 
     override fun onBindViewHolder(holder: CharacterViewHolder, position: Int) {
-        holder.bind(characterList[position])
+        holder.bind(characterList[position], onSwitchToggled)
     }
 
     override fun getItemCount(): Int {

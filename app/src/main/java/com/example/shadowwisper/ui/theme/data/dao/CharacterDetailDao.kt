@@ -18,12 +18,12 @@ interface CharacterDetailDao {
     @Update
     suspend fun updateCharacter(characterDetail: CharacterDetail)
 
-    @Delete
-    suspend fun deleteCharacter(characterDetail: CharacterDetail)
-
     @Query("SELECT * FROM character_details WHERE id = :characterId")
-    fun getCharacterByID(characterId: Int): LiveData<CharacterDetail>
+    fun getCharacterByID(characterId: String): LiveData<CharacterDetail>
 
     @Query("SELECT * FROM character_details")
     fun getAllCharacters(): LiveData<List<CharacterDetail>>
+
+    @Delete
+    suspend fun deleteCharacter(characterDetail: CharacterDetail)
 }

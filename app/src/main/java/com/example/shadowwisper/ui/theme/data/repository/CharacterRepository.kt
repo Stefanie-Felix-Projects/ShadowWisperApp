@@ -1,5 +1,6 @@
 package com.example.shadowwisper.ui.theme.data.repository
 
+
 import androidx.lifecycle.LiveData
 import com.example.shadowwisper.ui.theme.data.dao.CharacterDetailDao
 import com.example.shadowwisper.ui.theme.data.model.CharacterDetail
@@ -20,7 +21,7 @@ class CharacterRepository(private val characterDetailDao: CharacterDetailDao) {
         characterDetailDao.deleteCharacter(characterDetail)
     }
 
-    fun getCharacterById(id: Int): LiveData<CharacterDetail> {
+    fun getCharacterById(id: String): LiveData<CharacterDetail> {
         return characterDetailDao.getCharacterByID(id)
     }
 }

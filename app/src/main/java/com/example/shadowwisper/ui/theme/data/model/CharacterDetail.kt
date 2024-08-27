@@ -2,12 +2,12 @@ package com.example.shadowwisper.ui.theme.data.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import java.util.UUID
 
 @Entity(tableName = "character_details")
 data class CharacterDetail(
-
-    @PrimaryKey(autoGenerate = true)
-    val id: Int = 0,
+    @PrimaryKey
+    val id: String = UUID.randomUUID().toString(),
     val profileImage: String?,
     val name: String,
     val backgroundStory: String,

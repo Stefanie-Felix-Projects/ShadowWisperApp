@@ -2,14 +2,17 @@ package com.example.shadowwisper.ui.theme.ui
 
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.shadowwisper.databinding.FragmentChatdetailBinding
+import com.example.shadowwisper.ui.theme.data.adapter.ChatDetailAdapter
+import com.example.shadowwisper.ui.theme.data.database.ChatMessage
 import com.google.firebase.firestore.FirebaseFirestore
-
 
 class ChatdetailFragment : Fragment() {
 
@@ -17,6 +20,8 @@ class ChatdetailFragment : Fragment() {
     private val args: ChatdetailFragmentArgs by navArgs()
 
     private lateinit var firestore: FirebaseFirestore
+    private lateinit var adapter: ChatDetailAdapter
+    private val messages = mutableListOf<ChatMessage>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -31,6 +36,10 @@ class ChatdetailFragment : Fragment() {
 
         firestore = FirebaseFirestore.getInstance()
 
+        adapter = ChatDetailAdapter(messages)
+        binding.rvMessages.layoutManager = LinearLayoutManager(context)
+        binding.rvMessages.adapter = adapter
+
         loadMessages()
 
         binding.btSend.setOnClickListener {
@@ -42,14 +51,20 @@ class ChatdetailFragment : Fragment() {
         firestore.collection("chats")
             .document(args.characterName)
             .collection("messages")
-            .orderBy("timeStamp")
+            .orderBy("timestamp")
             .get()
             .addOnSuccessListener { result ->
-                for (document in result) {
-                    val message = document.getString("message")
+                messages.clear()
+                val newMessages = result.toObjects(ChatMessage::class.java)
+                messages.addAll(newMessages)
+                adapter.notifyDataSetChanged()
+
+                newMessages.forEach {
+                    Log.d("ChatdetailFragment", "Loaded message: ${it.message}")
                 }
             }
             .addOnFailureListener { exception ->
+                Log.e("ChatdetailFragment", "Error loading messages", exception)
             }
     }
 
@@ -57,15 +72,15 @@ class ChatdetailFragment : Fragment() {
         val messageText = binding.tietMessage.text.toString()
 
         if (messageText.isNotEmpty()) {
-            val messageData = mapOf(
-                "message" to messageText,
-                "timeStamp" to System.currentTimeMillis()
+            val message = ChatMessage(
+                senderId = args.characterName,
+                message = messageText
             )
 
             firestore.collection("chats")
                 .document(args.characterName)
                 .collection("messages")
-                .add(messageData)
+                .add(message)
                 .addOnSuccessListener {
                     binding.tietMessage.text?.clear()
                     loadMessages()

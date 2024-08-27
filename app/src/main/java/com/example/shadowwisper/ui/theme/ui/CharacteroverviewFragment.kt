@@ -32,12 +32,13 @@ class CharacteroverviewFragment : Fragment() {
 
 
         viewModel.allCharacters.observe(viewLifecycleOwner) { characterList ->
-            val adapter = CharacterOverviewAdapter(characterList) { selectedCharacter ->
-
+            val adapter = CharacterOverviewAdapter(characterList, { selectedCharacter ->
                 val action = CharacteroverviewFragmentDirections
                     .actionCharacteroverviewFragmentToCharacterdetailFragment(selectedCharacter.id.toString())
                 findNavController().navigate(action)
-            }
+            }, { character, isChecked ->
+                viewModel.toggleCharacterInChat(character, isChecked)
+            })
             binding.rvChar.layoutManager = LinearLayoutManager(context)
             binding.rvChar.adapter = adapter
         }
