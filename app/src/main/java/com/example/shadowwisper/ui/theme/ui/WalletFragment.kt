@@ -1,24 +1,25 @@
 package com.example.shadowwisper.ui.theme.ui
-
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.ViewModelProvider
 import com.example.shadowwisper.databinding.FragmentWalletBinding
+import com.example.shadowwisper.ui.theme.data.database.WalletDatabase
 import com.example.shadowwisper.ui.theme.data.model.Wallet
+import com.example.shadowwisper.ui.theme.data.repository.WalletRepository
 import com.example.shadowwisper.ui.theme.data.view.WalletViewModel
+import com.example.shadowwisper.ui.theme.data.view.WalletViewModelFactory
 import com.github.mikephil.charting.data.BarData
 import com.github.mikephil.charting.data.BarDataSet
 import com.github.mikephil.charting.data.BarEntry
 import com.github.mikephil.charting.utils.ColorTemplate
 
-
 class WalletFragment : Fragment() {
 
     private lateinit var binding: FragmentWalletBinding
-    private val viewModel: WalletViewModel by activityViewModels()
+    private lateinit var viewModel: WalletViewModel
     private var isEditing = false
 
     override fun onCreateView(
@@ -31,6 +32,14 @@ class WalletFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        // Initialisiere die Datenbank und das Repository
+        val database = WalletDatabase.getDatabase(requireContext())
+        val repository = WalletRepository(database.walletDao())
+
+        // ViewModel mit Factory initialisieren
+        val factory = WalletViewModelFactory(repository)
+        viewModel = ViewModelProvider(this, factory).get(WalletViewModel::class.java)
 
         viewModel.latestWallet.observe(viewLifecycleOwner) { wallet ->
             wallet?.let {

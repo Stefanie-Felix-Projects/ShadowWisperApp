@@ -7,7 +7,7 @@ import androidx.room.RoomDatabase
 import com.example.shadowwisper.ui.theme.data.dao.WalletDao
 import com.example.shadowwisper.ui.theme.data.model.Wallet
 
-@Database(entities = [Wallet::class], version = 2, exportSchema = false)
+@Database(entities = [Wallet::class], version = 3, exportSchema = false)
 abstract class WalletDatabase : RoomDatabase() {
 
     abstract fun walletDao(): WalletDao
