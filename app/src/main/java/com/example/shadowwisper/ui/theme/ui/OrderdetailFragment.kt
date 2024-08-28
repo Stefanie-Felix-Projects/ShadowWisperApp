@@ -85,7 +85,7 @@ class OrderdetailFragment : Fragment(), OnMapReadyCallback {
                 storyText = binding.etStoryText.text.toString(),
                 karma = binding.inputKarma.text.toString().toIntOrNull() ?: 0,
                 money = binding.inputMoney.text.toString().toIntOrNull() ?: 0,
-                profileImage = profileImageBytes  // Profilbild hinzufügen
+                profileImage = profileImageBytes
             )
 
             if (args.orderId != null) {
@@ -96,7 +96,6 @@ class OrderdetailFragment : Fragment(), OnMapReadyCallback {
             findNavController().navigateUp()
         }
 
-        // Um den Ort anzuzeigen, den der Benutzer eingibt
         binding.etLocation.setOnEditorActionListener { _, _, _ ->
             val locationName = binding.etLocation.text.toString()
             if (locationName.isNotEmpty()) {
@@ -106,13 +105,13 @@ class OrderdetailFragment : Fragment(), OnMapReadyCallback {
                     val address = addresses[0]
                     val location = LatLng(address.latitude, address.longitude)
 
-                    googleMap.clear()  // Vorherige Marker löschen
+                    googleMap.clear()
                     googleMap.addMarker(MarkerOptions().position(location).title(locationName))
                     googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location, 12f))
                     mapFragment.view?.visibility = View.VISIBLE
                 } else {
-                    // Optionale Benachrichtigung, wenn der Ort nicht gefunden wird
-                    // Toast.makeText(context, "Ort nicht gefunden", Toast.LENGTH_SHORT).show()
+                    // ToDo: Optionale Benachrichtigung, wenn der Ort nicht gefunden wird
+                    // ToDo: Ort soll beim Speichern bestehen bleiben, wenn das geht
                 }
             }
             true
@@ -121,7 +120,6 @@ class OrderdetailFragment : Fragment(), OnMapReadyCallback {
 
     override fun onMapReady(map: GoogleMap) {
         googleMap = map
-        // Optional: eine Standardposition setzen, falls gewünscht
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -131,7 +129,6 @@ class OrderdetailFragment : Fragment(), OnMapReadyCallback {
             if (selectedImageUri != null) {
                 binding.imageView.setImageURI(selectedImageUri)
 
-                // Konvertiere das Bild in ein ByteArray
                 profileImageBytes = getBytesFromUri(selectedImageUri)
             }
         }
