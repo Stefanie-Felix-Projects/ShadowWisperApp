@@ -43,7 +43,7 @@ class CharacterViewModel(application: Application) : AndroidViewModel(applicatio
             chatCollection.document(characterDetail.id)
                 .set(
                     mapOf(
-                        "senderId" to characterDetail.id,  // Verwende dieselbe ID
+                        "senderId" to characterDetail.id,
                         "name" to characterDetail.name,
                         "profileImage" to characterDetail.profileImage
                     )

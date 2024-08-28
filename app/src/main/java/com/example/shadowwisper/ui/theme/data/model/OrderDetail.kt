@@ -15,5 +15,6 @@ data class OrderDetail(
     val storyTitle: String,
     val storyText: String,
     val karma: Int,
-    val money: Int
+    val money: Int,
+    val profileImage: ByteArray?
 )

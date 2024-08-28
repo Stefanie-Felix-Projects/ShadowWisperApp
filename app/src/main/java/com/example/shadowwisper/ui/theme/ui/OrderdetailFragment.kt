@@ -1,9 +1,14 @@
 package com.example.shadowwisper.ui.theme.ui
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.location.Geocoder
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -18,7 +23,8 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
-
+import java.io.ByteArrayOutputStream
+import java.util.Locale
 
 class OrderdetailFragment : Fragment(), OnMapReadyCallback {
 
@@ -26,6 +32,8 @@ class OrderdetailFragment : Fragment(), OnMapReadyCallback {
     private val args: OrderdetailFragmentArgs by navArgs()
     private val orderViewModel: OrderViewModel by activityViewModels()
     private lateinit var googleMap: GoogleMap
+    private val PICK_IMAGE_REQUEST = 1
+    private var profileImageBytes: ByteArray? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -48,9 +56,13 @@ class OrderdetailFragment : Fragment(), OnMapReadyCallback {
             binding.inputMoney.setText(args.money.toString())
         }
 
+        binding.imageView.setOnClickListener {
+            val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+            startActivityForResult(intent, PICK_IMAGE_REQUEST)
+        }
+
         val mapFragment = childFragmentManager.findFragmentById(R.id.mapFragment) as SupportMapFragment
         mapFragment.getMapAsync(this)
-
 
         binding.btnComplete.setOnClickListener {
             val action = OrderdetailFragmentDirections
@@ -72,7 +84,8 @@ class OrderdetailFragment : Fragment(), OnMapReadyCallback {
                 storyTitle = binding.etStoryTitle.text.toString(),
                 storyText = binding.etStoryText.text.toString(),
                 karma = binding.inputKarma.text.toString().toIntOrNull() ?: 0,
-                money = binding.inputMoney.text.toString().toIntOrNull() ?: 0
+                money = binding.inputMoney.text.toString().toIntOrNull() ?: 0,
+                profileImage = profileImageBytes  // Profilbild hinzufügen
             )
 
             if (args.orderId != null) {
@@ -83,21 +96,55 @@ class OrderdetailFragment : Fragment(), OnMapReadyCallback {
             findNavController().navigateUp()
         }
 
-        binding.btnOpenMap.setOnClickListener {
-            val mapFragment = childFragmentManager.findFragmentById(R.id.mapFragment) as SupportMapFragment
-            mapFragment.getMapAsync(this)
-            mapFragment.view?.visibility = View.VISIBLE
+        // Um den Ort anzuzeigen, den der Benutzer eingibt
+        binding.etLocation.setOnEditorActionListener { _, _, _ ->
+            val locationName = binding.etLocation.text.toString()
+            if (locationName.isNotEmpty()) {
+                val geocoder = Geocoder(requireContext(), Locale.getDefault())
+                val addresses = geocoder.getFromLocationName(locationName, 1)
+                if (addresses != null && addresses.isNotEmpty()) {
+                    val address = addresses[0]
+                    val location = LatLng(address.latitude, address.longitude)
 
-            val location = LatLng(50.9375, 6.9603)
-            googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location, 12f))
+                    googleMap.clear()  // Vorherige Marker löschen
+                    googleMap.addMarker(MarkerOptions().position(location).title(locationName))
+                    googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location, 12f))
+                    mapFragment.view?.visibility = View.VISIBLE
+                } else {
+                    // Optionale Benachrichtigung, wenn der Ort nicht gefunden wird
+                    // Toast.makeText(context, "Ort nicht gefunden", Toast.LENGTH_SHORT).show()
+                }
+            }
+            true
         }
     }
 
     override fun onMapReady(map: GoogleMap) {
         googleMap = map
+        // Optional: eine Standardposition setzen, falls gewünscht
+    }
 
-        val cologne = LatLng(50.9375, 6.9603)
-        googleMap.addMarker(MarkerOptions().position(cologne).title("Marker in Köln"))
-        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(cologne, 12f))
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == PICK_IMAGE_REQUEST && resultCode == AppCompatActivity.RESULT_OK) {
+            val selectedImageUri: Uri? = data?.data
+            if (selectedImageUri != null) {
+                binding.imageView.setImageURI(selectedImageUri)
+
+                // Konvertiere das Bild in ein ByteArray
+                profileImageBytes = getBytesFromUri(selectedImageUri)
+            }
+        }
+    }
+
+    private fun getBytesFromUri(uri: Uri): ByteArray? {
+        val inputStream = requireContext().contentResolver.openInputStream(uri)
+        val byteBuffer = ByteArrayOutputStream()
+        val buffer = ByteArray(1024)
+        var len: Int
+        while (inputStream?.read(buffer).also { len = it!! } != -1) {
+            byteBuffer.write(buffer, 0, len)
+        }
+        return byteBuffer.toByteArray()
     }
 }

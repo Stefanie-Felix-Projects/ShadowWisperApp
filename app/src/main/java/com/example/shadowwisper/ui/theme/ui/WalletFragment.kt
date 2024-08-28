@@ -1,4 +1,5 @@
 package com.example.shadowwisper.ui.theme.ui
+
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -33,11 +34,9 @@ class WalletFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Initialisiere die Datenbank und das Repository
         val database = WalletDatabase.getDatabase(requireContext())
         val repository = WalletRepository(database.walletDao())
 
-        // ViewModel mit Factory initialisieren
         val factory = WalletViewModelFactory(repository)
         viewModel = ViewModelProvider(this, factory).get(WalletViewModel::class.java)
 
@@ -84,6 +83,6 @@ class WalletFragment : Fragment() {
         val dataSet = BarDataSet(entries, "Einnahmen und Ausgaben")
         dataSet.colors = ColorTemplate.MATERIAL_COLORS.toList()
         binding.chartEinnahmenAusgaben.data = BarData(dataSet)
-        binding.chartEinnahmenAusgaben.invalidate() // Refresh
+        binding.chartEinnahmenAusgaben.invalidate()
     }
 }

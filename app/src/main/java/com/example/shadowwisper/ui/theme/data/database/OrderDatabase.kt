@@ -7,7 +7,7 @@ import androidx.room.RoomDatabase
 import com.example.shadowwisper.ui.theme.data.dao.OrderDetailDao
 import com.example.shadowwisper.ui.theme.data.model.OrderDetail
 
-@Database(entities = [OrderDetail::class], version = 2, exportSchema = false)
+@Database(entities = [OrderDetail::class], version = 3, exportSchema = false)
 abstract class OrderDatabase : RoomDatabase() {
     abstract fun orderDetailDao(): OrderDetailDao
 

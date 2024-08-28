@@ -90,9 +90,6 @@
         <action
             android:id="@+id/action_homeFragment_to_characteroverviewFragment"
             app:destination="@id/characteroverviewFragment" />
-        <action
-            android:id="@+id/action_homeFragment_to_settingsFragment"
-            app:destination="@id/settingsFragment" />
     </fragment>
 
     <fragment
@@ -106,6 +103,9 @@
         <action
             android:id="@+id/action_ordercompletionFragment_to_characteroverviewFragment2"
             app:destination="@id/characteroverviewFragment" />
+        <action
+            android:id="@+id/action_ordercompletionFragment_to_walletFragment"
+            app:destination="@id/walletFragment" />
     </fragment>
 
     <fragment
@@ -167,20 +167,8 @@
     </fragment>
 
     <fragment
-        android:id="@+id/settingsFragment"
-        android:name="com.example.shadowwisper.ui.theme.ui.SettingsFragment"
-        android:label="fragment_settings"
-        tools:layout="@layout/fragment_settings" />
-    <fragment
         android:id="@+id/walletFragment"
         android:name="com.example.shadowwisper.ui.theme.ui.WalletFragment"
         android:label="fragment_wallet"
-        tools:layout="@layout/fragment_wallet" >
-        <action
-            android:id="@+id/action_walletFragment_to_settingsFragment"
-            app:destination="@id/settingsFragment" />
-        <action
-            android:id="@+id/action_walletFragment_to_settingsFragment2"
-            app:destination="@id/settingsFragment" />
-    </fragment>
+        tools:layout="@layout/fragment_wallet" />
 </navigation>

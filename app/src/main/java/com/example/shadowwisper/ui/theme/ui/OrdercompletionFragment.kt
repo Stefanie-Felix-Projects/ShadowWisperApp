@@ -6,6 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
+import com.example.shadowwisper.R
 import com.example.shadowwisper.databinding.FragmentOrdercompletionBinding
 
 
@@ -25,6 +27,7 @@ class OrdercompletionFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.loginButton.setOnClickListener {
+            findNavController().navigate(R.id.action_ordercompletionFragment_to_walletFragment)
         }
     }
 }

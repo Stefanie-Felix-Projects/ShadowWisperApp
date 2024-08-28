@@ -6,14 +6,12 @@
     android:padding="16dp"
     android:gravity="center_vertical">
 
-    <!-- Icon -->
     <ImageView
         android:id="@+id/icon"
         android:layout_width="24dp"
         android:layout_height="24dp"
         android:src="@drawable/icon_status" />
 
-    <!-- Text -->
     <TextView
         android:id="@+id/list_item_text"
         android:layout_width="0dp"
@@ -24,7 +22,6 @@
         android:textSize="16sp"
         android:textColor="?android:attr/textColorPrimary" />
 
-    <!-- Switch Button -->
     <Switch
         android:id="@+id/switch_button"
         android:layout_width="wrap_content"

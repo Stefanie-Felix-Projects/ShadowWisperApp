@@ -71,33 +71,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar2" />
 
-    <ImageButton
-        android:id="@+id/back_arrow_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:background="?attr/selectableItemBackgroundBorderless"
-        android:contentDescription="Back"
-        android:src="@drawable/arrow_back_24px"
-        app:layout_constraintBottom_toBottomOf="@id/toolbar"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/toolbar"
-        app:tint="@color/colorOnCustomColor1"
-        tools:ignore="TouchTargetSizeCheck" />
-
-    <Button
-        android:id="@+id/title_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="?attr/selectableItemBackgroundBorderless"
-        android:fontFamily="@font/rajdhani_semibold"
-        android:text="Back"
-        android:textColor="@color/colorOnCustomColor1"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="@id/toolbar"
-        app:layout_constraintStart_toEndOf="@id/back_arrow_button"
-        app:layout_constraintTop_toTopOf="@+id/toolbar" />
-
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/profile_image"
         android:layout_width="40dp"
@@ -106,9 +79,9 @@
         android:contentDescription="Profile Image"
         android:scaleType="centerCrop"
         android:src="@drawable/hex17jpg"
-        app:layout_constraintBottom_toBottomOf="@id/toolbar"
+        app:layout_constraintBottom_toBottomOf="@+id/textView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/toolbar"
+        app:layout_constraintTop_toTopOf="@+id/textView"
         app:shapeAppearanceOverlay="@style/RoundImage" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

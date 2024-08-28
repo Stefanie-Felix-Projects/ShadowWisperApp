@@ -34,7 +34,7 @@ class CharacteroverviewFragment : Fragment() {
         viewModel.allCharacters.observe(viewLifecycleOwner) { characterList ->
             val adapter = CharacterOverviewAdapter(characterList, { selectedCharacter ->
                 val action = CharacteroverviewFragmentDirections
-                    .actionCharacteroverviewFragmentToCharacterdetailFragment(selectedCharacter.id.toString())
+                    .actionCharacteroverviewFragmentToCharacterdetailFragment(selectedCharacter.id)
                 findNavController().navigate(action)
             }, { character, isChecked ->
                 viewModel.toggleCharacterInChat(character, isChecked)

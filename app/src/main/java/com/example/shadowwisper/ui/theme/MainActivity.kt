@@ -29,17 +29,31 @@ class MainActivity : AppCompatActivity() {
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
                 R.id.homeFragment -> {
-                    // BottomNavigationView auf der Home-Seite ausblenden
+                    binding.textView.text = "Willkommen Runner"
                     binding.navBottomBar.visibility = View.GONE
                 }
+                R.id.chatoverviewFragment -> {
+                    binding.textView.text = "Chat"
+                    binding.navBottomBar.visibility = View.VISIBLE
+                }
+                R.id.orderoverviewFragment -> {
+                    binding.textView.text = "Aufträge"
+                    binding.navBottomBar.visibility = View.VISIBLE
+                }
+                R.id.walletFragment -> {
+                    binding.textView.text = "Wallet"
+                    binding.navBottomBar.visibility = View.VISIBLE
+                }
+                R.id.characteroverviewFragment -> {
+                    binding.textView.text = "Character"
+                    binding.navBottomBar.visibility = View.VISIBLE
+                }
                 else -> {
-                    // BottomNavigationView auf allen anderen Seiten anzeigen
                     binding.navBottomBar.visibility = View.VISIBLE
                 }
             }
         }
 
-// Home Button in der Bottom Navigation manuell behandeln
         binding.navBottomBar.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.homeFragment -> {

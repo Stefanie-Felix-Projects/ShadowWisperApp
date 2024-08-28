@@ -31,7 +31,6 @@ class HomeAdapter(private val itemList: List<String>) : RecyclerView.Adapter<Hom
                 1 -> HomeFragmentDirections.actionHomeFragmentToOrderoverviewFragment()
                 2 -> HomeFragmentDirections.actionHomeFragmentToWalletFragment()
                 3 -> HomeFragmentDirections.actionHomeFragmentToCharacteroverviewFragment()
-                4 -> HomeFragmentDirections.actionHomeFragmentToSettingsFragment()
                 else -> null
             }
             action?.let { view.findNavController().navigate(it) }

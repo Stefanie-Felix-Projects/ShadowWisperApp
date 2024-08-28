@@ -42,7 +42,9 @@
                         android:layout_marginEnd="16dp"
                         android:background="@drawable/hex17jpg"
                         android:paddingTop="4dp"
-                        android:paddingBottom="4dp" />
+                        android:paddingBottom="4dp"
+                        android:clickable="true"
+                        android:focusable="true"/>
 
                     <LinearLayout
                         android:layout_width="0dp"
@@ -81,15 +83,17 @@
                 android:layout_marginBottom="16dp"
                 android:background="@drawable/placeholdermap" />
 
-            <Button
-                android:id="@+id/btn_open_map"
+            <!-- Hier wird das Textfeld anstelle des Buttons eingefügt -->
+            <EditText
+                android:id="@+id/et_location"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Google Maps öffnen"
                 android:layout_marginBottom="16dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                />
+                android:fontFamily="@font/rajdhani"
+                android:hint="Ort eingeben"
+                android:textSize="14sp"
+                android:textColor="@color/colorOnCustomColor1"
+                android:inputType="text"/>
 
             <fragment
                 android:id="@+id/mapFragment"

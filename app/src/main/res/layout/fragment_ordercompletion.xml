@@ -54,7 +54,7 @@
         android:layout_marginBottom="167dp"
         android:background="@color/md_theme_primaryFixedDim_highContrast"
         android:fontFamily="@font/rajdhani_semibold"
-        android:text="Auszahlung"
+        android:text="Zum Wallet"
         android:textAlignment="center"
         android:textColor="@color/colorOnCustomColor1"
         android:textSize="24dp"
@@ -63,7 +63,5 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/LogoRahmen" />
-
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

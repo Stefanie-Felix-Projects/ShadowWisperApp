@@ -27,7 +27,7 @@ class HomeFragment : Fragment() {
         recyclerView = view.findViewById(R.id.rv_home)
         recyclerView.layoutManager = LinearLayoutManager(context)
 
-        val data = listOf("Chat", "Aufträge", "Wallet", "Character", "App Einstellungen")
+        val data = listOf("Chat", "Aufträge", "Wallet", "Character")
 
         homeAdapter = HomeAdapter(data)
         recyclerView.adapter = homeAdapter
