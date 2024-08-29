@@ -34,6 +34,7 @@ class OrderdetailFragment : Fragment(), OnMapReadyCallback {
     private lateinit var googleMap: GoogleMap
     private val PICK_IMAGE_REQUEST = 1
     private var profileImageBytes: ByteArray? = null
+    private var selectedImageViewId: Int? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -56,7 +57,16 @@ class OrderdetailFragment : Fragment(), OnMapReadyCallback {
             binding.inputMoney.setText(args.money.toString())
         }
 
+        // Click listener for imageView
         binding.imageView.setOnClickListener {
+            selectedImageViewId = binding.imageView.id
+            val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+            startActivityForResult(intent, PICK_IMAGE_REQUEST)
+        }
+
+        // Click listener for imageView2
+        binding.imageView2.setOnClickListener {
+            selectedImageViewId = binding.imageView2.id
             val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
             startActivityForResult(intent, PICK_IMAGE_REQUEST)
         }
@@ -109,9 +119,6 @@ class OrderdetailFragment : Fragment(), OnMapReadyCallback {
                     googleMap.addMarker(MarkerOptions().position(location).title(locationName))
                     googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location, 12f))
                     mapFragment.view?.visibility = View.VISIBLE
-                } else {
-                    // ToDo: Optionale Benachrichtigung, wenn der Ort nicht gefunden wird
-                    // ToDo: Ort soll beim Speichern bestehen bleiben, wenn das geht
                 }
             }
             true
@@ -127,7 +134,14 @@ class OrderdetailFragment : Fragment(), OnMapReadyCallback {
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == AppCompatActivity.RESULT_OK) {
             val selectedImageUri: Uri? = data?.data
             if (selectedImageUri != null) {
-                binding.imageView.setImageURI(selectedImageUri)
+                when (selectedImageViewId) {
+                    binding.imageView.id -> {
+                        binding.imageView.setImageURI(selectedImageUri)
+                    }
+                    binding.imageView2.id -> {
+                        binding.imageView2.setImageURI(selectedImageUri)
+                    }
+                }
 
                 profileImageBytes = getBytesFromUri(selectedImageUri)
             }
