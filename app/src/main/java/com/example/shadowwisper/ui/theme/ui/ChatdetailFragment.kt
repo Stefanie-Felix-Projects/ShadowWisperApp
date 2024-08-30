@@ -1,6 +1,5 @@
 package com.example.shadowwisper.ui.theme.ui
 
-
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -12,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.shadowwisper.databinding.FragmentChatdetailBinding
 import com.example.shadowwisper.ui.theme.data.adapter.ChatDetailAdapter
 import com.example.shadowwisper.ui.theme.data.database.ChatMessage
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
 class ChatdetailFragment : Fragment() {
@@ -22,6 +22,9 @@ class ChatdetailFragment : Fragment() {
     private lateinit var firestore: FirebaseFirestore
     private lateinit var adapter: ChatDetailAdapter
     private val messages = mutableListOf<ChatMessage>()
+    private val currentUserId: String by lazy {
+        FirebaseAuth.getInstance().currentUser?.uid ?: ""
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,7 +39,7 @@ class ChatdetailFragment : Fragment() {
 
         firestore = FirebaseFirestore.getInstance()
 
-        adapter = ChatDetailAdapter(messages)
+        adapter = ChatDetailAdapter(messages, currentUserId)
         binding.rvMessages.layoutManager = LinearLayoutManager(context)
         binding.rvMessages.adapter = adapter
 
@@ -73,7 +76,7 @@ class ChatdetailFragment : Fragment() {
 
         if (messageText.isNotEmpty()) {
             val message = ChatMessage(
-                senderId = args.characterName,
+                senderId = currentUserId,
                 message = messageText
             )
 
@@ -86,6 +89,7 @@ class ChatdetailFragment : Fragment() {
                     loadMessages()
                 }
                 .addOnFailureListener { exception ->
+                    Log.e("ChatdetailFragment", "Error sending message", exception)
                 }
         }
     }

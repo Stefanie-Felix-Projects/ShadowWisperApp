@@ -12,10 +12,10 @@
         android:layout_height="wrap_content"
         android:padding="10dp"
         android:textColor="@android:color/white"
-        android:textAlignment="viewEnd"
+        android:textAlignment="viewStart"
         android:background="@drawable/rahmen"
-        android:gravity="end"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:gravity="start"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

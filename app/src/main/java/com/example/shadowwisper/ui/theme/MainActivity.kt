@@ -47,6 +47,10 @@ class MainActivity : AppCompatActivity() {
                     binding.textView.text = "Character"
                     binding.navBottomBar.visibility = View.VISIBLE
                 }
+                R.id.characteroverviewFragment -> {
+                    binding.textView.text = "Logout"
+                    binding.navBottomBar.visibility = View.VISIBLE
+                }
                 else -> {
                     binding.navBottomBar.visibility = View.VISIBLE
                 }
