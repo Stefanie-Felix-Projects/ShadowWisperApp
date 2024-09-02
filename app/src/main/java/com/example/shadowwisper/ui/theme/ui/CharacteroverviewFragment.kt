@@ -30,17 +30,28 @@ class CharacteroverviewFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
-        viewModel.allCharacters.observe(viewLifecycleOwner) { characterList ->
+        viewModel.userCharacters.observe(viewLifecycleOwner) { characterList ->
             val adapter = CharacterOverviewAdapter(characterList, { selectedCharacter ->
                 val action = CharacteroverviewFragmentDirections
                     .actionCharacteroverviewFragmentToCharacterdetailFragment(selectedCharacter.id)
                 findNavController().navigate(action)
             }, { character, isChecked ->
-                viewModel.toggleCharacterInChat(character, isChecked)
+                if (isChecked) {
+                    viewModel.setActiveCharacter(character)
+                } else {
+
+                }
             })
             binding.rvChar.layoutManager = LinearLayoutManager(context)
             binding.rvChar.adapter = adapter
+        }
+
+
+        viewModel.getActiveCharacter().observe(viewLifecycleOwner) { activeCharacter ->
+
+            if (activeCharacter != null) {
+
+            }
         }
 
         binding.btnAddCharacter.setOnClickListener {

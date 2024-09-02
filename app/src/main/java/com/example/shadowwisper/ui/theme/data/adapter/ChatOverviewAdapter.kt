@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.shadowwisper.R
 import com.example.shadowwisper.ui.theme.data.model.ChatDetail
 
-
 class ChatOverviewAdapter(
     private val chatList: List<ChatDetail>,
     private val onItemClicked: (ChatDetail) -> Unit

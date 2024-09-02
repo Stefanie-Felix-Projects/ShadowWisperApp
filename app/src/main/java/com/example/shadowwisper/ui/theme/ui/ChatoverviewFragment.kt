@@ -1,7 +1,7 @@
 package com.example.shadowwisper.ui.theme.ui
 
-
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,7 +13,7 @@ import com.example.shadowwisper.databinding.FragmentChatoverviewBinding
 import com.google.firebase.firestore.FirebaseFirestore
 import com.example.shadowwisper.ui.theme.data.adapter.ChatOverviewAdapter
 import com.example.shadowwisper.ui.theme.data.model.ChatDetail
-
+import com.google.firebase.auth.FirebaseAuth
 
 class ChatoverviewFragment : Fragment() {
 
@@ -37,32 +37,46 @@ class ChatoverviewFragment : Fragment() {
     }
 
     private fun loadChatOverview() {
-        firestore.collection("chats")
+        val userId = FirebaseAuth.getInstance().currentUser?.uid ?: return
+
+        firestore.collection("users")
             .get()
             .addOnSuccessListener { result ->
                 val chatList = mutableListOf<ChatDetail>()
                 for (document in result) {
-                    val chatDetail = ChatDetail(
-                        id = document.id,
-                        name = document.getString("name") ?: "",
-                        message = "",
-                        profileImage = R.drawable.hex17jpg,
-                        timeStamp = 0L
-                    )
-                    chatList.add(chatDetail)
+                    if (document.id != userId) {
+                        document.reference.collection("active_character")
+                            .get()
+                            .addOnSuccessListener { characters ->
+                                for (character in characters) {
+                                    val chatDetail = ChatDetail(
+                                        id = character.getString("characterId") ?: "",
+                                        name = character.getString("name") ?: "",
+                                        message = "",
+                                        profileImage = R.drawable.hex17jpg,
+                                        timeStamp = 0L
+                                    )
+                                    chatList.add(chatDetail)
+                                }
+                                updateChatList(chatList)
+                            }
+                    }
                 }
-
-                val adapter = ChatOverviewAdapter(chatList) { chatDetail ->
-                    val action = ChatoverviewFragmentDirections.actionChatoverviewFragmentToChatdetailFragment(chatDetail.name)
-                    findNavController().navigate(action)
-                }
-                binding.rvChatoverview.layoutManager = LinearLayoutManager(context)
-                binding.rvChatoverview.adapter = adapter
             }
             .addOnFailureListener { exception ->
+                Log.e("ChatoverviewFragment", "Fehler beim Abrufen der Nutzer", exception)
             }
+    }
 
-            .addOnFailureListener { exception ->
-            }
+
+    private fun updateChatList(chatList: List<ChatDetail>) {
+        val adapter = ChatOverviewAdapter(chatList) { chatDetail ->
+            val action = ChatoverviewFragmentDirections
+                .actionChatoverviewFragmentToChatdetailFragment(chatDetail.id)
+            findNavController().navigate(action)
+        }
+        binding.rvChatoverview.layoutManager = LinearLayoutManager(context)
+        binding.rvChatoverview.adapter = adapter
+
     }
 }

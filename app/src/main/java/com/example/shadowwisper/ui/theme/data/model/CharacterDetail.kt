@@ -8,10 +8,12 @@ import java.util.UUID
 data class CharacterDetail(
     @PrimaryKey
     val id: String = UUID.randomUUID().toString(),
-    val profileImage: String?,
-    val name: String,
-    val backgroundStory: String,
-    val race: String,
-    val skills: String,
-    val equipment: String
-)
+    val profileImage: String? = null,
+    val name: String = "",
+    val backgroundStory: String = "",
+    val race: String = "",
+    val skills: String = "",
+    val equipment: String = ""
+) {
+    constructor() : this(UUID.randomUUID().toString(), null, "", "", "", "", "")
+}

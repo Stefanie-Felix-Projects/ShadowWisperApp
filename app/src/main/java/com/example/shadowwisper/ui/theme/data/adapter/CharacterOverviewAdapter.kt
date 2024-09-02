@@ -10,8 +10,8 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.shadowwisper.R
 import com.example.shadowwisper.ui.theme.data.model.CharacterDetail
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-
 
 class CharacterOverviewAdapter(
     private val characterList: List<CharacterDetail>,
@@ -34,14 +34,32 @@ class CharacterOverviewAdapter(
                 imageView.setImageResource(R.drawable.hex17jpg)
             }
 
-            FirebaseFirestore.getInstance().collection("chats").document(characterDetail.id)
-                .get()
+            val userId = FirebaseAuth.getInstance().currentUser?.uid ?: ""
+            val firestore = FirebaseFirestore.getInstance()
+            val activeCharacterRef = firestore.collection("users")
+                .document(userId)
+                .collection("active_character")
+                .document(characterDetail.id)
+
+            activeCharacterRef.get()
                 .addOnSuccessListener { document ->
                     switchButton.isChecked = document.exists()
                 }
 
             switchButton.setOnCheckedChangeListener { _, isChecked ->
-                onSwitchToggled(characterDetail, isChecked)
+                if (isChecked) {
+                    activeCharacterRef.set(
+                        mapOf(
+                            "characterId" to characterDetail.id,
+                            "name" to characterDetail.name,
+                            "profileImage" to characterDetail.profileImage
+                        )
+                    )
+                    onSwitchToggled(characterDetail, true)
+                } else {
+                    activeCharacterRef.delete()
+                    onSwitchToggled(characterDetail, false)
+                }
             }
 
             itemView.setOnClickListener {
