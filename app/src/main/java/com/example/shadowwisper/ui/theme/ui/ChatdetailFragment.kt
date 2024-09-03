@@ -51,24 +51,26 @@ class ChatdetailFragment : Fragment() {
     }
 
     private fun loadMessages() {
-        firestore.collection("chats")
-            .document(args.characterName)
-            .collection("messages")
-            .orderBy("timestamp")
-            .get()
-            .addOnSuccessListener { result ->
-                messages.clear()
-                val newMessages = result.toObjects(ChatMessage::class.java)
-                messages.addAll(newMessages)
-                adapter.notifyDataSetChanged()
+        val chatId = args.characterId
 
-                newMessages.forEach {
-                    Log.d("ChatdetailFragment", "Loaded message: ${it.message}")
+        if (chatId.isNotBlank()) {
+            firestore.collection("chats")
+                .document(chatId)
+                .collection("messages")
+                .orderBy("timestamp")
+                .get()
+                .addOnSuccessListener { result ->
+                    messages.clear()
+                    val newMessages = result.toObjects(ChatMessage::class.java)
+                    messages.addAll(newMessages)
+                    adapter.notifyDataSetChanged()
                 }
-            }
-            .addOnFailureListener { exception ->
-                Log.e("ChatdetailFragment", "Error loading messages", exception)
-            }
+                .addOnFailureListener { exception ->
+                    Log.e("ChatdetailFragment", "Error loading messages", exception)
+                }
+        } else {
+            Log.e("ChatdetailFragment", "Invalid chatId, cannot load messages")
+        }
     }
 
     private fun sendMessage() {
@@ -80,17 +82,30 @@ class ChatdetailFragment : Fragment() {
                 message = messageText
             )
 
-            firestore.collection("chats")
-                .document(args.characterName)
-                .collection("messages")
-                .add(message)
-                .addOnSuccessListener {
-                    binding.tietMessage.text?.clear()
-                    loadMessages()
-                }
-                .addOnFailureListener { exception ->
-                    Log.e("ChatdetailFragment", "Error sending message", exception)
-                }
+            val chatId = args.characterId
+            if (chatId.isNotEmpty()) {
+                // Nachricht sofort zur Liste hinzufügen und RecyclerView aktualisieren
+                messages.add(message)
+                adapter.notifyItemInserted(messages.size - 1)
+                binding.rvMessages.scrollToPosition(messages.size - 1)
+
+                firestore.collection("chats")
+                    .document(chatId)
+                    .collection("messages")
+                    .add(message)
+                    .addOnSuccessListener {
+                        binding.tietMessage.text?.clear()
+                        Log.d("ChatdetailFragment", "Message sent and added to Firestore")
+                    }
+                    .addOnFailureListener { exception ->
+                        Log.e("ChatdetailFragment", "Error sending message", exception)
+                        // Nachricht aus der Liste entfernen, wenn das Speichern fehlschlägt
+                        messages.remove(message)
+                        adapter.notifyItemRemoved(messages.size)
+                    }
+            } else {
+                Log.e("ChatdetailFragment", "Invalid chatId, cannot send message")
+            }
         }
     }
 }

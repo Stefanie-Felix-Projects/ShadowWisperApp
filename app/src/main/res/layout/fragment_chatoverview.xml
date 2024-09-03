@@ -9,9 +9,9 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_chatoverview"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        tools:listitem="@layout/list_item_charoverview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:listitem="@layout/list_item_chatoverview"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

@@ -68,7 +68,7 @@
         android:label="Chat Detail"
         tools:layout="@layout/fragment_chatdetail">
         <argument
-            android:name="characterName"
+            android:name="characterId"
             app:argType="string" />
     </fragment>
 
