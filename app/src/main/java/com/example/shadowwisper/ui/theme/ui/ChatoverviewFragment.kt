@@ -30,7 +30,6 @@ class ChatoverviewFragment : Fragment() {
 
         viewModel.chatList.observe(viewLifecycleOwner) { chatList ->
             val adapter = ChatOverviewAdapter(chatList) { selectedCharacter ->
-                // Handle item click
                 val action = ChatoverviewFragmentDirections
                     .actionChatoverviewFragmentToChatdetailFragment(selectedCharacter.id)
                 findNavController().navigate(action)

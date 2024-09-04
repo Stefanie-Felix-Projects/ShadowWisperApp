@@ -95,8 +95,11 @@ class CharacterdetailFragment : Fragment() {
     }
 
     private fun saveCharacter(id: String?, isNewCharacter: Boolean) {
+        val generatedId = id ?: UUID.randomUUID().toString()
+        Log.d("CharacterdetailFragment", "Generated characterId: $generatedId")
+
         val character = CharacterDetail(
-            id = id ?: UUID.randomUUID().toString(),
+            id = generatedId,
             profileImage = imageUri?.toString(),
             name = binding.inputName.text.toString(),
             backgroundStory = binding.inputStory.text.toString(),
@@ -106,8 +109,10 @@ class CharacterdetailFragment : Fragment() {
         )
 
         if (isNewCharacter) {
+            Log.d("CharacterdetailFragment", "Inserting new character")
             viewModel.insert(character)
         } else {
+            Log.d("CharacterdetailFragment", "Updating existing character")
             viewModel.update(character)
         }
 

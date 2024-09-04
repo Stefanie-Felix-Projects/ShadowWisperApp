@@ -11,7 +11,7 @@ import com.example.shadowwisper.R
 import com.example.shadowwisper.ui.theme.data.model.CharacterDetail
 
 class ChatOverviewAdapter(
-    private val chatList: List<CharacterDetail>, // Verwende die CharacterDetail-Klasse
+    private val chatList: List<CharacterDetail>,
     private val onItemClicked: (CharacterDetail) -> Unit
 ) : RecyclerView.Adapter<ChatOverviewAdapter.ChatViewHolder>() {
 

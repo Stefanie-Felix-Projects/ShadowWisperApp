@@ -38,8 +38,6 @@ class CharacteroverviewFragment : Fragment() {
             }, { character, isChecked ->
                 if (isChecked) {
                     viewModel.setActiveCharacter(character)
-                } else {
-
                 }
             })
             binding.rvChar.layoutManager = LinearLayoutManager(context)

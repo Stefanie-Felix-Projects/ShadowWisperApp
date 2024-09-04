@@ -1,6 +1,7 @@
 package com.example.shadowwisper.ui.theme.data.adapter
 
 import android.net.Uri
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -50,14 +51,39 @@ class CharacterOverviewAdapter(
                 if (isChecked) {
                     activeCharacterRef.set(
                         mapOf(
-                            "characterId" to characterDetail.id,
+                            "characterID" to characterDetail.id,
                             "name" to characterDetail.name,
-                            "profileImage" to characterDetail.profileImage
+                            "profileImage" to characterDetail.profileImage,
+                            "isActive" to true
                         )
                     )
+
+                    firestore.collection("all_active_characters")
+                        .document(characterDetail.id)
+                        .set(
+                            mapOf(
+                                "characterID" to characterDetail.id,
+                                "name" to characterDetail.name,
+                                "profileImage" to characterDetail.profileImage,
+                                "userId" to userId,
+                                "isActive" to true
+                            )
+                        )
+                        .addOnSuccessListener {
+                            Log.d("Firestore", "Character successfully added: ${characterDetail.name}")
+                        }
+                        .addOnFailureListener { e ->
+                            Log.e("Firestore", "Error adding character", e)
+                        }
+
                     onSwitchToggled(characterDetail, true)
                 } else {
                     activeCharacterRef.delete()
+
+                    firestore.collection("all_active_characters")
+                        .document(characterDetail.id)
+                        .delete()
+
                     onSwitchToggled(characterDetail, false)
                 }
             }

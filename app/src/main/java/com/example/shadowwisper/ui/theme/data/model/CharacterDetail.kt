@@ -13,7 +13,9 @@ data class CharacterDetail(
     val backgroundStory: String = "",
     val race: String = "",
     val skills: String = "",
-    val equipment: String = ""
+    val equipment: String = "",
+    val userId: String = "",
+    val isActive: Boolean = true
 ) {
     constructor() : this(UUID.randomUUID().toString(), null, "", "", "", "", "")
 }
