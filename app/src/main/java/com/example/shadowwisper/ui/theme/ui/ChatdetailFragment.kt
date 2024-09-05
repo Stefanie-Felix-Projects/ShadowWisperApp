@@ -1,5 +1,6 @@
 package com.example.shadowwisper.ui.theme.ui
 
+import android.content.ContentValues.TAG
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -10,9 +11,12 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.shadowwisper.databinding.FragmentChatdetailBinding
 import com.example.shadowwisper.ui.theme.data.adapter.ChatDetailAdapter
-import com.example.shadowwisper.ui.theme.data.database.ChatMessage
+import com.example.shadowwisper.ui.theme.data.model.ChatMessage
+import com.example.shadowwisper.ui.theme.data.repository.ChatRepository
+import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
 
 class ChatdetailFragment : Fragment() {
 
@@ -21,6 +25,7 @@ class ChatdetailFragment : Fragment() {
 
     private lateinit var firestore: FirebaseFirestore
     private lateinit var adapter: ChatDetailAdapter
+    private lateinit var chatRepository: ChatRepository
     private val messages = mutableListOf<ChatMessage>()
     private val currentUserId: String by lazy {
         FirebaseAuth.getInstance().currentUser?.uid ?: ""
@@ -38,74 +43,88 @@ class ChatdetailFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         firestore = FirebaseFirestore.getInstance()
+        chatRepository = ChatRepository()
 
         adapter = ChatDetailAdapter(messages, currentUserId)
         binding.rvMessages.layoutManager = LinearLayoutManager(context)
         binding.rvMessages.adapter = adapter
 
-        loadMessages()
+        listenToMessages()
 
+        // Setzt den onClickListener für den Senden-Button
         binding.btSend.setOnClickListener {
-            sendMessage()
+            val messageText = binding.tietMessage.text.toString().trim()
+
+            // Prüfen, ob der Text nicht leer ist
+            if (messageText.isNotEmpty()) {
+                sendMessage(messageText)
+                // Leere das Eingabefeld nach dem Senden
+                binding.tietMessage.text?.clear()
+            }
         }
     }
 
-    private fun loadMessages() {
-        val chatId = args.characterId
+    // Echtzeit-Listener für Nachrichten
+    private fun listenToMessages() {
+        val senderCharacterId = args.senderCharacterId
+        val recipientCharacterId = args.recipientCharacterId
 
-        if (chatId.isNotBlank()) {
-            firestore.collection("chats")
-                .document(chatId)
-                .collection("messages")
-                .orderBy("timestamp")
-                .get()
-                .addOnSuccessListener { result ->
+        // Erstelle die gleiche Chat-ID
+        val chatId = if (senderCharacterId < recipientCharacterId) {
+            "$senderCharacterId$recipientCharacterId"
+        } else {
+            "$recipientCharacterId$senderCharacterId"
+        }
+
+        // Nachrichten aus dem gemeinsamen Chat-Dokument laden
+        firestore.collection("chats")
+            .document(chatId)
+            .collection("messages")
+            .orderBy("timestamp", Query.Direction.ASCENDING)
+            .addSnapshotListener { result, error ->
+                if (error != null) {
+                    Log.e("ChatdetailFragment", "Error loading messages", error)
+                    return@addSnapshotListener
+                }
+
+                if (result != null) {
                     messages.clear()
                     val newMessages = result.toObjects(ChatMessage::class.java)
                     messages.addAll(newMessages)
                     adapter.notifyDataSetChanged()
+                    binding.rvMessages.scrollToPosition(messages.size - 1)
                 }
-                .addOnFailureListener { exception ->
-                    Log.e("ChatdetailFragment", "Error loading messages", exception)
-                }
-        } else {
-            Log.e("ChatdetailFragment", "Invalid chatId, cannot load messages")
-        }
+            }
     }
 
-    private fun sendMessage() {
-        val messageText = binding.tietMessage.text.toString()
+    private fun sendMessage(messageText: String) {
+        val senderCharacterId = args.senderCharacterId
+        val recipientCharacterId = args.recipientCharacterId
 
-        if (messageText.isNotEmpty()) {
-            val message = ChatMessage(
-                senderId = currentUserId,
-                message = messageText
-            )
-
-            val chatId = args.characterId
-            if (chatId.isNotEmpty()) {
-                // Nachricht sofort zur Liste hinzufügen und RecyclerView aktualisieren
-                messages.add(message)
-                adapter.notifyItemInserted(messages.size - 1)
-                binding.rvMessages.scrollToPosition(messages.size - 1)
-
-                firestore.collection("chats")
-                    .document(chatId)
-                    .collection("messages")
-                    .add(message)
-                    .addOnSuccessListener {
-                        binding.tietMessage.text?.clear()
-                        Log.d("ChatdetailFragment", "Message sent and added to Firestore")
-                    }
-                    .addOnFailureListener { exception ->
-                        Log.e("ChatdetailFragment", "Error sending message", exception)
-                        // Nachricht aus der Liste entfernen, wenn das Speichern fehlschlägt
-                        messages.remove(message)
-                        adapter.notifyItemRemoved(messages.size)
-                    }
-            } else {
-                Log.e("ChatdetailFragment", "Invalid chatId, cannot send message")
-            }
+        // Erstelle eine Chat-ID basierend auf den beiden Teilnehmern
+        val chatId = if (senderCharacterId < recipientCharacterId) {
+            "$senderCharacterId$recipientCharacterId"
+        } else {
+            "$recipientCharacterId$senderCharacterId"
         }
+
+        // Erstellen des ChatMessage-Objekts mit der Nachricht aus dem Eingabefeld
+        val chatMessage = ChatMessage(
+            senderId = senderCharacterId, // Setze hier die CharacterId als Sender
+            message = messageText,
+            timestamp = Timestamp.now()
+        )
+
+        // Nachricht im gemeinsamen Chat-Dokument speichern
+        firestore.collection("chats")
+            .document(chatId)
+            .collection("messages")
+            .add(chatMessage)
+            .addOnSuccessListener {
+                Log.d(TAG, "Nachricht im Chat gespeichert")
+            }
+            .addOnFailureListener { e ->
+                Log.w(TAG, "Fehler beim Speichern der Nachricht im Chat", e)
+            }
     }
 }

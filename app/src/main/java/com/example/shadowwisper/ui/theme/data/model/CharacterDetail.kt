@@ -15,7 +15,7 @@ data class CharacterDetail(
     val skills: String = "",
     val equipment: String = "",
     val userId: String = "",
-    val isActive: Boolean = true
+    var isActive: Boolean = true
 ) {
     constructor() : this(UUID.randomUUID().toString(), null, "", "", "", "", "")
 }

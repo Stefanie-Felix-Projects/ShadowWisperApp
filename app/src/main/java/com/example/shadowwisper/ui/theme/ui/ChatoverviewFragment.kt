@@ -28,14 +28,25 @@ class ChatoverviewFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // Beobachten der chatList aus dem ViewModel
         viewModel.chatList.observe(viewLifecycleOwner) { chatList ->
-            val adapter = ChatOverviewAdapter(chatList) { selectedCharacter ->
-                val action = ChatoverviewFragmentDirections
-                    .actionChatoverviewFragmentToChatdetailFragment(selectedCharacter.id)
-                findNavController().navigate(action)
+            // Adapter initialisieren und Logik für onItemClicked übergeben
+            val adapter = ChatOverviewAdapter(chatList) { selectedCharacter, recipientCharacterId ->
+                if (selectedCharacter.isActive) {
+                    val action = ChatoverviewFragmentDirections
+                        .actionChatoverviewFragmentToChatdetailFragment(
+                            senderCharacterId = selectedCharacter.id,  // Sende CharacterId des aktuellen Charakters
+                            recipientCharacterId = recipientCharacterId  // Empfänger CharacterId
+                        )
+                    findNavController().navigate(action)
+                }
             }
+
+            // RecyclerView konfigurieren
             binding.rvChatoverview.layoutManager = LinearLayoutManager(context)
             binding.rvChatoverview.adapter = adapter
+
+            adapter.notifyDataSetChanged()
         }
     }
 }

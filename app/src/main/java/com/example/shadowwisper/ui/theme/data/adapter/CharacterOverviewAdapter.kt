@@ -42,6 +42,7 @@ class CharacterOverviewAdapter(
                 .collection("active_character")
                 .document(characterDetail.id)
 
+            // Check if the character is in the active collection
             activeCharacterRef.get()
                 .addOnSuccessListener { document ->
                     switchButton.isChecked = document.exists()
@@ -49,6 +50,7 @@ class CharacterOverviewAdapter(
 
             switchButton.setOnCheckedChangeListener { _, isChecked ->
                 if (isChecked) {
+                    // Add to active_character collection for the user
                     activeCharacterRef.set(
                         mapOf(
                             "characterID" to characterDetail.id,
@@ -58,6 +60,7 @@ class CharacterOverviewAdapter(
                         )
                     )
 
+                    // Update or add in all_active_characters
                     firestore.collection("all_active_characters")
                         .document(characterDetail.id)
                         .set(
@@ -66,11 +69,11 @@ class CharacterOverviewAdapter(
                                 "name" to characterDetail.name,
                                 "profileImage" to characterDetail.profileImage,
                                 "userId" to userId,
-                                "isActive" to true
+                                "isActive" to true // Mark it as active in global collection
                             )
                         )
                         .addOnSuccessListener {
-                            Log.d("Firestore", "Character successfully added: ${characterDetail.name}")
+                            Log.d("Firestore", "Character successfully marked active: ${characterDetail.name}")
                         }
                         .addOnFailureListener { e ->
                             Log.e("Firestore", "Error adding character", e)
@@ -78,11 +81,19 @@ class CharacterOverviewAdapter(
 
                     onSwitchToggled(characterDetail, true)
                 } else {
+                    // Remove from active_character collection for the user
                     activeCharacterRef.delete()
 
+                    // Update in all_active_characters (set as inactive)
                     firestore.collection("all_active_characters")
                         .document(characterDetail.id)
-                        .delete()
+                        .update("isActive", false) // Mark as inactive instead of deleting
+                        .addOnSuccessListener {
+                            Log.d("Firestore", "Character successfully marked inactive: ${characterDetail.name}")
+                        }
+                        .addOnFailureListener { e ->
+                            Log.e("Firestore", "Error marking character inactive", e)
+                        }
 
                     onSwitchToggled(characterDetail, false)
                 }

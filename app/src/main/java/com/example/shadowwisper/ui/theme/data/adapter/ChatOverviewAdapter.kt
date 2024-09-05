@@ -12,7 +12,7 @@ import com.example.shadowwisper.ui.theme.data.model.CharacterDetail
 
 class ChatOverviewAdapter(
     private val chatList: List<CharacterDetail>,
-    private val onItemClicked: (CharacterDetail) -> Unit
+    private val onItemClicked: (CharacterDetail, String) -> Unit  // Übergibt die recipientCharacterId
 ) : RecyclerView.Adapter<ChatOverviewAdapter.ChatViewHolder>() {
 
     class ChatViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -36,8 +36,17 @@ class ChatOverviewAdapter(
             holder.profileImageView.setImageResource(R.drawable.hex17jpg)
         }
 
-        holder.itemView.setOnClickListener {
-            onItemClicked(character)
+        if (!character.isActive) {
+            holder.nameTextView.alpha = 0.5f
+            holder.profileImageView.alpha = 0.5f
+        } else {
+            holder.nameTextView.alpha = 1.0f
+            holder.profileImageView.alpha = 1.0f
+
+            holder.itemView.setOnClickListener {
+                val recipientCharacterId = character.id  // Übergib die CharacterId des Empfängers
+                onItemClicked(character, recipientCharacterId)
+            }
         }
     }
 

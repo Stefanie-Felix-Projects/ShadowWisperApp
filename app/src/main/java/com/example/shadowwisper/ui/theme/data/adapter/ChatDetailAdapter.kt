@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.shadowwisper.R
-import com.example.shadowwisper.ui.theme.data.database.ChatMessage
+import com.example.shadowwisper.ui.theme.data.model.ChatMessage
 
 class ChatDetailAdapter(
     private val messageList: List<ChatMessage>,
@@ -49,7 +49,7 @@ class ChatDetailAdapter(
     override fun getItemCount() = messageList.size
 
     class IncomingMessageViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val messageTextView: TextView = view.findViewById(R.id.textViewMessage)
+        val messageTextView: TextView = view.findViewById(R.id.textViewMessageIncoming)
     }
 
     class OutgoingMessageViewHolder(view: View) : RecyclerView.ViewHolder(view) {

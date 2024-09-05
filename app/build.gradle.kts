@@ -54,6 +54,7 @@ dependencies {
     implementation(libs.androidx.ui.text.google.fonts)
     implementation(libs.firebase.firestore.ktx)
     implementation(libs.identity.jvm)
+    implementation(libs.androidx.media3.common)
     val retrofitVersion = "2.9.0"
     val roomVersion = "2.6.0"
 
