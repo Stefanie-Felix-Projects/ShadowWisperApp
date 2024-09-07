@@ -7,9 +7,10 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.shadowwisper.R
 import com.example.shadowwisper.ui.theme.data.model.ChatMessage
+import com.example.shadowwisper.ui.theme.data.model.ChatRoom
 
 class ChatDetailAdapter(
-    private val messageList: List<ChatMessage>,
+    private val chatRoom: ChatRoom,  // Verwende den ChatRoom, um die Nachrichten zu speichern
     private val currentUserId: String
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -17,7 +18,7 @@ class ChatDetailAdapter(
     private val VIEW_TYPE_OUTGOING = 2
 
     override fun getItemViewType(position: Int): Int {
-        val message = messageList[position]
+        val message = chatRoom.messages[position]  // Nachrichten kommen aus dem ChatRoom
         return if (message.senderId == currentUserId) {
             VIEW_TYPE_OUTGOING
         } else {
@@ -38,18 +39,18 @@ class ChatDetailAdapter(
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        val message = messageList[position]
+        val message = chatRoom.messages[position]
         if (holder is IncomingMessageViewHolder) {
-            holder.messageTextView.text = message.message
+            holder.messageTextViewIncoming.text = message.message
         } else if (holder is OutgoingMessageViewHolder) {
             holder.messageTextView.text = message.message
         }
     }
 
-    override fun getItemCount() = messageList.size
+    override fun getItemCount() = chatRoom.messages.size
 
     class IncomingMessageViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val messageTextView: TextView = view.findViewById(R.id.textViewMessageIncoming)
+        val messageTextViewIncoming: TextView = view.findViewById(R.id.textViewMessageIncoming)
     }
 
     class OutgoingMessageViewHolder(view: View) : RecyclerView.ViewHolder(view) {

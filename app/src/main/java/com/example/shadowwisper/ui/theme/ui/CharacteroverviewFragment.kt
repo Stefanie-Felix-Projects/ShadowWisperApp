@@ -1,6 +1,5 @@
 package com.example.shadowwisper.ui.theme.ui
 
-
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,18 +10,17 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.shadowwisper.databinding.FragmentCharacteroverviewBinding
 import com.example.shadowwisper.ui.theme.data.adapter.CharacterOverviewAdapter
-import com.example.shadowwisper.ui.theme.data.view.CharacterViewModel
-
+import com.example.shadowwisper.ui.theme.data.view.CharacterOverviewViewModel
 
 class CharacteroverviewFragment : Fragment() {
 
     private lateinit var binding: FragmentCharacteroverviewBinding
-    private val viewModel: CharacterViewModel by activityViewModels()
+    private val viewModel: CharacterOverviewViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentCharacteroverviewBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -30,32 +28,34 @@ class CharacteroverviewFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.userCharacters.observe(viewLifecycleOwner) { characterList ->
-            val adapter = CharacterOverviewAdapter(characterList, { selectedCharacter ->
-                val action = CharacteroverviewFragmentDirections
-                    .actionCharacteroverviewFragmentToCharacterdetailFragment(selectedCharacter.id)
-                findNavController().navigate(action)
-            }, { character, isChecked ->
-                if (isChecked) {
-                    viewModel.setActiveCharacter(character)
-                }
-            })
-            binding.rvChar.layoutManager = LinearLayoutManager(context)
-            binding.rvChar.adapter = adapter
-        }
-
-
-        viewModel.getActiveCharacter().observe(viewLifecycleOwner) { activeCharacter ->
-
-            if (activeCharacter != null) {
-
-            }
-        }
-
+        // Setze den Klicklistener für den "Add Character"-Button
         binding.btnAddCharacter.setOnClickListener {
             val action = CharacteroverviewFragmentDirections
                 .actionCharacteroverviewFragmentToCharacterdetailFragment(null)
             findNavController().navigate(action)
+        }
+
+        // Beobachte die Liste der Charaktere
+        viewModel.userCharacters.observe(viewLifecycleOwner) { characterList ->
+            if (characterList.isEmpty()) {
+                // Wenn keine Charaktere vorhanden sind, verstecke den RecyclerView
+                binding.rvChar.visibility = View.GONE
+            } else {
+                // Wenn Charaktere vorhanden sind, zeige den RecyclerView
+                binding.rvChar.visibility = View.VISIBLE
+
+                // Adapter initialisieren und binden
+                val adapter = CharacterOverviewAdapter(characterList, { selectedCharacter ->
+                    val action = CharacteroverviewFragmentDirections
+                        .actionCharacteroverviewFragmentToCharacterdetailFragment(selectedCharacter.characerId)
+                    findNavController().navigate(action)
+                }, { character, isChecked ->
+                    viewModel.setActiveCharacter(character)
+                })
+
+                binding.rvChar.layoutManager = LinearLayoutManager(context)
+                binding.rvChar.adapter = adapter
+            }
         }
     }
 }

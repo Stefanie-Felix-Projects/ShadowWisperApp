@@ -40,54 +40,73 @@ class CharacterOverviewAdapter(
             val activeCharacterRef = firestore.collection("users")
                 .document(userId)
                 .collection("active_character")
-                .document(characterDetail.id)
+                .document(characterDetail.characerId)
 
-            // Check if the character is in the active collection
+            // Überprüfe, ob der Charakter als aktiv markiert ist und setze den Switch entsprechend
             activeCharacterRef.get()
                 .addOnSuccessListener { document ->
-                    switchButton.isChecked = document.exists()
+                    switchButton.isChecked = document.exists() && document.getBoolean("isActive") == true
+                }
+                .addOnFailureListener { e ->
+                    Log.e("Firestore", "Error fetching character status", e)
                 }
 
             switchButton.setOnCheckedChangeListener { _, isChecked ->
                 if (isChecked) {
-                    // Add to active_character collection for the user
-                    activeCharacterRef.set(
-                        mapOf(
-                            "characterID" to characterDetail.id,
-                            "name" to characterDetail.name,
-                            "profileImage" to characterDetail.profileImage,
-                            "isActive" to true
-                        )
-                    )
+                    // Zuerst alle anderen Charaktere deaktivieren
+                    firestore.collection("users")
+                        .document(userId)
+                        .collection("active_character")
+                        .get()
+                        .addOnSuccessListener { documents ->
+                            for (document in documents) {
+                                if (document.id != characterDetail.characerId) {
+                                    document.reference.update("isActive", false)
+                                }
+                            }
 
-                    // Update or add in all_active_characters
-                    firestore.collection("all_active_characters")
-                        .document(characterDetail.id)
-                        .set(
-                            mapOf(
-                                "characterID" to characterDetail.id,
-                                "name" to characterDetail.name,
-                                "profileImage" to characterDetail.profileImage,
-                                "userId" to userId,
-                                "isActive" to true // Mark it as active in global collection
+                            // Setze den aktuellen Charakter als aktiv
+                            activeCharacterRef.set(
+                                mapOf(
+                                    "characterID" to characterDetail.characerId,
+                                    "name" to characterDetail.name,
+                                    "profileImage" to characterDetail.profileImage,
+                                    "isActive" to true
+                                )
                             )
-                        )
-                        .addOnSuccessListener {
-                            Log.d("Firestore", "Character successfully marked active: ${characterDetail.name}")
+
+                            // Aktualisiere den globalen Status des Charakters
+                            firestore.collection("all_active_characters")
+                                .document(characterDetail.characerId)
+                                .set(
+                                    mapOf(
+                                        "characterID" to characterDetail.characerId,
+                                        "name" to characterDetail.name,
+                                        "profileImage" to characterDetail.profileImage,
+                                        "userId" to userId,
+                                        "isActive" to true
+                                    )
+                                )
+                                .addOnSuccessListener {
+                                    Log.d("Firestore", "Character successfully marked active: ${characterDetail.name}")
+                                }
+                                .addOnFailureListener { e ->
+                                    Log.e("Firestore", "Error adding character", e)
+                                }
+
+                            onSwitchToggled(characterDetail, true)
                         }
                         .addOnFailureListener { e ->
-                            Log.e("Firestore", "Error adding character", e)
+                            Log.e("Firestore", "Error retrieving active characters", e)
                         }
-
-                    onSwitchToggled(characterDetail, true)
                 } else {
-                    // Remove from active_character collection for the user
+                    // Entferne den aktuellen Charakter aus der aktiven Sammlung
                     activeCharacterRef.delete()
 
-                    // Update in all_active_characters (set as inactive)
+                    // Markiere den Charakter in der globalen Sammlung als inaktiv
                     firestore.collection("all_active_characters")
-                        .document(characterDetail.id)
-                        .update("isActive", false) // Mark as inactive instead of deleting
+                        .document(characterDetail.characerId)
+                        .update("isActive", false)
                         .addOnSuccessListener {
                             Log.d("Firestore", "Character successfully marked inactive: ${characterDetail.name}")
                         }

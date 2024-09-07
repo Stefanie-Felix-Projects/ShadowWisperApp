@@ -17,14 +17,16 @@ import androidx.navigation.fragment.navArgs
 import com.example.shadowwisper.R
 import com.example.shadowwisper.databinding.FragmentCharacterdetailBinding
 import com.example.shadowwisper.ui.theme.data.model.CharacterDetail
-import com.example.shadowwisper.ui.theme.data.view.CharacterViewModel
+import com.example.shadowwisper.ui.theme.data.view.CharacterDetailViewModel
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.storage.FirebaseStorage
 import java.util.UUID
 
 class CharacterdetailFragment : Fragment() {
 
     private lateinit var binding: FragmentCharacterdetailBinding
     private val args: CharacterdetailFragmentArgs by navArgs()
-    private val viewModel: CharacterViewModel by activityViewModels()
+    private val viewModel: CharacterDetailViewModel by activityViewModels()
 
     private val PICK_IMAGE = 1
     private var imageUri: Uri? = null
@@ -61,7 +63,7 @@ class CharacterdetailFragment : Fragment() {
 
                     binding.buttonSave.setOnClickListener {
                         saveCharacter(
-                            id = character.id,
+                            id = character.characerId,
                             isNewCharacter = false
                         )
                     }
@@ -96,27 +98,40 @@ class CharacterdetailFragment : Fragment() {
 
     private fun saveCharacter(id: String?, isNewCharacter: Boolean) {
         val generatedId = id ?: UUID.randomUUID().toString()
-        Log.d("CharacterdetailFragment", "Generated characterId: $generatedId")
 
+        // Erstelle den CharacterDetail
         val character = CharacterDetail(
-            id = generatedId,
-            profileImage = imageUri?.toString(),
+            characerId = generatedId,
             name = binding.inputName.text.toString(),
             backgroundStory = binding.inputStory.text.toString(),
             race = binding.inputRasse.text.toString(),
             skills = binding.inputSkills.text.toString(),
-            equipment = binding.inputEquipment.text.toString()
+            equipment = binding.inputEquipment.text.toString(),
+            userId = FirebaseAuth.getInstance().currentUser?.uid ?: ""  // Benutzer-ID hinzufügen
         )
 
-        if (isNewCharacter) {
-            Log.d("CharacterdetailFragment", "Inserting new character")
-            viewModel.insert(character)
+        // Prüfe, ob ein Bild hochgeladen werden soll
+        if (imageUri != null) {
+            // Lade das Bild zu Firebase Storage hoch
+            uploadImageToStorage(imageUri!!) { imageUrl ->
+                // Setze das Bild-URL in den CharacterDetail und speichere ihn
+                val updatedCharacter = character.copy(profileImage = imageUrl)
+                if (isNewCharacter) {
+                    viewModel.insert(updatedCharacter)
+                } else {
+                    viewModel.update(updatedCharacter)
+                }
+                findNavController().navigateUp()  // Navigiere zurück zur Charakterübersicht
+            }
         } else {
-            Log.d("CharacterdetailFragment", "Updating existing character")
-            viewModel.update(character)
+            // Speichere den Charakter ohne Bild
+            if (isNewCharacter) {
+                viewModel.insert(character)
+            } else {
+                viewModel.update(character)
+            }
+            findNavController().navigateUp()  // Navigiere zurück zur Charakterübersicht
         }
-
-        findNavController().navigateUp()
     }
 
     private fun openGallery() {
@@ -130,5 +145,18 @@ class CharacterdetailFragment : Fragment() {
             imageUri = data?.data
             binding.icon.setImageURI(imageUri)
         }
+    }
+
+    private fun uploadImageToStorage(uri: Uri, onSuccess: (String) -> Unit) {
+        val storageReference = FirebaseStorage.getInstance().getReference("character_images/${UUID.randomUUID()}")
+        storageReference.putFile(uri)
+            .addOnSuccessListener {
+                storageReference.downloadUrl.addOnSuccessListener { downloadUri ->
+                    onSuccess(downloadUri.toString())
+                }
+            }
+            .addOnFailureListener {
+                Log.e("CharacterDetail", "Error uploading image", it)
+            }
     }
 }
