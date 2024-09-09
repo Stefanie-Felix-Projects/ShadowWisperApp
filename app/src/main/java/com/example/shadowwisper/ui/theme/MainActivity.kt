@@ -29,33 +29,39 @@ class MainActivity : AppCompatActivity() {
             when (destination.id) {
                 R.id.homeFragment -> {
                     binding.textView.text = "Willkommen Runner"
+                    binding.textView.visibility = View.VISIBLE
                     binding.navBottomBar.visibility = View.GONE
                 }
                 R.id.chatoverviewFragment -> {
                     binding.textView.text = "Chat"
+                    binding.textView.visibility = View.VISIBLE
                     binding.navBottomBar.visibility = View.VISIBLE
                 }
                 R.id.orderoverviewFragment -> {
                     binding.textView.text = "Aufträge"
+                    binding.textView.visibility = View.VISIBLE
                     binding.navBottomBar.visibility = View.VISIBLE
                 }
                 R.id.walletFragment -> {
                     binding.textView.text = "Wallet"
+                    binding.textView.visibility = View.VISIBLE
                     binding.navBottomBar.visibility = View.VISIBLE
                 }
                 R.id.characteroverviewFragment -> {
                     binding.textView.text = "Character"
-                    binding.navBottomBar.visibility = View.VISIBLE
-                }
-                R.id.characteroverviewFragment -> {
-                    binding.textView.text = "Logout"
+                    binding.textView.visibility = View.VISIBLE
                     binding.navBottomBar.visibility = View.VISIBLE
                 }
                 R.id.loginFragment -> {
-                    binding.navBottomBar.visibility = View.GONE
                     binding.textView.visibility = View.GONE
+                    binding.navBottomBar.visibility = View.GONE
+                }
+                R.id.registerFragment -> {
+                    binding.textView.visibility = View.GONE
+                    binding.navBottomBar.visibility = View.GONE
                 }
                 else -> {
+                    binding.textView.visibility = View.VISIBLE
                     binding.navBottomBar.visibility = View.VISIBLE
                 }
             }

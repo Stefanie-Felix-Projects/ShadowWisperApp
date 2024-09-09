@@ -11,8 +11,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/container"
-        android:layout_width="0dp"
-        android:layout_height="65dp"
+        android:layout_width="380dp"
+        android:layout_height="113dp"
         android:background="@drawable/rahmen"
         android:padding="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -23,8 +23,8 @@
 
         <ImageView
             android:id="@+id/profile_image"
-            android:layout_width="37dp"
-            android:layout_height="37dp"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:layout_marginStart="14dp"
             android:src="@drawable/hex17jpg"
             app:layout_constraintBottom_toBottomOf="@+id/name_text"

@@ -29,19 +29,27 @@ class RegisterFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // Navigiere nach erfolgreicher Registrierung zum HomeFragment
         registerViewModel.registrationSuccess.observe(viewLifecycleOwner, Observer { success ->
             if (success) {
                 Toast.makeText(requireContext(), "Registrierung erfolgreich!", Toast.LENGTH_LONG).show()
-                findNavController().navigate(R.id.action_registerFragment_to_loginFragment)
+                findNavController().navigate(R.id.action_registerFragment_to_homeFragment)
             }
         })
 
+        // Zeige einen Fehler an, falls die Registrierung fehlschlägt
         registerViewModel.registrationError.observe(viewLifecycleOwner, Observer { error ->
             if (error != null) {
                 Toast.makeText(requireContext(), error, Toast.LENGTH_LONG).show()
             }
         })
 
+        // Setze den Klicklistener für den Zurück-Button (navigiert zurück zum Login)
+        binding.btBackToLogin.setOnClickListener {
+            findNavController().navigate(R.id.action_registerFragment_to_loginFragment)
+        }
+
+        // Setze den Klicklistener für den Registrieren-Button
         binding.btRegister.setOnClickListener {
             val email = binding.tietEmail.text.toString()
             val password = binding.tietPass.text.toString()
