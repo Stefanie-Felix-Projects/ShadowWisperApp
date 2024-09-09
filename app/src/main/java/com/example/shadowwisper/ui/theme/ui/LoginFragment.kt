@@ -57,9 +57,5 @@ class LoginFragment : Fragment() {
             findNavController().navigate(R.id. action_loginFragment_to_registerFragment)
         }
 
-
-        binding.btToReset.setOnClickListener {
-
-        }
     }
 }

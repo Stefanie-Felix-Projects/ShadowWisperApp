@@ -5,15 +5,17 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:paddingLeft="16dp"
-    android:paddingTop="16dp"
+    android:paddingTop="0dp"
     android:paddingRight="16dp"
     tools:context="com.example.shadowwisper.ui.theme.ui.ChatoverviewFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/container"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="65dp"
+        android:background="@drawable/rahmen"
         android:padding="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -24,45 +26,26 @@
             android:layout_width="37dp"
             android:layout_height="37dp"
             android:layout_marginStart="14dp"
-            android:layout_marginTop="4dp"
             android:src="@drawable/hex17jpg"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toBottomOf="@+id/name_text"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.45" />
+            app:layout_constraintTop_toTopOf="@+id/name_text" />
 
         <TextView
             android:id="@+id/name_text"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:layout_marginTop="24dp"
             android:fontFamily="@font/rajdhani_semibold"
             android:text="Character Name"
             android:textColor="@color/colorOnCustomColor1"
             android:textSize="16sp"
             android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@id/profile_image"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/message_text"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginBottom="8dp"
-            android:fontFamily="@font/rajdhani"
-            android:text="Character Information"
-            android:textColor="@color/colorOnCustomColor1"
-            android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@id/profile_image"
-            app:layout_constraintTop_toBottomOf="@id/name_text"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

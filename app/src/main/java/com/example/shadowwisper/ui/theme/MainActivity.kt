@@ -51,6 +51,10 @@ class MainActivity : AppCompatActivity() {
                     binding.textView.text = "Logout"
                     binding.navBottomBar.visibility = View.VISIBLE
                 }
+                R.id.loginFragment -> {
+                    binding.navBottomBar.visibility = View.GONE
+                    binding.textView.visibility = View.GONE
+                }
                 else -> {
                     binding.navBottomBar.visibility = View.VISIBLE
                 }
