@@ -60,6 +60,10 @@ class MainActivity : AppCompatActivity() {
                     binding.textView.visibility = View.GONE
                     binding.navBottomBar.visibility = View.GONE
                 }
+                R.id.ordercompletionFragment -> {
+                    binding.textView.visibility = View.GONE
+                    binding.navBottomBar.visibility = View.GONE
+                }
                 else -> {
                     binding.textView.visibility = View.VISIBLE
                     binding.navBottomBar.visibility = View.VISIBLE

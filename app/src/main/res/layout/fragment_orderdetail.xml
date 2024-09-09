@@ -178,33 +178,31 @@
 
         <Button
             android:id="@+id/btn_cancel"
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:layout_weight="1"
-            android:background="@color/md_theme_primary"
             android:fontFamily="@font/rajdhani_semibold"
             android:text="Abbrechen" />
 
         <Button
             android:id="@+id/btn_complete"
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_weight="1"
-            android:background="@color/md_theme_primary"
             android:fontFamily="@font/rajdhani_semibold"
-            android:text="Abschließen" />
+            android:text="Abschließen"
+             />
 
     </LinearLayout>
 
     <Button
         android:id="@+id/btn_save_new"
-        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
         android:fontFamily="@font/rajdhani_semibold"
         android:text="Speichern"
         app:layout_constraintEnd_toEndOf="parent"

@@ -22,7 +22,7 @@
         android:id="@+id/btn_add_order"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Neuen Auftrag hinzufügen"
+        android:text="Auftrag hinzufügen"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
