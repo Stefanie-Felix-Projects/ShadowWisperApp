@@ -1,5 +1,6 @@
 package com.example.shadowwisper.ui.theme.data.repository
 
+import android.util.Log
 import com.example.shadowwisper.ui.theme.data.model.ChatMessage
 import com.example.shadowwisper.ui.theme.data.model.ChatRoom
 import com.google.firebase.firestore.FirebaseFirestore
@@ -8,8 +9,8 @@ class ChatDetailRepository {
 
     private val firestore = FirebaseFirestore.getInstance()
 
-    // Holt alle Nachrichten für den Chatroom
     fun getMessagesForChatRoom(chatRoomId: String, onSuccess: (List<ChatMessage>) -> Unit, onFailure: (Exception) -> Unit) {
+        Log.d("ChatDetailRepository", "Lade Nachrichten für ChatRoom: $chatRoomId")
         firestore.collection("chats")
             .document(chatRoomId)
             .collection("messages")
@@ -17,35 +18,34 @@ class ChatDetailRepository {
             .get()
             .addOnSuccessListener { result ->
                 val messages = result.toObjects(ChatMessage::class.java)
+                Log.d("ChatDetailRepository", "Nachrichten erfolgreich geladen: ${messages.size} Nachrichten")
                 onSuccess(messages)
             }
             .addOnFailureListener { e ->
+                Log.e("ChatDetailRepository", "Fehler beim Laden der Nachrichten", e)
                 onFailure(e)
             }
     }
 
-    // Methode zum Senden von Nachrichten in einem Chatroom
+
     fun sendMessage(chatRoomId: String, message: ChatMessage, onComplete: () -> Unit) {
         firestore.collection("chats")
             .document(chatRoomId)
             .collection("messages")
             .add(message)
             .addOnSuccessListener {
-                // Aktualisiere die letzte Nachricht und die Teilnehmer im Chatroom-Dokument
                 firestore.collection("chats").document(chatRoomId)
                     .update(
                         "lastMessage", message.message,
                         "lastMessageSenderId", message.senderId,
-                        "participants", listOf(message.senderId, message.chatRoomId) // Character-IDs der Teilnehmer
+                        "participants", listOf(message.senderId, message.chatRoomId)
                     )
                     .addOnSuccessListener { onComplete() }
             }
             .addOnFailureListener { e ->
-                // Fehlerbehandlung bei Nachrichtensendung
             }
     }
 
-    // Methode zum Erstellen eines neuen Chatrooms, falls dieser noch nicht existiert
     fun createChatRoom(chatRoom: ChatRoom, onComplete: () -> Unit) {
         firestore.collection("chats")
             .document(chatRoom.chatRoomId)
@@ -54,7 +54,7 @@ class ChatDetailRepository {
                 onComplete()
             }
             .addOnFailureListener { e ->
-                // Fehlerbehandlung
+                Log.e("ChatDetailRepository", "Fehler beim Erstellen des Chatrooms", e)
             }
     }
 }

@@ -58,8 +58,17 @@
         android:label="fragment_characteroverview"
         tools:layout="@layout/fragment_characteroverview" >
         <action
-            android:id="@+id/action_characteroverviewFragment_to_characterdetailFragment"
-            app:destination="@id/characterdetailFragment" />
+            android:id="@+id/action_chatoverviewFragment_to_chatdetailFragment"
+            app:destination="@id/chatdetailFragment">
+            <argument
+                android:name="senderCharacterId"
+                app:argType="string"
+                app:nullable="false" />
+            <argument
+                android:name="recipientCharacterId"
+                app:argType="string"
+                app:nullable="false" />
+        </action>
     </fragment>
 
     <fragment

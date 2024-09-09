@@ -18,40 +18,18 @@ class ChatDetailViewModel : ViewModel() {
         repository.getMessagesForChatRoom(chatRoomId, { messages ->
             _chatMessages.value = messages
         }, { exception ->
-            // Fehlerbehandlung
         })
     }
 
     fun sendMessage(chatRoomId: String, message: ChatMessage) {
-        // Zuerst den ChatRoom erstellen oder überprüfen, falls er noch nicht existiert
-        repository.getMessagesForChatRoom(chatRoomId, { messages ->
-            if (messages.isEmpty()) {
-                // Wenn noch keine Nachrichten vorhanden sind, erstelle den ChatRoom
-                val chatRoom = ChatRoom(
-                    lastActivityTimestamp = message.timestamp,
-                    participants = listOf(message.senderId, message.chatRoomId), // Beispiel
-                    chatRoomId = chatRoomId,
-                    chatRoomName = "Chatroom",
-                    lastMessage = message.message,
-                    lastMessageSenderId = message.senderId,
-                    messages = mutableListOf(message),
-                    userId = message.senderId,
-                    characterId = message.senderId
-                )
-                repository.createChatRoom(chatRoom) {
-                    // Nachdem der ChatRoom erstellt wurde, sende die Nachricht
-                    repository.sendMessage(chatRoomId, message) {
-                        loadMessagesForChatRoom(chatRoomId)
-                    }
-                }
-            } else {
-                // Wenn der ChatRoom bereits existiert, nur die Nachricht senden
-                repository.sendMessage(chatRoomId, message) {
-                    loadMessagesForChatRoom(chatRoomId)
-                }
-            }
-        }, { exception ->
-            // Fehlerbehandlung
-        })
+        repository.sendMessage(chatRoomId, message) {
+            loadMessagesForChatRoom(chatRoomId)
+        }
+    }
+
+    fun createChatRoom(chatRoom: ChatRoom, onComplete: () -> Unit) {
+        repository.createChatRoom(chatRoom) {
+            onComplete()
+        }
     }
 }

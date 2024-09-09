@@ -1,6 +1,7 @@
 package com.example.shadowwisper.ui.theme.ui
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -12,21 +13,19 @@ import com.example.shadowwisper.ui.theme.data.model.ChatMessage
 import com.example.shadowwisper.ui.theme.data.model.ChatRoom
 import com.example.shadowwisper.ui.theme.data.view.ChatDetailViewModel
 import com.google.firebase.Timestamp
-import com.google.firebase.auth.FirebaseAuth
 import java.util.UUID
 
 class ChatdetailFragment : Fragment() {
 
     private lateinit var binding: FragmentChatdetailBinding
     private val viewModel: ChatDetailViewModel by activityViewModels()
-    private val args: ChatdetailFragmentArgs by navArgs()
+    private val args: ChatdetailFragmentArgs by navArgs()  // Empfange Argumente
 
     private lateinit var adapter: ChatDetailAdapter
     private lateinit var chatRoom: ChatRoom
     private lateinit var chatRoomId: String
-    private val currentUserId: String by lazy {
-        FirebaseAuth.getInstance().currentUser?.uid ?: ""
-    }
+    private lateinit var senderId: String  // Sende-ID Variable
+    private lateinit var recipientId: String  // Empfänger-ID Variable
 
     override fun onCreateView(
         inflater: android.view.LayoutInflater, container: android.view.ViewGroup?,
@@ -39,70 +38,95 @@ class ChatdetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Überprüfen, ob die Character-IDs gültig sind
-        if (args.senderCharacterId.isNullOrEmpty() || args.recipientCharacterId.isNullOrEmpty()) {
-            throw IllegalArgumentException("Invalid sender or recipient character ID. They cannot be empty.")
-        }
+        Log.d("ChatdetailFragment", "onViewCreated wurde aufgerufen")
+
+        // Argumente aus NavArgs empfangen
+        senderId = args.senderCharacterId
+        recipientId = args.recipientCharacterId
+
+        Log.d("ChatdetailFragment", "Sender ID: $senderId, Empfänger ID: $recipientId")
 
         // Erstelle oder lade die ChatRoom-ID
-        chatRoomId = if (args.senderCharacterId < args.recipientCharacterId) {
-            "${args.senderCharacterId}${args.recipientCharacterId}"
+        chatRoomId = if (senderId < recipientId) {
+            "$senderId$recipientId"
         } else {
-            "${args.recipientCharacterId}${args.senderCharacterId}"
+            "$recipientId$senderId"
         }
+        Log.d("ChatdetailFragment", "ChatRoom ID: $chatRoomId")
 
-        // Fortfahren mit der Initialisierung, nachdem die chatRoomId gültig ist
+        // Initialisiere den ChatRoom und Nachrichten
         initializeChatRoomAndMessages()
     }
 
     private fun initializeChatRoomAndMessages() {
-        // Initialisiere ChatRoom oder lade es, falls es bereits existiert
-        chatRoom = ChatRoom(
-            lastActivityTimestamp = Timestamp.now(),
-            participants = listOf(args.senderCharacterId, args.recipientCharacterId),  // Character-IDs von Sender und Empfänger
-            chatRoomId = chatRoomId,
-            chatRoomName = "Chat between ${args.senderCharacterId} and ${args.recipientCharacterId}",
-            lastMessage = "",
-            lastMessageSenderId = "",
-            messages = mutableListOf(),
-            userId = currentUserId,  // userId bleibt unverändert
-            characterId = args.senderCharacterId  // Die Character-ID des aktuellen Charakters (Sender)
-        )
+        Log.d("ChatdetailFragment", "initializeChatRoomAndMessages wird ausgeführt")
 
-        // Initialisiere den Adapter und die RecyclerView
-        adapter = ChatDetailAdapter(chatRoom, currentUserId)
-        binding.rvMessages.layoutManager = LinearLayoutManager(context)
-        binding.rvMessages.adapter = adapter
+        if (::senderId.isInitialized && ::recipientId.isInitialized) {
+            // Initialisiere den ChatRoom
+            chatRoom = ChatRoom(
+                lastActivityTimestamp = Timestamp.now(),
+                participants = listOf(senderId, recipientId),
+                chatRoomId = chatRoomId,
+                chatRoomName = "Chat between $senderId and $recipientId",
+                lastMessage = "",
+                lastMessageSenderId = "",
+                messages = mutableListOf(),
+                userId = senderId,
+                senderId = senderId,
+                recipientId = recipientId,
+                characterId = senderId
+            )
 
-        // Nachrichten beobachten und aktualisieren
-        viewModel.chatMessages.observe(viewLifecycleOwner) { messages ->
-            chatRoom.messages.clear()
-            chatRoom.messages.addAll(messages)
-            chatRoom.lastMessage = messages.lastOrNull()?.message ?: ""
-            chatRoom.lastMessageSenderId = messages.lastOrNull()?.senderId ?: ""
+            // Lade vorhandene Nachrichten
+            viewModel.loadMessagesForChatRoom(chatRoomId)
 
-            adapter.notifyDataSetChanged()
-            binding.rvMessages.scrollToPosition(adapter.itemCount - 1)
-        }
+            // Nachrichtenänderungen beobachten
+            viewModel.chatMessages.observe(viewLifecycleOwner) { messages ->
+                Log.d("ChatdetailFragment", "Nachrichten empfangen: ${messages.size} Nachrichten")
 
-        // Nachricht senden
-        binding.btSend.setOnClickListener {
-            val messageText = binding.tietMessage.text.toString().trim()
-            if (messageText.isNotEmpty()) {
-                val newMessage = ChatMessage(
-                    senderId = args.senderCharacterId,
-                    message = messageText,
-                    timestamp = Timestamp.now(),
-                    chatRoomId = chatRoomId,
-                    messageId = UUID.randomUUID().toString(),
-                    messageStatus = "sent"
-                )
-                viewModel.sendMessage(chatRoomId, newMessage)
-                binding.tietMessage.text?.clear()
+                if (messages.isEmpty()) {
+                    Log.d("ChatdetailFragment", "Chatroom existiert nicht, erstelle neuen Chatroom.")
+                    viewModel.createChatRoom(chatRoom) {
+                        Log.d("ChatdetailFragment", "Chatroom erfolgreich erstellt")
+                    }
+                } else {
+                    chatRoom.messages.clear()
+                    chatRoom.messages.addAll(messages)
+                    chatRoom.lastMessage = messages.lastOrNull()?.message ?: ""
+                    chatRoom.lastMessageSenderId = messages.lastOrNull()?.senderId ?: ""
+
+                    adapter.notifyDataSetChanged()
+                    binding.rvMessages.scrollToPosition(adapter.itemCount - 1)
+                }
             }
-        }
 
-        // Nachrichten laden
-        viewModel.loadMessagesForChatRoom(chatRoomId)
+            // Adapter setzen
+            adapter = ChatDetailAdapter(chatRoom, senderId)  // Verwende senderId
+            binding.rvMessages.layoutManager = LinearLayoutManager(context)
+            binding.rvMessages.adapter = adapter
+
+            // Nachricht senden
+            binding.btSend.setOnClickListener {
+                val messageText = binding.tietMessage.text.toString().trim()
+                Log.d("ChatdetailFragment", "Sende Button geklickt - Nachricht: $messageText")
+                if (messageText.isNotEmpty()) {
+                    val newMessage = ChatMessage(
+                        senderId = senderId,
+                        recipientId = recipientId,
+                        message = messageText,
+                        timestamp = Timestamp.now(),
+                        chatRoomId = chatRoomId,
+                        messageId = UUID.randomUUID().toString(),
+                        messageStatus = "sent"
+                    )
+
+                    Log.d("ChatdetailFragment", "Neue Nachricht erstellt: $newMessage")
+                    viewModel.sendMessage(chatRoomId, newMessage)
+                    binding.tietMessage.text?.clear()
+                }
+            }
+        } else {
+            Log.e("ChatdetailFragment", "Sender oder Empfänger wurden nicht korrekt initialisiert")
+        }
     }
 }

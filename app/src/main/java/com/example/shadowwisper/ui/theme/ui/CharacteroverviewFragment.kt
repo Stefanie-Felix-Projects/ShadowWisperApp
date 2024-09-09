@@ -31,7 +31,7 @@ class CharacteroverviewFragment : Fragment() {
         // Setze den Klicklistener für den "Add Character"-Button
         binding.btnAddCharacter.setOnClickListener {
             val action = CharacteroverviewFragmentDirections
-                .actionCharacteroverviewFragmentToCharacterdetailFragment(null)
+                .actionChatoverviewFragmentToChatdetailFragment("","")
             findNavController().navigate(action)
         }
 
@@ -47,7 +47,7 @@ class CharacteroverviewFragment : Fragment() {
                 // Adapter initialisieren und binden
                 val adapter = CharacterOverviewAdapter(characterList, { selectedCharacter ->
                     val action = CharacteroverviewFragmentDirections
-                        .actionCharacteroverviewFragmentToCharacterdetailFragment(selectedCharacter.characerId)
+                        .actionChatoverviewFragmentToChatdetailFragment(selectedCharacter.characerId, "")
                     findNavController().navigate(action)
                 }, { character, isChecked ->
                     viewModel.setActiveCharacter(character)

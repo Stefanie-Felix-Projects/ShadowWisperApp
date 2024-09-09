@@ -5,9 +5,11 @@ import java.util.UUID
 
 data class ChatMessage(
     val senderId: String = "",
+    val recipientId: String = "",
+    val characterId: String = "",
     val message: String = "",
     val timestamp: Timestamp = Timestamp.now(),
     val chatRoomId: String = "",
     val messageId: String = UUID.randomUUID().toString(),
-    val messageStatus: String = "" // Optionaler Status (z.B. "sent", "delivered", etc.)
+    val messageStatus: String = ""
 )
