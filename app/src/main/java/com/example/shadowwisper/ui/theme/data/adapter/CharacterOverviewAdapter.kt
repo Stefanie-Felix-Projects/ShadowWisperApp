@@ -26,7 +26,10 @@ class CharacterOverviewAdapter(
         val imageView: ImageView = view.findViewById(R.id.imageView)
         val switchButton: Switch = view.findViewById(R.id.switchButton)
 
-        fun bind(characterDetail: CharacterDetail, onSwitchToggled: (CharacterDetail, Boolean) -> Unit) {
+        fun bind(
+            characterDetail: CharacterDetail,
+            onSwitchToggled: (CharacterDetail, Boolean) -> Unit
+        ) {
             nameTextView.text = characterDetail.name
 
             if (characterDetail.profileImage != null) {
@@ -42,10 +45,10 @@ class CharacterOverviewAdapter(
                 .collection("active_character")
                 .document(characterDetail.characerId)
 
-            // Überprüfe, ob der Charakter als aktiv markiert ist und setze den Switch entsprechend
             activeCharacterRef.get()
                 .addOnSuccessListener { document ->
-                    switchButton.isChecked = document.exists() && document.getBoolean("isActive") == true
+                    switchButton.isChecked =
+                        document.exists() && document.getBoolean("isActive") == true
                 }
                 .addOnFailureListener { e ->
                     Log.e("Firestore", "Error fetching character status", e)
@@ -53,7 +56,6 @@ class CharacterOverviewAdapter(
 
             switchButton.setOnCheckedChangeListener { _, isChecked ->
                 if (isChecked) {
-                    // Zuerst alle anderen Charaktere deaktivieren
                     firestore.collection("users")
                         .document(userId)
                         .collection("active_character")
@@ -65,7 +67,6 @@ class CharacterOverviewAdapter(
                                 }
                             }
 
-                            // Setze den aktuellen Charakter als aktiv
                             activeCharacterRef.set(
                                 mapOf(
                                     "characterID" to characterDetail.characerId,
@@ -75,7 +76,6 @@ class CharacterOverviewAdapter(
                                 )
                             )
 
-                            // Aktualisiere den globalen Status des Charakters
                             firestore.collection("all_active_characters")
                                 .document(characterDetail.characerId)
                                 .set(
@@ -88,7 +88,10 @@ class CharacterOverviewAdapter(
                                     )
                                 )
                                 .addOnSuccessListener {
-                                    Log.d("Firestore", "Character successfully marked active: ${characterDetail.name}")
+                                    Log.d(
+                                        "Firestore",
+                                        "Character successfully marked active: ${characterDetail.name}"
+                                    )
                                 }
                                 .addOnFailureListener { e ->
                                     Log.e("Firestore", "Error adding character", e)
@@ -100,15 +103,16 @@ class CharacterOverviewAdapter(
                             Log.e("Firestore", "Error retrieving active characters", e)
                         }
                 } else {
-                    // Entferne den aktuellen Charakter aus der aktiven Sammlung
                     activeCharacterRef.delete()
 
-                    // Markiere den Charakter in der globalen Sammlung als inaktiv
                     firestore.collection("all_active_characters")
                         .document(characterDetail.characerId)
                         .update("isActive", false)
                         .addOnSuccessListener {
-                            Log.d("Firestore", "Character successfully marked inactive: ${characterDetail.name}")
+                            Log.d(
+                                "Firestore",
+                                "Character successfully marked inactive: ${characterDetail.name}"
+                            )
                         }
                         .addOnFailureListener { e ->
                             Log.e("Firestore", "Error marking character inactive", e)

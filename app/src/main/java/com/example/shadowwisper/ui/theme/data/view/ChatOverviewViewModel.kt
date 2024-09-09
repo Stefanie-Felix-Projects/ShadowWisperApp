@@ -23,16 +23,13 @@ class ChatOverviewViewModel : ViewModel() {
 
     }
 
-    // Lade aktive Charaktere
     fun loadActiveCharacters() {
         repository.getActiveCharacters(currentUserId, { characters ->
             _availableCharacters.value = characters
         }, { exception ->
-            // Fehlerbehandlung
         })
     }
 
-    // Lade die aktuelle Character-ID des Benutzers aus der Datenbank
     fun loadCurrentCharacterId() {
         Log.d("ChatOverviewViewModel", "Aktueller Benutzer: $currentUserId")
 

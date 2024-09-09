@@ -20,11 +20,10 @@ class ChatDetailAdapter(
     override fun getItemViewType(position: Int): Int {
         val message = chatRoom.messages[position]
 
-        // Prüfe, ob der aktuelle Charakter der Sender der Nachricht ist
         return if (message.senderId == currentCharacterId) {
-            VIEW_TYPE_SENT  // Wenn der aktuelle Charakter der Absender ist, Nachricht rechts
+            VIEW_TYPE_SENT
         } else {
-            VIEW_TYPE_RECEIVED  // Wenn der aktuelle Charakter der Empfänger ist, Nachricht links
+            VIEW_TYPE_RECEIVED
         }
     }
 
@@ -42,7 +41,10 @@ class ChatDetailAdapter(
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val message = chatRoom.messages[position]
-        Log.d("ChatDetailAdapter", "Nachricht von: ${message.senderId} an: ${message.recipientId} - Text: ${message.message}")
+        Log.d(
+            "ChatDetailAdapter",
+            "Nachricht von: ${message.senderId} an: ${message.recipientId} - Text: ${message.message}"
+        )
         if (holder is IncomingMessageViewHolder) {
             holder.messageTextViewIncoming.text = message.message
         } else if (holder is OutgoingMessageViewHolder) {

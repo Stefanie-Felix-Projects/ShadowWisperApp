@@ -19,13 +19,13 @@ class ChatdetailFragment : Fragment() {
 
     private lateinit var binding: FragmentChatdetailBinding
     private val viewModel: ChatDetailViewModel by activityViewModels()
-    private val args: ChatdetailFragmentArgs by navArgs()  // Empfange Argumente
+    private val args: ChatdetailFragmentArgs by navArgs()
 
     private lateinit var adapter: ChatDetailAdapter
     private lateinit var chatRoom: ChatRoom
     private lateinit var chatRoomId: String
-    private lateinit var senderId: String  // Sende-ID Variable
-    private lateinit var recipientId: String  // Empfänger-ID Variable
+    private lateinit var senderId: String
+    private lateinit var recipientId: String
 
     override fun onCreateView(
         inflater: android.view.LayoutInflater, container: android.view.ViewGroup?,
@@ -46,7 +46,6 @@ class ChatdetailFragment : Fragment() {
 
         Log.d("ChatdetailFragment", "Sender ID: $senderId, Empfänger ID: $recipientId")
 
-        // Erstelle oder lade die ChatRoom-ID
         chatRoomId = if (senderId < recipientId) {
             "$senderId$recipientId"
         } else {
@@ -54,7 +53,7 @@ class ChatdetailFragment : Fragment() {
         }
         Log.d("ChatdetailFragment", "ChatRoom ID: $chatRoomId")
 
-        // Initialisiere den ChatRoom und Nachrichten
+
         initializeChatRoomAndMessages()
     }
 
@@ -62,7 +61,6 @@ class ChatdetailFragment : Fragment() {
         Log.d("ChatdetailFragment", "initializeChatRoomAndMessages wird ausgeführt")
 
         if (::senderId.isInitialized && ::recipientId.isInitialized) {
-            // Initialisiere den ChatRoom
             chatRoom = ChatRoom(
                 lastActivityTimestamp = Timestamp.now(),
                 participants = listOf(senderId, recipientId),
@@ -77,10 +75,8 @@ class ChatdetailFragment : Fragment() {
                 characterId = senderId
             )
 
-            // Lade vorhandene Nachrichten
             viewModel.loadMessagesForChatRoom(chatRoomId)
 
-            // Nachrichtenänderungen beobachten
             viewModel.chatMessages.observe(viewLifecycleOwner) { messages ->
                 Log.d("ChatdetailFragment", "Nachrichten empfangen: ${messages.size} Nachrichten")
 
@@ -100,12 +96,10 @@ class ChatdetailFragment : Fragment() {
                 }
             }
 
-            // Adapter setzen
-            adapter = ChatDetailAdapter(chatRoom, senderId)  // Verwende senderId
+            adapter = ChatDetailAdapter(chatRoom, senderId)
             binding.rvMessages.layoutManager = LinearLayoutManager(context)
             binding.rvMessages.adapter = adapter
 
-            // Nachricht senden
             binding.btSend.setOnClickListener {
                 val messageText = binding.tietMessage.text.toString().trim()
                 Log.d("ChatdetailFragment", "Sende Button geklickt - Nachricht: $messageText")

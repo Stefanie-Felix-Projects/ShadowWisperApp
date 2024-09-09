@@ -42,11 +42,11 @@
         android:id="@+id/characterdetailFragment"
         android:name="com.example.shadowwisper.ui.theme.ui.CharacterdetailFragment"
         android:label="fragment_characterdetail"
-        tools:layout="@layout/fragment_characterdetail" >
+        tools:layout="@layout/fragment_characterdetail">
         <argument
             android:name="characterId"
             app:argType="string"
-            app:nullable="true"/>
+            app:nullable="true" />  <!-- Optional: Wenn characterId null ist, wird ein neuer Charakter erstellt -->
         <action
             android:id="@+id/action_characterdetailFragment_to_characteroverviewFragment"
             app:destination="@id/characteroverviewFragment" />
@@ -56,18 +56,14 @@
         android:id="@+id/characteroverviewFragment"
         android:name="com.example.shadowwisper.ui.theme.ui.CharacteroverviewFragment"
         android:label="fragment_characteroverview"
-        tools:layout="@layout/fragment_characteroverview" >
+        tools:layout="@layout/fragment_characteroverview">
         <action
-            android:id="@+id/action_chatoverviewFragment_to_chatdetailFragment"
-            app:destination="@id/chatdetailFragment">
+            android:id="@+id/action_characteroverviewFragment_to_characterdetailFragment"
+            app:destination="@id/characterdetailFragment">
             <argument
-                android:name="senderCharacterId"
+                android:name="characterId"
                 app:argType="string"
-                app:nullable="false" />
-            <argument
-                android:name="recipientCharacterId"
-                app:argType="string"
-                app:nullable="false" />
+                app:nullable="true" /> <!-- Wenn null, wird ein neuer Charakter erstellt -->
         </action>
     </fragment>
 

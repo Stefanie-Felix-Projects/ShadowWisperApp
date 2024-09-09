@@ -27,39 +27,32 @@ class ChatoverviewFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Deaktiviere die RecyclerView-Interaktion, bis die Character-ID geladen ist
         binding.rvChatoverview.isEnabled = false
 
-        // Lade verfügbare Charaktere
         viewModel.loadActiveCharacters()
 
-        // Lade die aktuelle Character-ID des Benutzers
         viewModel.loadCurrentCharacterId()
 
-        // Beobachte die verfügbaren Charaktere und zeige sie an
         viewModel.availableCharacters.observe(viewLifecycleOwner) { availableCharacters ->
             Log.d("Fragment", "Anzahl der verfügbaren Charaktere: ${availableCharacters.size}")
 
-            // Beobachte die aktuelle Character-ID
             viewModel.currentCharacterId.observe(viewLifecycleOwner) { currentCharacterId ->
                 if (!currentCharacterId.isNullOrEmpty()) {
-                    // Aktiviere die RecyclerView-Interaktion, nachdem die Character-ID geladen wurde
+
                     binding.rvChatoverview.isEnabled = true
 
                     val adapter = ChatOverviewAdapter(
                         availableCharacters = availableCharacters,
                         onCharacterClicked = { character ->
-                            // Sicherstellen, dass die currentCharacterId nicht leer ist
                             val action = ChatoverviewFragmentDirections
                                 .actionChatoverviewFragmentToChatdetailFragment(
-                                    senderCharacterId = currentCharacterId, // Die Character-ID des aktuellen Benutzers als Sender
-                                    recipientCharacterId = character.characterId // Der angeklickte Charakter als Empfänger
+                                    senderCharacterId = currentCharacterId,
+                                    recipientCharacterId = character.characterId
                                 )
                             findNavController().navigate(action)
                         }
                     )
 
-                    // Setze das LayoutManager und Adapter für RecyclerView
                     binding.rvChatoverview.layoutManager = LinearLayoutManager(context)
                     binding.rvChatoverview.adapter = adapter
                 } else {

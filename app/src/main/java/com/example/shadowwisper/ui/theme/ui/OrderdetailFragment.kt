@@ -57,14 +57,12 @@ class OrderdetailFragment : Fragment(), OnMapReadyCallback {
             binding.inputMoney.setText(args.money.toString())
         }
 
-        // Click listener for imageView
         binding.imageView.setOnClickListener {
             selectedImageViewId = binding.imageView.id
             val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
             startActivityForResult(intent, PICK_IMAGE_REQUEST)
         }
 
-        // Click listener for imageView2
         binding.imageView2.setOnClickListener {
             selectedImageViewId = binding.imageView2.id
             val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)

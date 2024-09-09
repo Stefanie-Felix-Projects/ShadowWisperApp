@@ -28,26 +28,21 @@ class CharacteroverviewFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Setze den Klicklistener für den "Add Character"-Button
         binding.btnAddCharacter.setOnClickListener {
             val action = CharacteroverviewFragmentDirections
-                .actionChatoverviewFragmentToChatdetailFragment("","")
+                .actionCharacteroverviewFragmentToCharacterdetailFragment(null)
             findNavController().navigate(action)
         }
 
-        // Beobachte die Liste der Charaktere
         viewModel.userCharacters.observe(viewLifecycleOwner) { characterList ->
             if (characterList.isEmpty()) {
-                // Wenn keine Charaktere vorhanden sind, verstecke den RecyclerView
                 binding.rvChar.visibility = View.GONE
             } else {
-                // Wenn Charaktere vorhanden sind, zeige den RecyclerView
                 binding.rvChar.visibility = View.VISIBLE
 
-                // Adapter initialisieren und binden
                 val adapter = CharacterOverviewAdapter(characterList, { selectedCharacter ->
                     val action = CharacteroverviewFragmentDirections
-                        .actionChatoverviewFragmentToChatdetailFragment(selectedCharacter.characerId, "")
+                        .actionCharacteroverviewFragmentToCharacterdetailFragment(selectedCharacter.characerId)
                     findNavController().navigate(action)
                 }, { character, isChecked ->
                     viewModel.setActiveCharacter(character)

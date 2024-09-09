@@ -10,7 +10,6 @@ import com.example.shadowwisper.R
 import com.example.shadowwisper.ui.theme.data.model.OrderOverview
 
 
-
 class OrderOverviewAdapter(
     private val orderList: List<OrderOverview>,
     private val onItemClicked: (OrderOverview) -> Unit
@@ -41,5 +40,3 @@ class OrderOverviewAdapter(
         return orderList.size
     }
 }
-
-data class OrderItem(val orderName: String, val imageResId: Int)

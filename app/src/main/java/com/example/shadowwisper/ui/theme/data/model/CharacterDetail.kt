@@ -14,5 +14,5 @@ data class CharacterDetail(
     val userId: String = "",
     var isActive: Boolean = true
 ) {
-    constructor() : this(UUID.randomUUID().toString(), null, "", "", "", "", "")
+
 }

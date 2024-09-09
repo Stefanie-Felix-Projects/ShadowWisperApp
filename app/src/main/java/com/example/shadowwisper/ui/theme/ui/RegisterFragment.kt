@@ -29,7 +29,6 @@ class RegisterFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Beobachtung von Registrierungsergebnissen
         registerViewModel.registrationSuccess.observe(viewLifecycleOwner, Observer { success ->
             if (success) {
                 Toast.makeText(requireContext(), "Registration successful!", Toast.LENGTH_LONG).show()
@@ -43,7 +42,6 @@ class RegisterFragment : Fragment() {
             }
         })
 
-        // Register-Button
         binding.btRegister.setOnClickListener {
             val email = binding.tietEmail.text.toString()
             val password = binding.tietPass.text.toString()

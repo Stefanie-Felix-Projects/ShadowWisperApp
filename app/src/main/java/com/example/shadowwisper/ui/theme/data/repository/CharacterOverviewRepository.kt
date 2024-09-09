@@ -17,7 +17,6 @@ class CharacterOverviewRepository {
     fun getAllCharacters(): LiveData<List<CharacterDetail>> {
         val charactersLiveData = MutableLiveData<List<CharacterDetail>>()
         if (userId != null) {
-            // Start listening for real-time updates from Firestore
             listenerRegistration = firestore.collection("users")
                 .document(userId)
                 .collection("characters")
@@ -45,14 +44,12 @@ class CharacterOverviewRepository {
                 .collection("active_character")
                 .get()
                 .addOnSuccessListener { result ->
-                    // Alle anderen Charaktere deaktivieren
                     for (document in result) {
                         if (document.id != characterDetail.characerId) {
                             document.reference.update("isActive", false)
                         }
                     }
 
-                    // Den ausgewählten Charakter aktivieren
                     val profileImage = characterDetail.profileImage ?: "default_image.jpg"
                     firestore.collection("users")
                         .document(userId)
@@ -76,7 +73,6 @@ class CharacterOverviewRepository {
         return activeCharacterLiveData
     }
 
-    // Make sure to remove the listener to avoid memory leaks
     fun removeListener() {
         listenerRegistration?.remove()
     }

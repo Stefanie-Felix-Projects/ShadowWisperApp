@@ -8,7 +8,6 @@ class ChatOverviewRepository {
 
     private val firestore = FirebaseFirestore.getInstance()
 
-    // Holt die aktiven Charaktere aller Benutzer außer dem aktuellen Benutzer
     fun getActiveCharacters(userId: String, onSuccess: (List<ActiveCharacter>) -> Unit, onFailure: (Exception) -> Unit) {
         firestore.collection("all_active_characters")
             .whereNotEqualTo("userId", userId)
@@ -25,7 +24,6 @@ class ChatOverviewRepository {
             }
     }
 
-    // Holt die Character-ID für den aktuellen Benutzer (basierend auf userId)
     fun getCurrentCharacterForUser(userId: String, onSuccess: (ActiveCharacter) -> Unit, onFailure: (Exception) -> Unit) {
         firestore.collection("all_active_characters")
             .whereEqualTo("userId", userId)

@@ -23,10 +23,8 @@ class LoginFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        // Überprüfen, ob der Benutzer bereits eingeloggt ist
         val currentUser = FirebaseAuth.getInstance().currentUser
         if (currentUser != null) {
-            // Benutzer ist eingeloggt, zur Home-Seite weiterleiten
             findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
         }
 
@@ -37,7 +35,6 @@ class LoginFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Beobachtung von Login-Ergebnissen
         loginViewModel.loginSuccess.observe(viewLifecycleOwner, Observer { success ->
             if (success) {
                 findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
@@ -60,10 +57,9 @@ class LoginFragment : Fragment() {
             findNavController().navigate(R.id. action_loginFragment_to_registerFragment)
         }
 
-        // Passwort zurücksetzen
+
         binding.btToReset.setOnClickListener {
-            // Logik für Passwort zurücksetzen, falls implementiert
-            // Hier kannst du zur Passwort-Reset-Seite navigieren
+
         }
     }
 }

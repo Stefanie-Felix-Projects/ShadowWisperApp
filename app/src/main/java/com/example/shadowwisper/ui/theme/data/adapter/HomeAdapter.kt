@@ -10,14 +10,16 @@ import com.example.shadowwisper.R
 import com.example.shadowwisper.ui.theme.ui.HomeFragmentDirections
 import com.google.firebase.auth.FirebaseAuth
 
-class HomeAdapter(private val itemList: List<String>) : RecyclerView.Adapter<HomeAdapter.HomeViewHolder>() {
+class HomeAdapter(private val itemList: List<String>) :
+    RecyclerView.Adapter<HomeAdapter.HomeViewHolder>() {
 
     class HomeViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val nameTextView: TextView = view.findViewById(R.id.name_text)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.list_item_home, parent, false)
+        val view =
+            LayoutInflater.from(parent.context).inflate(R.layout.list_item_home, parent, false)
         return HomeViewHolder(view)
     }
 
@@ -32,10 +34,10 @@ class HomeAdapter(private val itemList: List<String>) : RecyclerView.Adapter<Hom
                 2 -> HomeFragmentDirections.actionHomeFragmentToWalletFragment()
                 3 -> HomeFragmentDirections.actionHomeFragmentToCharacteroverviewFragment()
                 4 -> {
-                    // Logout-Logik
                     FirebaseAuth.getInstance().signOut()
                     HomeFragmentDirections.actionHomeFragmentToLoginFragment()
                 }
+
                 else -> null
             }
             action?.let { view.findNavController().navigate(it) }

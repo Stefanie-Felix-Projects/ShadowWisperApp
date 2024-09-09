@@ -7,7 +7,6 @@ import androidx.lifecycle.LiveData
 import com.example.shadowwisper.ui.theme.data.model.CharacterDetail
 import com.example.shadowwisper.ui.theme.data.repository.CharacterDetailRepository
 
-
 class CharacterDetailViewModel(application: Application) : AndroidViewModel(application) {
 
     private val repository = CharacterDetailRepository()
@@ -16,16 +15,16 @@ class CharacterDetailViewModel(application: Application) : AndroidViewModel(appl
         return repository.getCharacterById(id)
     }
 
-    fun insert(characterDetail: CharacterDetail) {
-        repository.insert(characterDetail)
+    fun addCharacter(characterDetail: CharacterDetail) {
+        repository.insertCharacter(characterDetail)
     }
 
-    fun update(characterDetail: CharacterDetail) {
-        repository.update(characterDetail)
+    fun updateCharacter(characterDetail: CharacterDetail) {
+        repository.updateCharacter(characterDetail)
     }
 
-    fun delete(characterDetail: CharacterDetail) {
-        repository.delete(characterDetail)
+    fun deleteCharacter(characterDetail: CharacterDetail) {
+        repository.deleteCharacter(characterDetail)
     }
 
     fun saveCharacter(characterDetail: CharacterDetail, imageUri: Uri?, isNew: Boolean) {
@@ -33,16 +32,16 @@ class CharacterDetailViewModel(application: Application) : AndroidViewModel(appl
             repository.uploadImageToStorage(imageUri) { imageUrl ->
                 val updatedCharacter = characterDetail.copy(profileImage = imageUrl)
                 if (isNew) {
-                    insert(updatedCharacter)
+                    addCharacter(updatedCharacter)
                 } else {
-                    update(updatedCharacter)
+                    updateCharacter(updatedCharacter)
                 }
             }
         } else {
             if (isNew) {
-                insert(characterDetail)
+                addCharacter(characterDetail)
             } else {
-                update(characterDetail)
+                updateCharacter(characterDetail)
             }
         }
     }
