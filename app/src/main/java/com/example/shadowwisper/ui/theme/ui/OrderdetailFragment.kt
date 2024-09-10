@@ -1,6 +1,7 @@
 package com.example.shadowwisper.ui.theme.ui
 
 import android.content.Intent
+import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
@@ -47,16 +48,30 @@ class OrderdetailFragment : Fragment(), OnMapReadyCallback {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        if (args.orderName.isNotEmpty()) {
-            binding.etTitle.setText(args.orderName)
-            binding.etSubhead.setText(args.subText)
-            binding.imageView.setImageResource(args.image)
-            binding.etStoryTitle.setText(args.storyTitle)
-            binding.etStoryText.setText(args.storyText)
-            binding.inputKarma.setText(args.karma.toString())
-            binding.inputMoney.setText(args.money.toString())
+        // Überprüfe, ob es einen bestehenden Auftrag gibt (orderId vorhanden)
+        if (args.orderId != null) {
+            // Daten des bestehenden Auftrags aus der Datenbank abrufen und anzeigen
+            orderViewModel.getOrderById(args.orderId!!.toInt()).observe(viewLifecycleOwner) { orderDetail ->
+                orderDetail?.let {
+                    binding.etTitle.setText(it.orderName)
+                    binding.etSubhead.setText(it.subText)
+                    binding.imageView.setImageResource(it.image)
+                    binding.etStoryTitle.setText(it.storyTitle)
+                    binding.etStoryText.setText(it.storyText)
+                    binding.inputKarma.setText(it.karma.toString())
+                    binding.inputMoney.setText(it.money.toString())
+
+                    // Profilbild setzen, falls vorhanden
+                    if (it.profileImage != null) {
+                        binding.imageView.setImageBitmap(
+                            BitmapFactory.decodeByteArray(it.profileImage, 0, it.profileImage.size)
+                        )
+                    }
+                }
+            }
         }
 
+        // ImagePicker für Bildauswahl
         binding.imageView.setOnClickListener {
             selectedImageViewId = binding.imageView.id
             val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
@@ -69,9 +84,11 @@ class OrderdetailFragment : Fragment(), OnMapReadyCallback {
             startActivityForResult(intent, PICK_IMAGE_REQUEST)
         }
 
+        // Map Fragment initialisieren
         val mapFragment = childFragmentManager.findFragmentById(R.id.mapFragment) as SupportMapFragment
         mapFragment.getMapAsync(this)
 
+        // Buttons für Speichern, Abschließen und Abbrechen
         binding.btnComplete.setOnClickListener {
             val action = OrderdetailFragmentDirections
                 .actionOrderdetailFragmentToOrdercompletionFragment()
@@ -82,28 +99,32 @@ class OrderdetailFragment : Fragment(), OnMapReadyCallback {
             findNavController().popBackStack()
         }
 
+        // Speichern der neuen oder aktualisierten Auftragsdaten
         binding.btnSaveNew.setOnClickListener {
             val updatedOrderDetail = OrderDetail(
-                id = args.orderId?.toIntOrNull() ?: 0,
+                id = args.orderId?.toIntOrNull() ?: 0, // Setze ID auf 0 bei neuem Auftrag
                 orderName = binding.etTitle.text.toString(),
                 subText = binding.etSubhead.text.toString(),
-                image = args.image,
-                mapImage = args.mapImage,
+                image = args.image, // Nutze vorhandenes Bild
+                mapImage = args.mapImage, // Nutze vorhandenes Bild
                 storyTitle = binding.etStoryTitle.text.toString(),
                 storyText = binding.etStoryText.text.toString(),
                 karma = binding.inputKarma.text.toString().toIntOrNull() ?: 0,
                 money = binding.inputMoney.text.toString().toIntOrNull() ?: 0,
-                profileImage = profileImageBytes
+                profileImage = profileImageBytes // Speichere das Bild als Byte-Array
             )
 
+            // Unterscheide zwischen Update und Insert
             if (args.orderId != null) {
-                orderViewModel.update(updatedOrderDetail)
+                orderViewModel.update(updatedOrderDetail) // Update eines bestehenden Auftrags
             } else {
-                orderViewModel.insert(updatedOrderDetail)
+                orderViewModel.insert(updatedOrderDetail) // Einfügen eines neuen Auftrags
             }
-            findNavController().navigateUp()
+
+            findNavController().navigateUp() // Zurück navigieren nach dem Speichern
         }
 
+        // Location Eingabe und Anzeige auf der Karte
         binding.etLocation.setOnEditorActionListener { _, _, _ ->
             val locationName = binding.etLocation.text.toString()
             if (locationName.isNotEmpty()) {
@@ -127,6 +148,7 @@ class OrderdetailFragment : Fragment(), OnMapReadyCallback {
         googleMap = map
     }
 
+    // Behandlung der Bildauswahl
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == AppCompatActivity.RESULT_OK) {
@@ -141,11 +163,13 @@ class OrderdetailFragment : Fragment(), OnMapReadyCallback {
                     }
                 }
 
+                // Bilddaten als ByteArray speichern
                 profileImageBytes = getBytesFromUri(selectedImageUri)
             }
         }
     }
 
+    // Hilfsmethode zum Konvertieren eines URI in ein ByteArray
     private fun getBytesFromUri(uri: Uri): ByteArray? {
         val inputStream = requireContext().contentResolver.openInputStream(uri)
         val byteBuffer = ByteArrayOutputStream()

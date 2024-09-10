@@ -26,21 +26,10 @@
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:layout_alignParentStart="true"
+                    android:layout_marginStart="270dp"
                     android:background="@drawable/chatpicture"
                     android:scaleType="centerCrop"
                     android:src="@drawable/hex17jpg" />
-
-                <TextView
-                    android:id="@+id/iconLabel"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_toEndOf="@id/icon"
-                    android:fontFamily="@font/rajdhani_semibold"
-                    android:gravity="center_vertical"
-                    android:text="Character Name"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
 
             </RelativeLayout>
 
@@ -48,7 +37,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/rajdhani_semibold"
-                android:text="Name" />
+                android:text="Name"
+                android:textColor="@color/md_theme_primaryFixed"/>
 
             <EditText
                 android:id="@+id/inputName"
@@ -63,7 +53,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:fontFamily="@font/rajdhani_semibold"
-                android:text="Story" />
+                android:text="Story"
+                android:textColor="@color/md_theme_primaryFixed"/>
 
             <EditText
                 android:id="@+id/inputStory"
@@ -78,7 +69,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:fontFamily="@font/rajdhani_semibold"
-                android:text="Rasse" />
+                android:text="Rasse"
+                android:textColor="@color/md_theme_primaryFixed"/>
 
             <EditText
                 android:id="@+id/inputRasse"
@@ -93,7 +85,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:fontFamily="@font/rajdhani_semibold"
-                android:text="Skills" />
+                android:text="Skills"
+                android:textColor="@color/md_theme_primaryFixed"/>
 
             <EditText
                 android:id="@+id/inputSkills"
@@ -108,22 +101,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:fontFamily="@font/rajdhani_semibold"
-                android:text="Ausrüstung" />
-
-            <EditText
-                android:id="@+id/inputAusrustung"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/rajdhani"
-                android:hint="Input"
-                android:textColor="@color/colorOnCustomColor1" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:fontFamily="@font/rajdhani_semibold"
-                android:text="Equipment" />
+                android:text="Equipment"
+                android:textColor="@color/md_theme_primaryFixed"
+                />
 
             <EditText
                 android:id="@+id/inputEquipment"
