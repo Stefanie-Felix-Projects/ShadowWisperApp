@@ -6,11 +6,13 @@
     android:layout_height="match_parent"
     tools:context="com.example.shadowwisper.ui.theme.ui.OrderdetailFragment">
 
+    <!-- ScrollView for content -->
     <ScrollView
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:fillViewport="true"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/button_layout"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
@@ -20,12 +22,14 @@
             android:orientation="vertical"
             android:padding="16dp">
 
+            <!-- Auftragstitel und Subhead mit Bild -->
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
-                app:cardCornerRadius="8dp">
+                app:cardCornerRadius="8dp"
+                app:cardElevation="4dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -34,18 +38,19 @@
                     android:padding="16dp"
                     android:background="@color/md_theme_onPrimaryFixed">
 
+                    <!-- Bild Auswahl -->
                     <ImageView
                         android:id="@+id/imageView"
-                        android:layout_width="44dp"
-                        android:layout_height="48dp"
-                        android:layout_gravity="top|center_vertical"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:layout_gravity="center_vertical"
                         android:layout_marginEnd="16dp"
                         android:background="@drawable/hex17jpg"
-                        android:paddingTop="4dp"
-                        android:paddingBottom="4dp"
+                        android:scaleType="centerCrop"
                         android:clickable="true"
                         android:focusable="true"/>
 
+                    <!-- EditTexts für Titel und Subhead -->
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
@@ -54,28 +59,27 @@
 
                         <EditText
                             android:id="@+id/et_title"
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:fontFamily="@font/rajdhani_semibold"
                             android:hint="Auftragstitel"
-                            android:textColor="@color/colorOnCustomColor1"
                             android:textSize="18sp"
-                            android:textStyle="bold"
-                            android:inputType="text"/>
+                            android:fontFamily="@font/rajdhani_semibold"
+                            android:textColor="@color/colorOnCustomColor1"
+                            android:textStyle="bold"/>
 
                         <EditText
                             android:id="@+id/et_subhead"
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:fontFamily="@font/rajdhani"
-                            android:hint="Subhead"
-                            android:textColor="@android:color/darker_gray"
+                            android:hint="Untertitel eingeben"
                             android:textSize="14sp"
-                            android:inputType="text"/>
+                            android:fontFamily="@font/rajdhani"
+                            android:textColor="@android:color/darker_gray"/>
                     </LinearLayout>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
+            <!-- Map Image -->
             <ImageView
                 android:id="@+id/imageView2"
                 android:layout_width="match_parent"
@@ -83,18 +87,18 @@
                 android:layout_marginBottom="16dp"
                 android:background="@drawable/placeholdermap" />
 
-            <!-- Hier wird das Textfeld anstelle des Buttons eingefügt -->
+            <!-- Eingabe für Ort -->
             <EditText
                 android:id="@+id/et_location"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                android:fontFamily="@font/rajdhani"
-                android:hint="Ort eingeben"
+                android:hint="Ort des Auftrags"
                 android:textSize="14sp"
                 android:textColor="@color/colorOnCustomColor1"
-                android:inputType="text"/>
+                android:fontFamily="@font/rajdhani"
+                android:layout_marginBottom="16dp"/>
 
+            <!-- SupportMapFragment für Google Maps -->
             <fragment
                 android:id="@+id/mapFragment"
                 android:name="com.google.android.gms.maps.SupportMapFragment"
@@ -103,30 +107,30 @@
                 android:layout_marginBottom="16dp"
                 android:visibility="gone"/>
 
+            <!-- Story Titel und Text -->
             <EditText
                 android:id="@+id/et_story_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="12dp"
-                android:fontFamily="@font/rajdhani_semibold"
-                android:hint="Storytitel"
-                android:inputType="text"
-                android:textColor="@color/colorOnCustomColor1"
+                android:hint="Story Titel"
                 android:textSize="16sp"
-                android:textStyle="bold" />
+                android:fontFamily="@font/rajdhani_semibold"
+                android:textColor="@color/colorOnCustomColor1"
+                android:layout_marginBottom="12dp"/>
 
             <EditText
                 android:id="@+id/et_story_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                android:fontFamily="@font/rajdhani"
-                android:hint="Storytext"
+                android:hint="Story Beschreibung"
                 android:textSize="14sp"
+                android:fontFamily="@font/rajdhani"
                 android:textColor="@color/colorOnCustomColor1"
                 android:inputType="textMultiLine"
-                android:minLines="3" />
+                android:minLines="3"
+                android:layout_marginBottom="16dp"/>
 
+            <!-- Karma und Geld Eingabe -->
             <LinearLayout
                 android:id="@+id/karma_money_layout"
                 android:layout_width="match_parent"
@@ -139,74 +143,67 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:hint="Karma"
+                    android:hint="Karma Punkte"
                     android:inputType="number"
                     android:fontFamily="@font/rajdhani"
                     android:textColor="@color/colorOnCustomColor1"
-                    android:textSize="14sp"
-                    android:layout_marginEnd="8dp" />
+                    android:layout_marginEnd="8dp"/>
 
                 <EditText
                     android:id="@+id/input_money"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:hint="Geld"
+                    android:hint="Geldbetrag"
                     android:inputType="number"
                     android:fontFamily="@font/rajdhani"
                     android:textColor="@color/colorOnCustomColor1"
-                    android:textSize="14sp"
-                    android:layout_marginStart="8dp" />
-
+                    android:layout_marginStart="8dp"/>
             </LinearLayout>
 
+            <!-- Buttons Layout -->
+            <LinearLayout
+                android:id="@+id/button_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:padding="16dp"
+                android:layout_marginTop="16dp">
+
+                <!-- Abbrechen Button -->
+                <Button
+                    android:id="@+id/btn_cancel"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Abbrechen"
+                    android:fontFamily="@font/rajdhani_semibold"
+                    android:layout_marginEnd="8dp"/>
+
+                <!-- Abschließen Button -->
+                <Button
+                    android:id="@+id/btn_complete"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Abschließen"
+                    android:fontFamily="@font/rajdhani_semibold"
+                    android:layout_marginStart="8dp"/>
+            </LinearLayout>
+
+            <!-- Speichern Button -->
+            <Button
+                android:id="@+id/btn_save_new"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:text="Speichern"
+                android:fontFamily="@font/rajdhani_semibold"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="16dp"/>
         </LinearLayout>
     </ScrollView>
-
-    <LinearLayout
-        android:id="@+id/button_layout"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="72dp"
-        android:gravity="center"
-        android:orientation="horizontal"
-        android:padding="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent">
-
-        <Button
-            android:id="@+id/btn_cancel"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:layout_weight="1"
-            android:fontFamily="@font/rajdhani_semibold"
-            android:text="Abbrechen" />
-
-        <Button
-            android:id="@+id/btn_complete"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_weight="1"
-            android:fontFamily="@font/rajdhani_semibold"
-            android:text="Abschließen"
-             />
-
-    </LinearLayout>
-
-    <Button
-        android:id="@+id/btn_save_new"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:fontFamily="@font/rajdhani_semibold"
-        android:text="Speichern"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button_layout" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

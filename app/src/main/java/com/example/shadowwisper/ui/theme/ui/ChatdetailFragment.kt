@@ -12,6 +12,7 @@ import com.example.shadowwisper.ui.theme.data.adapter.ChatDetailAdapter
 import com.example.shadowwisper.ui.theme.data.model.ChatMessage
 import com.example.shadowwisper.ui.theme.data.model.ChatRoom
 import com.example.shadowwisper.ui.theme.data.view.ChatDetailViewModel
+import com.example.shadowwisper.ui.theme.data.repository.CharacterDetailRepository
 import com.google.firebase.Timestamp
 import java.util.UUID
 
@@ -27,6 +28,8 @@ class ChatdetailFragment : Fragment() {
     private lateinit var senderId: String
     private lateinit var recipientId: String
 
+    private val characterRepository = CharacterDetailRepository()  // Repository für Charakterdetails
+
     override fun onCreateView(
         inflater: android.view.LayoutInflater, container: android.view.ViewGroup?,
         savedInstanceState: Bundle?
@@ -38,28 +41,40 @@ class ChatdetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        Log.d("ChatdetailFragment", "onViewCreated wurde aufgerufen")
-
-        // Argumente aus NavArgs empfangen
         senderId = args.senderCharacterId
         recipientId = args.recipientCharacterId
-
-        Log.d("ChatdetailFragment", "Sender ID: $senderId, Empfänger ID: $recipientId")
 
         chatRoomId = if (senderId < recipientId) {
             "$senderId$recipientId"
         } else {
             "$recipientId$senderId"
         }
-        Log.d("ChatdetailFragment", "ChatRoom ID: $chatRoomId")
 
-
+        // Chatroom- und Nachrichtendetails initialisieren
         initializeChatRoomAndMessages()
+
+        // Charakternamen abrufen und als Titel setzen
+        updateChatTitle(senderId, recipientId)
+    }
+
+    private fun updateChatTitle(senderId: String, recipientId: String) {
+        // Lade den Sender-Charakter
+        characterRepository.getCharacterById(senderId)
+            .observe(viewLifecycleOwner) { senderCharacter ->
+                val senderName = senderCharacter?.name ?: "Unbekannt"
+
+                // Lade den Empfänger-Charakter
+                characterRepository.getActiveCharacterById(recipientId)
+                    .observe(viewLifecycleOwner) { recipientCharacter ->
+                        val recipientName = recipientCharacter?.name ?: "Unbekannt"
+
+                        // Setze den Chatroom-Namen mit den Charakternamen
+                        binding.chatTitle.text = "$senderName & $recipientName"
+                    }
+            }
     }
 
     private fun initializeChatRoomAndMessages() {
-        Log.d("ChatdetailFragment", "initializeChatRoomAndMessages wird ausgeführt")
-
         if (::senderId.isInitialized && ::recipientId.isInitialized) {
             chatRoom = ChatRoom(
                 lastActivityTimestamp = Timestamp.now(),
@@ -78,10 +93,7 @@ class ChatdetailFragment : Fragment() {
             viewModel.loadMessagesForChatRoom(chatRoomId)
 
             viewModel.chatMessages.observe(viewLifecycleOwner) { messages ->
-                Log.d("ChatdetailFragment", "Nachrichten empfangen: ${messages.size} Nachrichten")
-
                 if (messages.isEmpty()) {
-                    Log.d("ChatdetailFragment", "Chatroom existiert nicht, erstelle neuen Chatroom.")
                     viewModel.createChatRoom(chatRoom) {
                         Log.d("ChatdetailFragment", "Chatroom erfolgreich erstellt")
                     }
@@ -102,7 +114,6 @@ class ChatdetailFragment : Fragment() {
 
             binding.btSend.setOnClickListener {
                 val messageText = binding.tietMessage.text.toString().trim()
-                Log.d("ChatdetailFragment", "Sende Button geklickt - Nachricht: $messageText")
                 if (messageText.isNotEmpty()) {
                     val newMessage = ChatMessage(
                         senderId = senderId,
@@ -114,7 +125,6 @@ class ChatdetailFragment : Fragment() {
                         messageStatus = "sent"
                     )
 
-                    Log.d("ChatdetailFragment", "Neue Nachricht erstellt: $newMessage")
                     viewModel.sendMessage(chatRoomId, newMessage)
                     binding.tietMessage.text?.clear()
                 }

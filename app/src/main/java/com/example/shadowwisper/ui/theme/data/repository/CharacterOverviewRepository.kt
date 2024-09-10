@@ -3,6 +3,7 @@ package com.example.shadowwisper.ui.theme.data.repository
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.example.shadowwisper.ui.theme.data.model.ActiveCharacter
 import com.example.shadowwisper.ui.theme.data.model.CharacterDetail
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -76,4 +77,6 @@ class CharacterOverviewRepository {
     fun removeListener() {
         listenerRegistration?.remove()
     }
+
+
 }

@@ -4,6 +4,7 @@ import android.net.Uri
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.example.shadowwisper.ui.theme.data.model.ActiveCharacter
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
@@ -81,5 +82,23 @@ class CharacterDetailRepository {
             .addOnFailureListener { e ->
                 Log.e("CharacterDetailRepository", "Error uploading image", e)
             }
+    }
+
+    fun getActiveCharacterById(characterId: String): LiveData<ActiveCharacter?> {
+        val activeCharacterLiveData = MutableLiveData<ActiveCharacter?>()
+
+        firestore.collection("all_active_characters")
+            .document(characterId)
+            .get()
+            .addOnSuccessListener { document ->
+                val character = document.toObject(ActiveCharacter::class.java)
+                activeCharacterLiveData.value = character
+            }
+            .addOnFailureListener { e ->
+                Log.e("CharacterDetailRepository", "Fehler beim Abrufen des Charakters", e)
+                activeCharacterLiveData.value = null  // Setze explizit null, falls ein Fehler auftritt
+            }
+
+        return activeCharacterLiveData
     }
 }

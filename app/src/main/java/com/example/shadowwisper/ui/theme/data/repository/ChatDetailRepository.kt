@@ -1,6 +1,9 @@
 package com.example.shadowwisper.ui.theme.data.repository
 
 import android.util.Log
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import com.example.shadowwisper.ui.theme.data.model.ActiveCharacter
 import com.example.shadowwisper.ui.theme.data.model.ChatMessage
 import com.example.shadowwisper.ui.theme.data.model.ChatRoom
 import com.google.firebase.firestore.FirebaseFirestore
@@ -57,4 +60,6 @@ class ChatDetailRepository {
                 Log.e("ChatDetailRepository", "Fehler beim Erstellen des Chatrooms", e)
             }
     }
+
+
 }

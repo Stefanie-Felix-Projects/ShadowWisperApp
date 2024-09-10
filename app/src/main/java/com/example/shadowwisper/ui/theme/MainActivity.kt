@@ -8,6 +8,8 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI.setupWithNavController
 import com.example.shadowwisper.R
 import com.example.shadowwisper.databinding.ActivityMainBinding
+import com.example.shadowwisper.ui.theme.data.model.ChatRoom
+import com.example.shadowwisper.ui.theme.data.repository.CharacterDetailRepository
 
 
 class MainActivity : AppCompatActivity() {
@@ -107,4 +109,6 @@ class MainActivity : AppCompatActivity() {
         val navController = findNavController(R.id.nav_host_fragment)
         return navController.navigateUp() || super.onSupportNavigateUp()
     }
+
+
 }
