@@ -23,13 +23,14 @@
 
         <ImageView
             android:id="@+id/profile_image"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_marginStart="14dp"
-            android:src="@drawable/hex17jpg"
-            app:layout_constraintBottom_toBottomOf="@+id/name_text"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/name_text" />
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="8dp"
+            android:scaleType="centerCrop"
+            android:background="@drawable/rounded_corner_background"
+        app:layout_constraintBottom_toBottomOf="@+id/name_text"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/name_text" />
 
         <TextView
             android:id="@+id/name_text"

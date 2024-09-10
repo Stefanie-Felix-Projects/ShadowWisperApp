@@ -27,7 +27,6 @@
                     android:layout_height="100dp"
                     android:layout_alignParentStart="true"
                     android:layout_marginStart="270dp"
-                    android:background="@drawable/chatpicture"
                     android:scaleType="centerCrop"
                     android:src="@drawable/hex17jpg" />
 
