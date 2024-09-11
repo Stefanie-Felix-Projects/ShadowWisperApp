@@ -23,10 +23,6 @@ class CharacterDetailViewModel(application: Application) : AndroidViewModel(appl
         repository.updateCharacter(characterDetail)
     }
 
-    fun deleteCharacter(characterDetail: CharacterDetail) {
-        repository.deleteCharacter(characterDetail)
-    }
-
     fun saveCharacter(characterDetail: CharacterDetail, imageUri: Uri?, isNew: Boolean) {
         if (imageUri != null) {
             repository.uploadImageToStorage(imageUri) { imageUrl ->

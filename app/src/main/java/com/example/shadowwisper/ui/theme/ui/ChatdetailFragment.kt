@@ -28,7 +28,7 @@ class ChatdetailFragment : Fragment() {
     private lateinit var senderId: String
     private lateinit var recipientId: String
 
-    private val characterRepository = CharacterDetailRepository()  // Repository für Charakterdetails
+    private val characterRepository = CharacterDetailRepository()
 
     override fun onCreateView(
         inflater: android.view.LayoutInflater, container: android.view.ViewGroup?,
@@ -50,25 +50,20 @@ class ChatdetailFragment : Fragment() {
             "$recipientId$senderId"
         }
 
-        // Chatroom- und Nachrichtendetails initialisieren
         initializeChatRoomAndMessages()
 
-        // Charakternamen abrufen und als Titel setzen
         updateChatTitle(senderId, recipientId)
     }
 
     private fun updateChatTitle(senderId: String, recipientId: String) {
-        // Lade den Sender-Charakter
         characterRepository.getCharacterById(senderId)
             .observe(viewLifecycleOwner) { senderCharacter ->
                 val senderName = senderCharacter?.name ?: "Unbekannt"
 
-                // Lade den Empfänger-Charakter
                 characterRepository.getActiveCharacterById(recipientId)
                     .observe(viewLifecycleOwner) { recipientCharacter ->
                         val recipientName = recipientCharacter?.name ?: "Unbekannt"
 
-                        // Setze den Chatroom-Namen mit den Charakternamen
                         binding.chatTitle.text = "$senderName & $recipientName"
                     }
             }

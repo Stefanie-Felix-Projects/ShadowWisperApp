@@ -30,19 +30,6 @@
             app:destination="@id/homeFragment" />
     </fragment>
 
-
-    <fragment
-        android:id="@+id/startseiteFragment"
-        android:name="com.example.shadowwisper.ui.theme.ui.StartseiteFragment"
-        android:label="StartseiteFragment" >
-        <action
-            android:id="@+id/action_startseiteFragment_to_loginFragment"
-            app:destination="@id/loginFragment" />
-        <action
-            android:id="@+id/action_startseiteFragment_to_loginFragment2"
-            app:destination="@id/loginFragment" />
-    </fragment>
-
     <fragment
         android:id="@+id/characterdetailFragment"
         android:name="com.example.shadowwisper.ui.theme.ui.CharacterdetailFragment"
@@ -51,7 +38,7 @@
         <argument
             android:name="characterId"
             app:argType="string"
-            app:nullable="true" />  <!-- Optional: Wenn characterId null ist, wird ein neuer Charakter erstellt -->
+            app:nullable="true" />
         <action
             android:id="@+id/action_characterdetailFragment_to_characteroverviewFragment"
             app:destination="@id/characteroverviewFragment" />
@@ -68,7 +55,7 @@
             <argument
                 android:name="characterId"
                 app:argType="string"
-                app:nullable="true" /> <!-- Wenn null, wird ein neuer Charakter erstellt -->
+                app:nullable="true" />
         </action>
     </fragment>
 

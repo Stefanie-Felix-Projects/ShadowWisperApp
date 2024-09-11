@@ -93,31 +93,25 @@ class WalletFragment : Fragment() {
         val data = BarData(dataSet)
         binding.chartEinnahmenAusgaben.data = data
 
-        // Hintergrund und Achsenfarben
         binding.chartEinnahmenAusgaben.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.md_theme_onPrimaryContainer))
 
         binding.chartEinnahmenAusgaben.legend.textColor = ContextCompat.getColor(requireContext(), R.color.colorOnCustomColor1)
 
-        // Beschreibung entfernen
         binding.chartEinnahmenAusgaben.description.isEnabled = false
 
-        // Achsenbeschriftung und Gitternetzlinien
         binding.chartEinnahmenAusgaben.axisLeft.textColor = ContextCompat.getColor(requireContext(), R.color.colorOnCustomColor1)
         binding.chartEinnahmenAusgaben.axisLeft.setDrawLabels(true)
         binding.chartEinnahmenAusgaben.axisRight.setDrawLabels(false)
         binding.chartEinnahmenAusgaben.xAxis.setDrawLabels(false)
 
-        // Gitternetzlinien ausblenden
         binding.chartEinnahmenAusgaben.xAxis.setDrawGridLines(false)
         binding.chartEinnahmenAusgaben.axisLeft.setDrawGridLines(false)
         binding.chartEinnahmenAusgaben.axisRight.setDrawGridLines(false)
 
-        // Rahmen um Achsen entfernen
         binding.chartEinnahmenAusgaben.axisLeft.setDrawAxisLine(false)
         binding.chartEinnahmenAusgaben.axisRight.setDrawAxisLine(false)
         binding.chartEinnahmenAusgaben.xAxis.setDrawAxisLine(false)
 
-        // Diagramm aktualisieren
         binding.chartEinnahmenAusgaben.invalidate()
     }
 }

@@ -36,22 +36,6 @@ class CharacterDetailRepository {
     }
 
 
-    fun deleteCharacter(characterDetail: CharacterDetail) {
-        if (userId != null) {
-            firestore.collection("users")
-                .document(userId)
-                .collection("characters")
-                .document(characterDetail.characerId)
-                .delete()
-                .addOnSuccessListener {
-                    Log.d("CharacterDetailRepository", "Character successfully deleted!")
-                }
-                .addOnFailureListener { e ->
-                    Log.e("CharacterDetailRepository", "Error deleting character", e)
-                }
-        }
-    }
-
     fun getCharacterById(id: String): LiveData<CharacterDetail> {
         val characterLiveData = MutableLiveData<CharacterDetail>()
 

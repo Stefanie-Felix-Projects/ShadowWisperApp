@@ -101,26 +101,29 @@ class CharacterdetailFragment : Fragment() {
     private fun saveCharacter(id: String?, isNewCharacter: Boolean) {
         val generatedId = id ?: UUID.randomUUID().toString()
 
-        val character = CharacterDetail(
-            characerId = generatedId,
-            name = binding.inputName.text.toString(),
-            backgroundStory = binding.inputStory.text.toString(),
-            race = binding.inputRasse.text.toString(),
-            skills = binding.inputSkills.text.toString(),
-            equipment = binding.inputEquipment.text.toString(),
-            userId = FirebaseAuth.getInstance().currentUser?.uid ?: ""
-        )
+        viewModel.getCharacterById(generatedId).observe(viewLifecycleOwner) { existingCharacter ->
+            val character = CharacterDetail(
+                characerId = generatedId,
+                name = binding.inputName.text.toString(),
+                backgroundStory = binding.inputStory.text.toString(),
+                race = binding.inputRasse.text.toString(),
+                skills = binding.inputSkills.text.toString(),
+                equipment = binding.inputEquipment.text.toString(),
+                profileImage = existingCharacter?.profileImage ?: viewModel.getCharacterById(generatedId).value?.profileImage,
+                userId = FirebaseAuth.getInstance().currentUser?.uid ?: ""
+            )
 
-        if (imageUri != null) {
-            uploadImageToFirebase(imageUri) { imageUrl ->
-                val updatedCharacter = character.copy(profileImage = imageUrl)
-                viewModel.saveCharacter(updatedCharacter, null, isNewCharacter)
+            if (imageUri != null) {
+                uploadImageToFirebase(imageUri) { imageUrl ->
+                    val updatedCharacter = character.copy(profileImage = imageUrl)
+                    viewModel.saveCharacter(updatedCharacter, null, isNewCharacter)
+                }
+            } else {
+                viewModel.saveCharacter(character, null, isNewCharacter)
             }
-        } else {
-            viewModel.saveCharacter(character, null, isNewCharacter)
-        }
 
-        findNavController().navigateUp()
+            findNavController().navigateUp()
+        }
     }
 
     private fun openGallery() {
