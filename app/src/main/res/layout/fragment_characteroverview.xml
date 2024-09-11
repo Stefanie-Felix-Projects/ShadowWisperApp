@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- ConstraintLayout: Hauptcontainer für die Benutzeroberfläche des Fragments "CharacteroverviewFragment".
+     Das ConstraintLayout sorgt für eine flexible Anordnung der Elemente basierend auf Abhängigkeiten zwischen den Komponenten. -->
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -7,6 +9,9 @@
     android:layout_height="match_parent"
     tools:context="com.example.shadowwisper.ui.theme.ui.CharacteroverviewFragment">
 
+    <!-- RecyclerView: Eine Liste zur Anzeige der Charakterübersicht.
+         Der LayoutManager ist ein LinearLayoutManager, der die Elemente vertikal anordnet.
+         Die Höhe und Breite werden auf 0dp gesetzt, um Constraints zu verwenden, damit die Größe relativ zur Umgebung bestimmt wird. -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_char"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
@@ -18,6 +23,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <!-- Button: Schaltfläche zum Hinzufügen eines neuen Charakters.
+         Der Button befindet sich am unteren Rand des Bildschirms, zentriert in der Mitte. -->
     <Button
         android:id="@+id/btn_add_character"
         android:layout_width="wrap_content"

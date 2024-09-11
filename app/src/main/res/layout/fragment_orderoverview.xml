@@ -1,4 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
+<!-- ConstraintLayout: Das Hauptlayout für das OrderoverviewFragment.
+     Es bietet eine flexible Anordnung der UI-Komponenten durch Constraints. -->
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -7,6 +8,8 @@
     android:layout_height="match_parent"
     tools:context="com.example.shadowwisper.ui.theme.ui.OrderoverviewFragment">
 
+    <!-- RecyclerView: Stellt die Liste der Aufträge dar.
+         Verwendet einen LinearLayoutManager, um die Elemente vertikal anzuordnen. -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_order"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
@@ -18,6 +21,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <!-- Button: Ermöglicht dem Benutzer, einen neuen Auftrag hinzuzufügen.
+         Der Button ist zentriert und befindet sich am unteren Rand des Bildschirms. -->
     <Button
         android:id="@+id/btn_add_order"
         android:layout_width="wrap_content"

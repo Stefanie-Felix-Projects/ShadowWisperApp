@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+Die Haupt-Layoutkomponente ist ein ConstraintLayout, das den gesamten Bereich des Bildschirms einnimmt.
+Es sorgt für eine flexible Positionierung der enthaltenen UI-Komponenten.
+-->
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -6,6 +10,11 @@
     android:layout_height="wrap_content"
     android:padding="8dp">
 
+    <!--
+    TextView für eingehende Nachrichten:
+    Stellt den Text einer empfangenen Nachricht dar. Der Text wird in einem Rahmen angezeigt und ist weiß gefärbt.
+    Die Nachricht ist nach links ausgerichtet und hat Ränder sowie Polsterungen, um die Anzeige optisch zu optimieren.
+    -->
     <TextView
         android:id="@+id/textViewMessageIncoming"
         android:layout_width="wrap_content"

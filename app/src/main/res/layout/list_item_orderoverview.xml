@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+Das Haupt-ConstraintLayout dient als Container für das gesamte Layout des OrderoverviewFragments.
+Es definiert die Layout-Größe, das Padding und das Kontext-Attribut für die Layout-Vorschau.
+-->
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -10,6 +14,11 @@
     android:paddingRight="16dp"
     tools:context="com.example.shadowwisper.ui.theme.ui.OrderoverviewFragment">
 
+    <!--
+    Das innere ConstraintLayout enthält zwei Hauptkomponenten: ein Bild (ImageView) und einen Text (TextView).
+    Es ist so konfiguriert, dass es sich über die gesamte Breite des übergeordneten Containers erstreckt,
+    und hat zusätzlich ein Padding sowie einen unteren Rand.
+    -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/container"
         android:layout_width="0dp"
@@ -20,6 +29,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginBottom="8dp">
 
+        <!--
+        ImageView zeigt ein Bild an, das als visuelles Element für die Bestellübersicht dient.
+        Es nimmt die gesamte Breite des Containers ein und hat eine feste Höhe.
+        -->
         <ImageView
             android:id="@+id/imageView"
             android:layout_width="388dp"
@@ -30,6 +43,10 @@
             app:layout_constraintTop_toTopOf="parent"
             android:background="@drawable/order" />
 
+        <!--
+        TextView zeigt den Namen der Bestellung an. Es ist horizontal und vertikal innerhalb des ImageView positioniert,
+        um sicherzustellen, dass der Text in der Mitte des Bildes angezeigt wird.
+        -->
         <TextView
             android:id="@+id/name_text"
             android:layout_width="0dp"

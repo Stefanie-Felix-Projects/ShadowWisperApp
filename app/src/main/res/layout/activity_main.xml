@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<!-- Hauptlayout der Aktivität, das die Benutzeroberfläche mit Toolbar, TextView, FragmentContainerView und einer BottomNavigationView erstellt -->
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,6 +9,7 @@
     android:background="@color/md_theme_onPrimaryContainer"
     tools:context="com.example.shadowwisper.ui.theme.MainActivity">
 
+    <!-- Toolbar für die Kopfzeile der Aktivität -->
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar2"
         android:layout_width="match_parent"
@@ -20,6 +23,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <!-- TextView, das als Überschrift fungiert und dynamisch geändert wird -->
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
@@ -33,6 +37,7 @@
         app:layout_constraintStart_toStartOf="@+id/toolbar2"
         app:layout_constraintTop_toTopOf="@+id/toolbar2" />
 
+    <!-- FragmentContainerView, das als Navigationshost dient und verschiedene Fragmente anzeigt -->
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/nav_host_fragment"
         android:name="androidx.navigation.fragment.NavHostFragment"
@@ -45,6 +50,7 @@
         app:layout_constraintTop_toBottomOf="@+id/toolbar"
         app:navGraph="@navigation/nav_graph" />
 
+    <!-- BottomNavigationView, um zwischen den Hauptansichten der App zu navigieren -->
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/nav_bottom_bar"
         android:layout_width="match_parent"
@@ -62,6 +68,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:menu="@menu/bottom_nav_menu" />
 
+    <!-- Eine zusätzliche Toolbar unterhalb der Haupttoolbar, vermutlich als Platzhalter -->
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
@@ -72,6 +79,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar2" />
 
+    <!-- Rundes Profilbild des Benutzers, das neben der Überschrift angezeigt wird -->
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/profile_image"
         android:layout_width="70dp"

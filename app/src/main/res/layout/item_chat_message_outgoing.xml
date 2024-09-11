@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+Die Haupt-Layoutkomponente ist ein ConstraintLayout, das den Bereich für eine gesendete Nachricht darstellt.
+Es wird verwendet, um die Positionierung und das Verhalten der enthaltenen TextView zu steuern.
+-->
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -6,6 +10,11 @@
     android:layout_height="wrap_content"
     android:padding="8dp">
 
+    <!--
+    TextView für ausgehende Nachrichten:
+    Stellt den Text einer gesendeten Nachricht dar. Der Text ist in einem definierten Rahmen sichtbar.
+    Die Nachricht wird nach rechts ausgerichtet, um sie als gesendete Nachricht im Chat zu kennzeichnen.
+    -->
     <TextView
         android:id="@+id/textViewMessageOutgoing"
         android:layout_width="wrap_content"

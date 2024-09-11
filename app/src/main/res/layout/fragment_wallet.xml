@@ -1,9 +1,13 @@
+<!-- ConstraintLayout: Das Hauptlayout, das alle UI-Elemente auf der Seite anordnet.
+     Es bietet flexible Platzierungsmöglichkeiten für die enthaltenen Komponenten. -->
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <!-- NestedScrollView: Ermöglicht das Scrollen des Inhalts, wenn der Bildschirm kleiner ist als der Inhalt.
+         Dies ist besonders nützlich für Layouts mit vielen UI-Elementen. -->
     <androidx.core.widget.NestedScrollView
         android:id="@+id/scrollView"
         android:layout_width="0dp"
@@ -13,12 +17,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
+        <!-- LinearLayout: Ein vertikal ausgerichtetes Layout, das die UI-Elemente für das Wallet-Interface enthält. -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:padding="16dp">
 
+            <!-- TextView: Überschrift, die den Titel für den Einnahmen- und Ausgabenbereich darstellt.
+                 Der Text ist zentriert und in einer größeren Schriftgröße angezeigt. -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -29,12 +36,15 @@
                 android:textColor="@color/colorOnCustomColor1"
                 android:textSize="16dp" />
 
+            <!-- BarChart: Zeigt eine grafische Darstellung der Einnahmen und Ausgaben in Form eines Balkendiagramms. -->
             <com.github.mikephil.charting.charts.BarChart
                 android:id="@+id/chart_einnahmen_ausgaben"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
                 android:layout_marginTop="16dp" />
 
+            <!-- LinearLayout: Layout für die Einnahmen-Eingabe.
+                 Das Layout enthält ein TextView zur Bezeichnung und ein EditText zur Eingabe der Einnahmen. -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -60,11 +70,12 @@
                     android:background="@android:color/transparent"
                     android:fontFamily="@font/rajdhani"
                     android:inputType="numberDecimal"
-
                     android:textColor="@color/colorOnCustomColor1"
                     android:textSize="16sp" />
             </LinearLayout>
 
+            <!-- LinearLayout: Layout für die Ausgaben-Eingabe.
+                 Enthält ein TextView zur Bezeichnung und ein EditText zur Eingabe der Ausgaben. -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -90,11 +101,12 @@
                     android:background="@android:color/transparent"
                     android:fontFamily="@font/rajdhani"
                     android:inputType="numberDecimal"
-
                     android:textColor="@color/colorOnCustomColor1"
                     android:textSize="16sp" />
             </LinearLayout>
 
+            <!-- LinearLayout: Layout für die Karma-Eingabe.
+                 Enthält ein TextView zur Bezeichnung und ein EditText zur Eingabe der Karma-Punkte. -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -124,6 +136,8 @@
                     android:textSize="16sp" />
             </LinearLayout>
 
+            <!-- LinearLayout: Layout für die Anzeige der Gesamtsumme.
+                 Enthält ein TextView für die Bezeichnung und ein weiteres TextView zur Anzeige der Gesamtsumme. -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -150,6 +164,7 @@
                     android:textSize="16sp" />
             </LinearLayout>
 
+            <!-- Button: Speichert die vom Benutzer eingegebenen Werte für Einnahmen, Ausgaben und Karma. -->
             <Button
                 android:id="@+id/edit_button"
                 android:layout_width="wrap_content"

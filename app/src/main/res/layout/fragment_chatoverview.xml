@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- ConstraintLayout: Hauptlayout der Ansicht "ChatoverviewFragment".
+     Es ermöglicht eine flexible Positionierung von UI-Elementen im Verhältnis zueinander. -->
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -6,6 +8,10 @@
     android:layout_height="match_parent"
     tools:context="com.example.shadowwisper.ui.theme.ui.ChatoverviewFragment">
 
+    <!-- RecyclerView: Eine scrollbare Liste zur Anzeige der Chat-Übersichten.
+         Der RecyclerView verwendet einen LinearLayoutManager, um die Liste der Chats vertikal anzuordnen.
+         Die Größe der RecyclerView passt sich dem gesamten Bildschirm an (match_parent), und das Layout-Element
+         ist so positioniert, dass es den gesamten verfügbaren Platz einnimmt. -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_chatoverview"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"

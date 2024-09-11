@@ -1,5 +1,8 @@
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<!--
+Das Haupt-ConstraintLayout stellt den Container für die gesamte Chat-Übersicht dar.
+Es enthält ein weiteres ConstraintLayout, das spezifisch für die Darstellung einzelner Chat-Einträge verwendet wird.
+-->
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -9,6 +12,10 @@
     android:paddingRight="16dp"
     tools:context="com.example.shadowwisper.ui.theme.ui.ChatoverviewFragment">
 
+    <!--
+    Dieses ConstraintLayout repräsentiert einen einzelnen Chat-Eintrag innerhalb der Übersicht.
+    Es enthält ein Profilbild und den Namen des Charakters.
+    -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/container"
         android:layout_width="380dp"
@@ -20,18 +27,25 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-
+        <!--
+        ImageView zeigt das Profilbild des Charakters an.
+        Das Bild wird im runden Format angezeigt und positioniert sich links innerhalb des Containers.
+        -->
         <ImageView
             android:id="@+id/profile_image"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_marginStart="8dp"
-            android:scaleType="centerCrop"
             android:background="@drawable/rounded_corner_background"
-        app:layout_constraintBottom_toBottomOf="@+id/name_text"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/name_text" />
+            android:scaleType="centerCrop"
+            app:layout_constraintBottom_toBottomOf="@+id/name_text"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/name_text" />
 
+        <!--
+        TextView zeigt den Namen des Charakters an.
+        Der Name wird rechts vom Profilbild angezeigt und ist fett formatiert.
+        -->
         <TextView
             android:id="@+id/name_text"
             android:layout_width="0dp"
@@ -41,6 +55,9 @@
             android:text="Character Name"
             android:textColor="@color/colorOnCustomColor1"
             android:textSize="16sp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:layout_marginEnd="16dp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- ConstraintLayout: Das Hauptlayout des "OrdercompletionFragment".
+     Es ermöglicht eine flexible Anordnung der Elemente basierend auf Constraints (Abhängigkeiten) zwischen den UI-Komponenten. -->
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -7,6 +9,8 @@
     android:layout_height="match_parent"
     tools:context="com.example.shadowwisper.ui.theme.ui.OrdercompletionFragment">
 
+    <!-- TextView: Zeigt eine Glückwunsch-Nachricht für den Benutzer an.
+         Diese Textansicht ist zentriert und oben im Layout positioniert. -->
     <TextView
         android:id="@+id/welcomeText"
         android:layout_width="wrap_content"
@@ -20,6 +24,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <!-- ImageView (Rahmenlogo): Zeigt ein Bild mit einem Rahmen, das unter dem Begrüßungstext und über dem Button zentriert ist.
+         Es hat vordefinierte Breite und Höhe und ist relativ zu den anderen Elementen angeordnet. -->
     <ImageView
         android:id="@+id/LogoRahmen"
         android:layout_width="314dp"
@@ -33,6 +39,8 @@
         app:layout_constraintTop_toBottomOf="@+id/welcomeText"
         app:layout_constraintVertical_bias="0.513" />
 
+    <!-- ImageView (Logo): Ein halbtransparentes Logo, das innerhalb des "Rahmenlogo"-Bildes zentriert platziert ist.
+         Es überlappt das Rahmenbild und wird in der Mitte dieses Bildes angezeigt. -->
     <ImageView
         android:id="@+id/logo"
         android:layout_width="170dp"
@@ -45,6 +53,8 @@
         app:layout_constraintStart_toStartOf="@+id/LogoRahmen"
         app:layout_constraintTop_toTopOf="@id/LogoRahmen" />
 
+    <!-- Button: Ein Button, der dem Benutzer ermöglicht, zum "Wallet"-Bereich zu navigieren.
+         Der Button ist unter dem Logo zentriert und relativ zu den anderen Elementen angeordnet. -->
     <Button
         android:id="@+id/loginButton"
         android:layout_width="wrap_content"

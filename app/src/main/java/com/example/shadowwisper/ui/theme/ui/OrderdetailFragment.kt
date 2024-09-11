@@ -1,3 +1,8 @@
+/**
+ * Fragment-Klasse `OrderdetailFragment`, die für die Anzeige und Bearbeitung von Auftragsdetails zuständig ist.
+ * Diese Klasse ermöglicht das Anzeigen, Bearbeiten und Speichern von Auftragsdaten sowie das Hochladen von Bildern.
+ * Sie enthält auch eine Kartenansicht zur Visualisierung von Standorten, die über den Geocoder abgerufen werden.
+ */
 package com.example.shadowwisper.ui.theme.ui
 
 import android.content.Intent
@@ -27,16 +32,33 @@ import com.google.android.gms.maps.model.MarkerOptions
 import java.io.ByteArrayOutputStream
 import java.util.Locale
 
+/**
+ * Fragment zur Verwaltung der Detailansicht eines Auftrags.
+ * Hier können Auftragsdetails wie Titel, Beschreibung, Bilder und Standort bearbeitet werden.
+ * Außerdem wird eine Karte zur Visualisierung des Standorts bereitgestellt.
+ */
 class OrderdetailFragment : Fragment(), OnMapReadyCallback {
 
+    // Binding-Objekt zur einfachen Referenzierung der UI-Elemente.
     private lateinit var binding: FragmentOrderdetailBinding
+    // Argumente, die von einem anderen Fragment übergeben wurden (z.B. Auftrags-ID).
     private val args: OrderdetailFragmentArgs by navArgs()
+    // ViewModel zur Verwaltung der Auftragsdetails.
     private val orderViewModel: OrderViewModel by activityViewModels()
+    // GoogleMap-Objekt zur Darstellung des Standorts.
     private lateinit var googleMap: GoogleMap
+    // Konstanten und Variablen zur Bildauswahl.
     private val PICK_IMAGE_REQUEST = 1
     private var profileImageBytes: ByteArray? = null
     private var selectedImageViewId: Int? = null
 
+    /**
+     * Erstellt die View für das Fragment und bindet das Layout an das Fragment.
+     * @param inflater Das LayoutInflater-Objekt zum Aufblasen des Layouts für dieses Fragment.
+     * @param container Das übergeordnete View-Element, in das die Fragment-UI eingebunden wird.
+     * @param savedInstanceState Wenn nicht null, wird dieses Fragment mit einem früher gespeicherten Zustand wiederhergestellt.
+     * @return Die View für das Fragment-UI, oder null.
+     */
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -45,12 +67,20 @@ class OrderdetailFragment : Fragment(), OnMapReadyCallback {
         return binding.root
     }
 
+    /**
+     * Wird nach der Erstellung der View aufgerufen und initialisiert die Benutzeroberfläche.
+     * Hier werden die Auftragsdetails geladen und es werden Funktionen wie Bildauswahl und Karteninitialisierung bereitgestellt.
+     * @param view Die erstellte View für dieses Fragment.
+     * @param savedInstanceState Wenn nicht null, wird dieses Fragment mit einem früher gespeicherten Zustand wiederhergestellt.
+     */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // Lädt die Auftragsdetails, wenn eine Auftrags-ID übergeben wurde.
         if (args.orderId != null) {
             orderViewModel.getOrderById(args.orderId!!.toInt()).observe(viewLifecycleOwner) { orderDetail ->
                 orderDetail?.let {
+                    // Setzt die Daten in die entsprechenden Felder des Formulars.
                     binding.etTitle.setText(it.orderName)
                     binding.etSubhead.setText(it.subText)
                     binding.imageView.setImageResource(it.image)
@@ -59,6 +89,7 @@ class OrderdetailFragment : Fragment(), OnMapReadyCallback {
                     binding.inputKarma.setText(it.karma.toString())
                     binding.inputMoney.setText(it.money.toString())
 
+                    // Zeigt das gespeicherte Bild an, wenn vorhanden.
                     if (it.profileImage != null) {
                         binding.imageView.setImageBitmap(
                             BitmapFactory.decodeByteArray(it.profileImage, 0, it.profileImage.size)
@@ -68,31 +99,37 @@ class OrderdetailFragment : Fragment(), OnMapReadyCallback {
             }
         }
 
+        // Öffnet die Galerie zur Auswahl eines Bildes, wenn auf die ImageView geklickt wird.
         binding.imageView.setOnClickListener {
             selectedImageViewId = binding.imageView.id
             val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
             startActivityForResult(intent, PICK_IMAGE_REQUEST)
         }
 
+        // Öffnet die Galerie zur Auswahl eines Bildes für die zweite ImageView.
         binding.imageView2.setOnClickListener {
             selectedImageViewId = binding.imageView2.id
             val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
             startActivityForResult(intent, PICK_IMAGE_REQUEST)
         }
 
+        // Initialisiert die Karte.
         val mapFragment = childFragmentManager.findFragmentById(R.id.mapFragment) as SupportMapFragment
         mapFragment.getMapAsync(this)
 
+        // Navigiert zur Auftragsabschlussseite, wenn der Benutzer den Auftrag abschließt.
         binding.btnComplete.setOnClickListener {
             val action = OrderdetailFragmentDirections
                 .actionOrderdetailFragmentToOrdercompletionFragment()
             findNavController().navigate(action)
         }
 
+        // Bricht den Vorgang ab und kehrt zum vorherigen Bildschirm zurück.
         binding.btnCancel.setOnClickListener {
             findNavController().popBackStack()
         }
 
+        // Speichert den Auftrag, wenn der Benutzer auf Speichern klickt.
         binding.btnSaveNew.setOnClickListener {
             val updatedOrderDetail = OrderDetail(
                 id = args.orderId?.toIntOrNull() ?: 0,
@@ -113,9 +150,11 @@ class OrderdetailFragment : Fragment(), OnMapReadyCallback {
                 orderViewModel.insert(updatedOrderDetail)
             }
 
+            // Kehrt nach dem Speichern zum vorherigen Bildschirm zurück.
             findNavController().navigateUp()
         }
 
+        // Konvertiert den eingegebenen Standort in eine Karte und zeigt ihn an.
         binding.etLocation.setOnEditorActionListener { _, _, _ ->
             val locationName = binding.etLocation.text.toString()
             if (locationName.isNotEmpty()) {
@@ -135,10 +174,21 @@ class OrderdetailFragment : Fragment(), OnMapReadyCallback {
         }
     }
 
+    /**
+     * Wird aufgerufen, wenn die Karte bereit ist. Initialisiert das `GoogleMap`-Objekt.
+     * @param map Die GoogleMap, die verwendet wird.
+     */
     override fun onMapReady(map: GoogleMap) {
         googleMap = map
     }
 
+    /**
+     * Wird aufgerufen, wenn der Benutzer ein Bild aus der Galerie ausgewählt hat.
+     * Das Bild wird in die entsprechenden ImageViews geladen.
+     * @param requestCode Der Code für die angeforderte Aktion.
+     * @param resultCode Das Ergebnis der Aktion.
+     * @param data Die Daten, die das ausgewählte Bild enthalten.
+     */
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == AppCompatActivity.RESULT_OK) {
@@ -153,11 +203,17 @@ class OrderdetailFragment : Fragment(), OnMapReadyCallback {
                     }
                 }
 
+                // Konvertiert die Bild-URI in ein Byte-Array zur Speicherung.
                 profileImageBytes = getBytesFromUri(selectedImageUri)
             }
         }
     }
 
+    /**
+     * Konvertiert eine Bild-URI in ein Byte-Array zur Speicherung in der Datenbank.
+     * @param uri Die URI des Bildes, das konvertiert werden soll.
+     * @return Das Byte-Array, das das Bild darstellt.
+     */
     private fun getBytesFromUri(uri: Uri): ByteArray? {
         val inputStream = requireContext().contentResolver.openInputStream(uri)
         val byteBuffer = ByteArrayOutputStream()

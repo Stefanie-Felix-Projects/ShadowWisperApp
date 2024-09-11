@@ -1,3 +1,5 @@
+<!-- NestedScrollView: Ermöglicht das Scrollen des Inhalts, wenn der Bildschirm nicht genug Platz bietet.
+     Das ScrollView ist nützlich, um den Inhalt bei kleineren Bildschirmgrößen zugänglich zu halten. -->
 <androidx.core.widget.NestedScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -5,10 +7,14 @@
     android:layout_height="match_parent"
     android:fillViewport="true">
 
+    <!-- ConstraintLayout: Das Hauptlayout innerhalb des ScrollView, das die Benutzeroberfläche enthält.
+         Die Elemente im ConstraintLayout werden relativ zueinander positioniert. -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
+        <!-- TextView: Begrüßungstext, der den Benutzer auffordert, sich anzumelden.
+             Er ist zentriert im oberen Bereich des Bildschirms positioniert. -->
         <TextView
             android:id="@+id/textView"
             android:layout_width="wrap_content"
@@ -23,6 +29,8 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <!-- TextInputLayout: Ein Container für das E-Mail-Eingabefeld, das die Eingabe der E-Mail-Adresse ermöglicht.
+             Das Eingabefeld ist unter dem Begrüßungstext zentriert. -->
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textInputLayout"
             android:layout_width="0dp"
@@ -34,6 +42,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView">
 
+            <!-- TextInputEditText: Eingabefeld für die E-Mail-Adresse des Benutzers. -->
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/tiet_email"
                 android:layout_width="match_parent"
@@ -43,6 +52,8 @@
                 android:hint="E-Mail" />
         </com.google.android.material.textfield.TextInputLayout>
 
+        <!-- TextInputLayout: Ein Container für das Passwort-Eingabefeld, das die Eingabe des Passworts ermöglicht.
+             Es ist unter dem E-Mail-Feld zentriert. -->
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textInputLayout2"
             android:layout_width="0dp"
@@ -54,6 +65,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textInputLayout">
 
+            <!-- TextInputEditText: Eingabefeld für das Passwort des Benutzers, das das Passwort als versteckten Text anzeigt. -->
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/tiet_pass"
                 android:layout_width="match_parent"
@@ -64,6 +76,8 @@
                 android:inputType="textPassword"/>
         </com.google.android.material.textfield.TextInputLayout>
 
+        <!-- Button: Schaltfläche zum Auslösen des Login-Prozesses.
+             Dieser Button befindet sich unter dem Passwortfeld zentriert. -->
         <Button
             android:id="@+id/bt_login"
             android:layout_width="200dp"
@@ -75,6 +89,8 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textInputLayout2" />
 
+        <!-- Button: Schaltfläche zum Wechseln zur Registrierungsseite.
+             Dieser Button ist unterhalb der Login-Schaltfläche zentriert positioniert. -->
         <Button
             android:id="@+id/bt_to_register"
             android:layout_width="200dp"

@@ -1,24 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+Das Menü-Layout definiert die Struktur und die Einträge eines Menüs in einer Android-Anwendung.
+Jeder Menüeintrag enthält eine ID, ein Symbol und einen Titel, die verwendet werden, um verschiedene Fragmente oder Aktivitäten im Anwendungskontext darzustellen.
+-->
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <!--
+    Der erste Menüeintrag verweist auf das HomeFragment.
+    Er enthält ein Symbol (`@drawable/security`) und einen Titel ("Home").
+    -->
     <item
         android:id="@+id/homeFragment"
         android:icon="@drawable/security"
         android:title="Home" />
+
+    <!--
+    Der zweite Menüeintrag verweist auf das ChatoverviewFragment.
+    Er enthält ein Symbol (`@drawable/cyber_criminal`) und einen Titel ("Chat").
+    -->
     <item
         android:id="@+id/chatoverviewFragment"
         android:icon="@drawable/cyber_criminal"
         android:title="Chat" />
+
+    <!--
+    Der dritte Menüeintrag verweist auf das OrderoverviewFragment.
+    Er enthält ein Symbol (`@drawable/risk_management`) und einen Titel ("Aufträge").
+    -->
     <item
         android:id="@+id/orderoverviewFragment"
         android:icon="@drawable/risk_management"
         android:title="Aufträge" />
 
+    <!--
+    Der vierte Menüeintrag verweist auf das WalletFragment.
+    Er enthält ein Symbol (`@drawable/money`) und einen Titel ("Wallet").
+    -->
     <item
         android:id="@+id/walletFragment"
         android:icon="@drawable/money"
         android:title="Wallet" />
 
+    <!--
+    Der fünfte Menüeintrag verweist auf das CharacteroverviewFragment.
+    Er enthält ein Symbol (`@drawable/malicious`) und einen Titel ("Character").
+    -->
     <item
         android:id="@+id/characteroverviewFragment"
         android:icon="@drawable/malicious"

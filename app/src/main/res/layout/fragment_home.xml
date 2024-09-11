@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- ConstraintLayout: Das Hauptlayout für das "ChatoverviewFragment".
+     Es bietet eine flexible Anordnung von UI-Elementen durch die Verwendung von Constraints. -->
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -6,6 +8,10 @@
     android:layout_height="match_parent"
     tools:context="com.example.shadowwisper.ui.theme.ui.ChatoverviewFragment">
 
+    <!-- RecyclerView: Eine Liste zur Anzeige der Home-Ansichtselemente.
+         Der RecyclerView verwendet einen LinearLayoutManager, um die Elemente vertikal anzuordnen.
+         Die Breite und Höhe sind auf 0dp gesetzt, um Constraints zu nutzen und die Größe relativ zu den anderen Elementen zu bestimmen.
+         Das Layout-Item für jedes Listenelement wird über `@layout/list_item_home` definiert. -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_home"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"

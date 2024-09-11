@@ -1,3 +1,5 @@
+<!-- NestedScrollView: Ermöglicht das Scrollen des Inhalts, falls der Bildschirm nicht ausreicht.
+     Die Ansicht wird in den gesamten verfügbaren Bildschirmbereich ausgefüllt. -->
 <androidx.core.widget.NestedScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -5,10 +7,14 @@
     android:layout_height="match_parent"
     android:fillViewport="true">
 
+    <!-- ConstraintLayout: Das Hauptlayout, das alle Elemente der Benutzerregistrierung enthält.
+         Bietet flexible Platzierung der UI-Komponenten. -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
+        <!-- TextView: Begrüßungstext für den Benutzer, um die Registrierung einzuleiten.
+             Der Text ist mittig platziert und hat eine größere Schriftgröße. -->
         <TextView
             android:id="@+id/textView"
             android:layout_width="wrap_content"
@@ -23,6 +29,8 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <!-- TextInputLayout: Eingabefeld für die E-Mail-Adresse des Benutzers, um sich zu registrieren.
+             Enthält eine TextInputEditText-Komponente, in die der Benutzer seine E-Mail eingeben kann. -->
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textInputLayout"
             android:layout_width="0dp"
@@ -43,6 +51,8 @@
                 android:hint="E-Mail" />
         </com.google.android.material.textfield.TextInputLayout>
 
+        <!-- TextInputLayout: Eingabefeld für das Passwort des Benutzers.
+             Ermöglicht die sichere Eingabe eines Passworts, da der Text als Passwort maskiert wird. -->
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textInputLayout2"
             android:layout_width="0dp"
@@ -64,6 +74,8 @@
                 android:inputType="textPassword"/>
         </com.google.android.material.textfield.TextInputLayout>
 
+        <!-- Button: Registrierungsschaltfläche für den Benutzer.
+             Sobald der Benutzer seine E-Mail und sein Passwort eingegeben hat, klickt er auf diesen Button, um sich zu registrieren. -->
         <Button
             android:id="@+id/bt_register"
             android:layout_width="200dp"
@@ -75,11 +87,12 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textInputLayout2" />
 
+        <!-- Button: Zurück-Button, um den Benutzer zur Login-Seite zu navigieren.
+             Falls der Benutzer bereits ein Konto hat, kann er zu diesem Bildschirm zurückkehren. -->
         <Button
             android:id="@+id/bt_back_to_login"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
             android:text="Zurück"
             app:layout_constraintEnd_toEndOf="@+id/bt_register"
             app:layout_constraintStart_toStartOf="@+id/bt_register"

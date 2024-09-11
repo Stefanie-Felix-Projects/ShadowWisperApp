@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+Das Haupt-ConstraintLayout dient als Container für das Layout der Startseite (HomeFragment).
+Es definiert die grundlegenden Layout-Eigenschaften und Padding.
+-->
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -10,6 +14,10 @@
     android:paddingRight="16dp"
     tools:context="com.example.shadowwisper.ui.theme.ui.HomeFragment">
 
+    <!--
+    Das innere ConstraintLayout enthält das Bild und den Text für die Startseite.
+    Es hat eigene Layout-Attribute und Padding, um die Position und Abstände der enthaltenen Elemente zu steuern.
+    -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/container"
         android:layout_width="378dp"
@@ -21,6 +29,10 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+        <!--
+        ImageView zeigt ein Bild an, das als Hintergrund oder für visuelle Darstellung verwendet wird.
+        Es ist auf die volle Breite des Containers eingestellt und hat eine feste Höhe.
+        -->
         <ImageView
             android:id="@+id/imageView"
             android:layout_width="378dp"
@@ -33,6 +45,10 @@
             app:layout_constraintVertical_bias="0.0"
             app:srcCompat="@drawable/home" />
 
+        <!--
+        TextView zeigt den Namen der Seite oder andere relevante Informationen an.
+        Es ist horizontal und vertikal zentriert in Bezug auf das ImageView positioniert.
+        -->
         <TextView
             android:id="@+id/name_text"
             android:layout_width="0dp"
