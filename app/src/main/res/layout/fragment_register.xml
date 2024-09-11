@@ -77,13 +77,13 @@
 
         <Button
             android:id="@+id/bt_back_to_login"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
             android:text="Zurück"
-            app:layout_constraintTop_toBottomOf="@+id/bt_register"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginTop="16dp" />
+            app:layout_constraintEnd_toEndOf="@+id/bt_register"
+            app:layout_constraintStart_toStartOf="@+id/bt_register"
+            app:layout_constraintTop_toBottomOf="@+id/bt_register" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>
